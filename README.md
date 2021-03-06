@@ -1,5 +1,10 @@
 # FriendApp
 
+## Description
+
+This application uses MERN to allows users to find and match with friends online. They will have the option of filtering for users near their location as well as preferences for shared interests, and parameters for ages, gender, etc.
+Users will select an avatar/bitmoji instead of a profile photo to focus on other forms of interaction before revealing what users look like.
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -10,7 +15,8 @@
 ## User Story
 
 As a USER, I want to make friends.
-As a...
+As a USER, I want to build a personal profile with my information and preferences.
+Based on filtering criteria, I want to find other users that I can match with to start a conversation.
 
 ## Installation
 
@@ -28,8 +34,9 @@ Collaborators:
 Rebecca Blanton
 Robert Koepp
 Joshua Ordaz
-Jessica
+Jessica Tax
 Violet Pickard
+Alex Bachicha
 
 ## License
 
@@ -39,3 +46,8 @@ REACTJS
 Node and Express Web Server
 MongoDB
 Mongoose
+Socket.io
+SnapKit
+Multer
+Next.js
+Geocaching
