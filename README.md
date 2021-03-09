@@ -1,11 +1,11 @@
 # FriendApp
 
+![Screenshot of Mockup User Interface](./assets/proposalScreenshot.png)
+
 ## Description
 
 This application uses MERN to allows users to find and match with friends online. They will have the option of filtering for users near their location as well as preferences for shared interests, and parameters for ages, gender, etc.
 Users will select an avatar/bitmoji instead of a profile photo to focus on other forms of interaction before revealing what users look like.
-
--[bffl_screenshot](./assets/proposalScreenShot.png)
 
 ## Table of Contents
 
