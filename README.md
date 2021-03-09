@@ -1,6 +1,6 @@
 # FriendApp
 
-![Screenshot of Mockup User Interface](./assets/proposalScreenshot.png)
+![Screenshot of Mockup User Interface](./assets/proposalScreenShot.png)
 
 ## Description
 
