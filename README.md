@@ -29,6 +29,8 @@ Step 2: Do the rest
 
 Provide instructions and examples for use. Include screenshots as needed.
 
+![Screenshot of Sample User Flow](./assets/bffluserflow2.jpg)
+
 ## Credits
 
 Collaborators:
