@@ -9,7 +9,10 @@ import Landing from "./components/pages/Landing"
 import Login from "./components/pages/Login"
 import Matching from "./components/pages/Matching"
 import Profile from "./components/pages/Profile"
+import Register from "./components/pages/Registration"
+import User from "./components/pages/User"
 import './App.css';
+
 
 
 function App() {
@@ -20,6 +23,8 @@ function App() {
         <Header />
         <Route exact path="/" component={Landing} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/user" component={User} />
         <Route exact path="/createprofile" component={Createprofile} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/matching" component={Matching} />

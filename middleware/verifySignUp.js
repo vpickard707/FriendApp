@@ -1,7 +1,7 @@
 const db = require("../models");
 const User = db.User;
 
-checkIsUniqueUser = (req, res) => {
+checkIsUniqueUser = (req, res, next) => {
 
     //check username
     User.findOne({
@@ -31,7 +31,9 @@ checkIsUniqueUser = (req, res) => {
             if (user) {
                 res.status(400).send({ message: "Sorry! That email is already in use."});
                 return;
-            }        
+            }
+            
+            next()
         })
     })
 }
