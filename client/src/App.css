@@ -1,3 +1,6 @@
+body, html{
+  background-color: #25a4ad!important;
+}
 .App {
   text-align: center;
 }
@@ -22,6 +25,7 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
 
 label {
   display: block;
@@ -55,3 +59,8 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+/* .card {
+  padding: 15px;
+  border-radius: 15px!important;
+} */
