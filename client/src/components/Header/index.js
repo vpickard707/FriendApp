@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import AuthService from "../services/authService";
+import bffl from "./bffl.png"
+import AuthService from "../../services/authService";
 
 class Header extends Component {
   constructor(props) {
@@ -36,6 +37,9 @@ class Header extends Component {
 
     return (
     <ul className="nav nav-tabs">
+      <Link to="/" className="nav-link">
+            <img src={bffl} alt="bffl logo" width="150px" className="navbar-brand" />
+      </Link>
       
       <div className="navbar-nav mr-auto">
         <li className="nav-item">
