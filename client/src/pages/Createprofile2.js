@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Form from 'react-bootstrap/Form'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import API from "../utils/API"
@@ -18,15 +17,11 @@ const [age, setAge] = useState();
 const [sign, setSign] = useState();
 const [interests, setInterests] = useState();
 
-
-const options = ['yes','no','na' ]
-
     
 
 function handleFormSubmit(event) {
     event.preventDefault();
     const userProfile = {
-        url: url,
         gender: gender, 
         politics: politics, 
         children: children, 
@@ -45,132 +40,114 @@ function handleFormSubmit(event) {
         <div className="container">
             <div className="profileCard card">
                 <h1>Now let's find out more about you:</h1>
-                <Form>
-                <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-                    <Form.Label>Gender</Form.Label>
-                        <Form.Control as="select" size="lg" custom>
-                            <option onChange={() => setGender('male')}>Male</option>
-                            <option onChange={() => setGender('female')}>Female</option>
-                            <option onChange={() => setGender('nonbinary')}>Non binary</option>
-                            <option onChange={() => setGender('transgender')}>Transgender</option>
-                            <option onChange={() => setGender('intersex')}>Intersex</option>
-                            <option onChange={() => setGender('na')}>I prefer not to say</option>
-                        </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-                    <Form.Label>Political Affliation:</Form.Label>
-                        <Form.Control as="select" size="lg" custom>
-                            <option onChange={() => setPolitics('republican')}>Republican</option>
-                            <option onChange={() => setPolitics('independent')}>Independent</option>
-                            <option onChange={() => setPolitics('democrat')}>Democrat</option>
-                            <option onChange={() => setPolitics('noaffliation')}>No affliation</option>
-                            <option onChange={() => setPolitics('na')}>I prefer not to say</option>
-                        </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-                    <Form.Label>Do you have children:</Form.Label>
-                        <Form.Control onChange={(e) => console.log(e)} as="select" size="lg" custom value={options}/>
-                            {/* <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                            <option value="na">I prefer not to say</option> */}
-                        
-                </Form.Group>
-                <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-                    <Form.Label>Do you drink:</Form.Label>
-                        <Form.Control as="select" size="lg" custom>
-                            <option onChange={() => setDrink('regularly')}>Regularly</option>
-                            <option onChange={() => setDrink('socially')}>Socially</option>
-                            <option onChange={() => setDrink('occaionally')}>Occasionally</option>
-                            <option onChange={() => setDrink('never')}>Never</option>
-                            <option onChange={() => setDrink('na')}>I prefer not to say</option>
-                        </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-                    <Form.Label>Do you smoke:</Form.Label>
-                        <Form.Control as="select" size="lg" custom>
-                            <option onChange={() => setSmoke('regularly')}>Regularly</option>
-                            <option onChange={() => setSmoke('socially')}>Socially</option>
-                            <option onChange={() => setSmoke('occaionally')}>Occasionally</option>
-                            <option onChange={() => setSmoke('never')}>Never</option>
-                            <option onChange={() => setSmoke('na')}>I prefer not to say</option>
-                        </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-                    <Form.Label>Do you use cannabis:</Form.Label>
-                        <Form.Control as="select" size="lg" custom>
-                            <option onChange={() => setCannabis('regularly')}>Regularly</option>
-                            <option onChange={() => setCannabis('socially')}>Socially</option>
-                            <option onChange={() => setCannabis('occaionally')}>Occasionally</option>
-                            <option onChange={() => setCannabis('never')}>Never</option>
-                            <option onChange={() => setCannabis('na')}>I prefer not to say</option>
-                        </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-                    <Form.Label>How old are you?:</Form.Label>
-                        <Form.Control as="select" size="lg" custom>
-                            <option onChange={() => setAge('18-20')}>18-20</option>
-                            <option onChange={() => setAge('21-25')}>21-25</option>
-                            <option onChange={() => setAge('26-30')}>26-30</option>
-                            <option onChange={() => setAge('31-35')}>31-35</option>
-                            <option onChange={() => setAge('36-40')}>36-40</option>
-                            <option onChange={() => setAge('41-45')}>41-45</option>
-                            <option onChange={() => setAge('46-50')}>46-50</option>
-                            <option onChange={() => setAge('51-55')}>51-55</option>
-                            <option onChange={() => setAge('56-60')}>56-60</option>
-                            <option onChange={() => setAge('61-65')}>61-65</option>
-                            <option onChange={() => setAge('66-70')}>66-70</option>
-                            <option onChange={() => setAge('70+')}> over 70</option>
-                            <option onChange={() => setAge('na')}>I prefer not to say</option>
-                        </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.SelectCustomSizeLg">
-                    <Form.Label>What is your sign?:</Form.Label>
-                        <Form.Control as="select" size="lg" custom>
-                            <option onChange={() => setSign('Aquarius')}>Aquarius</option>
-                            <option onChange={() => setSign('Pisces')}>Pisces</option>
-                            <option onChange={() => setSign('Aries')}>Aries</option>
-                            <option onChange={() => setSign('Taurus')}>Taurus</option>
-                            <option onChange={() => setSign('Gemini')}>Gemini</option>
-                            <option onChange={() => setSign('Cancer')}>Cancer</option>
-                            <option onChange={() => setSign('eo')}>Leo</option>
-                            <option onChange={() => setSign('Virgo')}>Virgo</option>
-                            <option onChange={() => setSign('Libra')}>Libra</option>
-                            <option onChange={() => setSign('Scorpio')}>Scorpio</option>
-                            <option onChange={() => setSign('Sagittarius')}>Sagittarius</option>
-                            <option onChange={() => setSign('Capricorn')}>Capricorn</option>
-                            <option onChange={() => setSign('na')}>I prefer not to say</option>
-                        </Form.Control>
-                </Form.Group>
-                </Form>
+                <h4>Gender:</h4>
+                <ButtonGroup>
+                    <Button onClick={() => setGender('male')}>Male</Button>
+                    <Button onClick={() => setGender('female')}>female</Button>
+                    <Button onClick={() => setGender('nonbinary')}>Non-binary</Button>
+                    <Button onClick={() => setGender('transgender')}>Transgender</Button>
+                    <Button onClick={() => setGender('intersex')}>Intersex</Button>
+                    <Button onClick={() => setGender('na')}>I prefer not to say</Button>
+                </ButtonGroup>
+                <h4>Political Affiliation:</h4>
+                <ButtonGroup>
+                    <Button onClick={() => setPolitics('republican')}>Republican</Button>
+                    <Button onClick={() => setPolitics('independent')}>Independent</Button>
+                    <Button onClick={() => setPolitics('democrat')}>Democrat</Button>
+                    <Button onClick={() => setPolitics('noaffliation')}>No affliation</Button>
+                    <Button onClick={() => setPolitics('na')}>I prefer not to say</Button>
+                </ButtonGroup>
+                <h4>Do you have children:</h4>
+                <ButtonGroup>
+                    <Button onClick={() => setChildren('yes')}>Yes</Button>
+                    <Button onClick={() => setChildren('no')}>No</Button>
+                    <Button onClick={() => setChildren('na')}>I prefer not to say</Button>
+                </ButtonGroup>
+                <h4>Do you drink:</h4>
+                <ButtonGroup>
+                    <Button onClick={() => setDrink('regularly')}>Regularly</Button>
+                    <Button onClick={() => setDrink('socially')}>Socially</Button>
+                    <Button onClick={() => setDrink('occaionally')}>Occasionally</Button>
+                    <Button onClick={() => setDrink('never')}>Never</Button>
+                    <Button onClick={() => setDrink('na')}>I prefer not to say</Button>
+                </ButtonGroup>
+                <h4>Do you smoke:</h4>
+                <ButtonGroup>
+                    <Button onClick={() => setSmoke('regularly')}>Regularly</Button>
+                    <Button onClick={() => setSmoke('socially')}>Socially</Button>
+                    <Button onClick={() => setSmoke('occaionally')}>Occasionally</Button>
+                    <Button onClick={() => setSmoke('never')}>Never</Button>
+                    <Button onClick={() => setSmoke('na')}>I prefer not to say</Button>
+                </ButtonGroup>
+                <h4>Do you use cannabis:</h4>
+                <ButtonGroup>
+                    <Button onClick={() => setCannabis('regularly')}>Regularly</Button>
+                    <Button onClick={() => setCannabis('socially')}>Socially</Button>
+                    <Button onClick={() => setCannabis('occaionally')}>Occasionally</Button>
+                    <Button onClick={() => setCannabis('never')}>Never</Button>
+                    <Button onClick={() => setCannabis('na')}>I prefer not to say</Button>
+                </ButtonGroup>
+                <h4>How old are you?:</h4>          
+                <ButtonGroup>
+                    <Button onClick={() => setAge('18-20')}>18-20</Button>
+                    <Button onClick={() => setAge('26-30')}>26-30</Button>
+                    <Button onClick={() => setAge('21-25')}>21-25</Button>
+                    <Button onClick={() => setAge('31-35')}>31-35</Button>
+                    <Button onClick={() => setAge('36-40')}>36-40</Button>
+                    <Button onClick={() => setAge('41-45')}>41-45</Button>
+                    <Button onClick={() => setAge('46-50')}>46-50</Button>
+                    <Button onClick={() => setAge('51-55')}>51-55</Button>
+                    <Button onClick={() => setAge('56-60')}>56-60</Button>
+                    <Button onClick={() => setAge('61-65')}>61-65</Button>
+                    <Button onClick={() => setAge('66-70')}>66-70</Button>
+                    <Button onClick={() => setAge('70+')}> over 70</Button>
+                    <Button onClick={() => setAge('na')}>I prefer not to say</Button>
+                </ButtonGroup>
+                <h4>What's your sign?:</h4>
+                 <ButtonGroup>
+                    <Button onClick={() => setSign('Aquarius')}>Aquarius</Button>
+                    <Button onClick={() => setSign('Pisces')}>Pisces</Button>
+                    <Button onClick={() => setSign('Aries')}>Aries</Button>
+                    <Button onClick={() => setSign('Taurus')}>Taurus</Button>
+                    <Button onClick={() => setSign('Gemini')}>Gemini</Button>
+                    <Button onClick={() => setSign('Cancer')}>Cancer</Button>
+                    <Button onClick={() => setSign('eo')}>Leo</Button>
+                    <Button onClick={() => setSign('Virgo')}>Virgo</Button>
+                    <Button onClick={() => setSign('Libra')}>Libra</Button>
+                    <Button onClick={() => setSign('Scorpio')}>Scorpio</Button>
+                    <Button onClick={() => setSign('Sagittarius')}>Sagittarius</Button>
+                    <Button onClick={() => setSign('Capricorn')}>Capricorn</Button>
+                    <Button onClick={() => setSign('na')}>I prefer not to say</Button>
+                 </ButtonGroup>
                 <h4>What activities are you looking to build a friendship on:</h4>
                 <h5>Pick up to 5:</h5>
                 <ButtonGroup>
-                    <Button onChange={() =>setInterests('books')}>Books</Button>
-                    <Button onChange={() =>setInterests('tv')}>TV Shows</Button>
-                    <Button onChange={() =>setInterests('videogames')}>Video Games</Button>
-                    <Button onChange={() =>setInterests('boardgames')}>Board Games</Button>
-                    <Button onChange={() =>setInterests('music')}>Music</Button>
+                    <Button onClick={() =>setInterests('books')}>Books</Button>
+                    <Button onClick={() =>setInterests('tv')}>TV Shows</Button>
+                    <Button onClick={() =>setInterests('videogames')}>Video Games</Button>
+                    <Button onClick={() =>setInterests('boardgames')}>Board Games</Button>
+                    <Button onClick={() =>setInterests('music')}>Music</Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button onChange={() =>setInterests('workingout')}>Working Out</Button>
-                    <Button onChange={() =>setInterests('yoga')}>Yoga</Button>
-                    <Button onChange={() =>setInterests('hiking')}>Hiking</Button>
-                    <Button onChange={() =>setInterests('cycling')}>Biking/Cycling</Button>
-                    <Button onChange={() =>setInterests('sports')}>Sports</Button>
+                    <Button onClick={() =>setInterests('workingout')}>Working Out</Button>
+                    <Button onClick={() =>setInterests('yoga')}>Yoga</Button>
+                    <Button onClick={() =>setInterests('hiking')}>Hiking</Button>
+                    <Button onClick={() =>setInterests('cycling')}>Biking/Cycling</Button>
+                    <Button onClick={() =>setInterests('sports')}>Sports</Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button onChange={() =>setInterests('gardening')}>Gardening</Button>
-                    <Button onChange={() =>setInterests('crafting')}>Crafting</Button>
-                    <Button onChange={() =>setInterests('sewing')}>Sewing</Button>
-                    <Button onChange={() =>setInterests('shopping')}>Shopping</Button>
-                    <Button onChange={() =>setInterests('volunteering')}>Volunteering</Button>
+                    <Button onClick={() =>setInterests('gardening')}>Gardening</Button>
+                    <Button onClick={() =>setInterests('crafting')}>Crafting</Button>
+                    <Button onClick={() =>setInterests('sewing')}>Sewing</Button>
+                    <Button onClick={() =>setInterests('shopping')}>Shopping</Button>
+                    <Button onClick={() =>setInterests('volunteering')}>Volunteering</Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button onChange={() =>setInterests('cars')}>Cars</Button>
-                    <Button onChange={() =>setInterests('clubbing')}>Going Out/NightClubs</Button>
-                    <Button onChange={() =>setInterests('roadtrips')}>Roap Trips</Button>
-                    <Button onChange={() =>setInterests('winetasting')}>Wine Tasting</Button>
-                    <Button onChange={() =>setInterests('gambling')}>Gambling</Button>
+                    <Button onClick={() =>setInterests('cars')}>Cars</Button>
+                    <Button onClick={() =>setInterests('clubbing')}>Going Out/NightClubs</Button>
+                    <Button onClick={() =>setInterests('roadtrips')}>Roap Trips</Button>
+                    <Button onClick={() =>setInterests('winetasting')}>Wine Tasting</Button>
+                    <Button onClick={() =>setInterests('gambling')}>Gambling</Button>
                 </ButtonGroup>
                 <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
             </div>
