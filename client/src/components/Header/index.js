@@ -1,39 +1,23 @@
-import React, {Component} from "react";
-import { Link } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import { Link, useLocation } from "react-router-dom";
 import bffl from "./bffl.png"
 import AuthService from "../../services/authService";
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.logOut = this.logOut.bind(this);
+const Header = () => {
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const location = useLocation();
 
-    this.state = {
-      currentUser: undefined,
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const user = AuthService.getCurrentUser();
 
     if (user) {
-      this.setState({
-        currentUser: user,
-      });
+      setCurrentUser(user);
     }
-  }
+  }, []);
 
-  logOut() {
+  const logOut = () => {
     AuthService.logout();
-  }
-  // We'll go into the Hooks API later, for now, we are just using some code
-  // from the react-router docs (https://reacttraining.com/react-router/web/api/Hooks/uselocation)
-  // This allows the component to check the route any time the user uses a link to navigate.
- 
-
-  render () {
-    
-    const { currentUser} = this.state;
+  };
 
     return (
     <ul className="nav nav-tabs">
@@ -43,7 +27,7 @@ class Header extends Component {
       
       <div className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link to="/" className={this.props.location === "/" ? "nav-link active" : "nav-link"}>
+          <Link to="/" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
             Landing
           </Link>
         </li>
@@ -59,12 +43,12 @@ class Header extends Component {
       {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/profile"} className={this.props.location === "/profile" ? "nav-link active" : "nav-link"}>
+                <Link to={"/profile"} className={location.pathname === "/profile" ? "nav-link active" : "nav-link"}>
                   {currentUser.username}
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
+                <a href="/login" className="nav-link" onClick={logOut}>
                   LogOut
                 </a>
               </li>
@@ -72,13 +56,13 @@ class Header extends Component {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/login"} className={this.props.location === "/login" ? "nav-link active" : "nav-link"}>
+                <Link to={"/login"} className={location.pathname === "/login" ? "nav-link active" : "nav-link"}>
                   Login
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link to={"/register"} className={this.props.location === "/register" ? "nav-link active" : "nav-link"}>
+                <Link to={"/register"} className={location.pathname === "/register" ? "nav-link active" : "nav-link"}>
                   Sign Up
                 </Link>
               </li>
@@ -87,7 +71,7 @@ class Header extends Component {
       <li className="nav-item">
         <Link
           to="/createprofile"
-          className={this.props.location === "/createprofile" ? "nav-link active" : "nav-link"}
+          className={location.pathname === "/createprofile" ? "nav-link active" : "nav-link"}
         >
           createprofile
         </Link>
@@ -95,7 +79,7 @@ class Header extends Component {
       <li className="nav-item">
         <Link
           to="/matching"
-          className={this.props.location === "/matching" ? "nav-link active" : "nav-link"}
+          className={location.pathname === "/matching" ? "nav-link active" : "nav-link"}
         >
           matching
         </Link>
@@ -103,7 +87,7 @@ class Header extends Component {
       <li className="nav-item">
         <Link
           to="/connections"
-          className={this.props.location === "/connections" ? "nav-link active" : "nav-link"}
+          className={location.pathname === "/connections" ? "nav-link active" : "nav-link"}
         >
           connections
         </Link>
@@ -111,7 +95,7 @@ class Header extends Component {
       <li className="nav-item">
         <Link
           to="/chat"
-          className={this.props.location === "/chat" ? "nav-link active" : "nav-link"}
+          className={location.pathname === "/chat" ? "nav-link active" : "nav-link"}
         >
           chat
         </Link>
@@ -119,7 +103,7 @@ class Header extends Component {
       <li className="nav-item">
         <Link
           to="/contact/favorites"
-          className={this.props.location === "/favorites" ? "nav-link active" : "nav-link"}
+          className={location.pathname === "/favorites" ? "nav-link active" : "nav-link"}
         >
           favorites
         </Link>
@@ -127,6 +111,6 @@ class Header extends Component {
     </ul>
   );
 }
-}
+
 
 export default Header;
