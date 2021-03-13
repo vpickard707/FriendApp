@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import Chat from "./components/pages/Chat"
 import Connections from "./components/pages/Connections"
 import Createprofile from "./components/pages/Createprofile"
+import Createprofile2 from "./components/pages/Createprofile2"
 import Favorites from "./components/pages/Favorites"
 import Landing from "./components/pages/Landing"
 import Login from "./components/pages/Login"
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/user" component={User} />
         <Route exact path="/createprofile" component={Createprofile} />
+        <Route exact path="/createprofile2" component={Createprofile2} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/matching" component={Matching} />
         <Route exact path="/connections" component={Connections} />
