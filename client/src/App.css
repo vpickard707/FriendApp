@@ -59,3 +59,8 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.avatarCard {
+  padding: 15px;
+  border-radius: 15px!important;
+}
