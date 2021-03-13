@@ -2,8 +2,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const db = require('./models');
-const dbConfig = require("./config/db.config");
+const mongoose = require("mongoose")
 
 const PORT = process.env.PORT || 3001;
 
@@ -20,8 +19,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 // connection to mongoose db
-db.mongoose
-  .connect(process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+mongoose
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/bffl_db", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -33,8 +32,8 @@ db.mongoose
     process.exit();
   });
 
-require('./app/routes/authRoutes')(app);
-require('./app/routes/userRoutes')(app);
+require('./routes/authRoutes')(app);
+require('./routes/userRoutes')(app);
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
