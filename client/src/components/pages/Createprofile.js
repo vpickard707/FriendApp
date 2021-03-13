@@ -25,7 +25,7 @@ useEffect(()=>{
  }
     return(
 <div className="container">
-    <div className="avatarCard">
+    <div className="avatarCard card">
     <h1>First, let's create your avatar</h1>
     <div>
         <br></br>
