@@ -26,7 +26,7 @@ const options = ['yes','no','na' ]
 function handleFormSubmit(event) {
     event.preventDefault();
     const userProfile = {
-        url: {props.children},
+        url: url,
         gender: gender, 
         politics: politics, 
         children: children, 
