@@ -18,14 +18,14 @@ const [url, setUrl] = useState();
 
 useEffect(()=>{
     setUrl(`https://avatars.dicebear.com/api/avataaars/${ base ? `${base}` : 'example'}.svg?${top ? `top[]=${top}` : ''}&${ hairColor ? `hairColor[]=${hairColor}` : ''}&${ eyes ? `eyes[]=${eyes}` : ''}&${ eyebrow ? `eyebrow[]=${eyebrow}` : ''}&${ mouth ? `mouth[]=${mouth}` : ''}&${ skin ? `skin[]=${skin}` : ''}&${ clothesChoice ? `clothesColor[]=${clothesChoice}` : ''}`)
-  })
+  }, [base, top, hairColor, eyes, eyebrow, mouth, skin, clothesChoice])
 
  const saveUrl = () => {
      console.log(url)
  }
     return(
 <div className="container">
-    <div className="card">
+    <div className="avatarCard">
     <h1>First, let's create your avatar</h1>
     <div>
         <br></br>
