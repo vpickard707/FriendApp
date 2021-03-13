@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import UserService from "../../services/userService";
+import UserService from "../services/userService";
 
 export default class User extends Component {
   constructor(props) {

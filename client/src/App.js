@@ -1,19 +1,18 @@
 import React  from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/Header"
-import Chat from "./components/pages/Chat"
-import Connections from "./components/pages/Connections"
-import Createprofile from "./components/pages/Createprofile"
-import Createprofile2 from "./components/pages/Createprofile2"
-import Favorites from "./components/pages/Favorites"
-import Landing from "./components/pages/Landing"
-import Login from "./components/pages/Login"
-import Matching from "./components/pages/Matching"
-import Profile from "./components/pages/Profile"
-import Register from "./components/pages/Registration"
-import User from "./components/pages/User"
-import './App.css';
-
+import Chat from "./pages/Chat"
+import Connections from "./pages/Connections"
+import Createprofile from "./pages/Createprofile"
+import Createprofile2 from "./pages/Createprofile2"
+import Favorites from "./pages/Favorites"
+import Landing from "./pages/Landing"
+import Login from "./pages/Login"
+import Matching from "./pages/Matching"
+import Profile from "./pages/Profile"
+import Register from "./pages/Registration"
+import User from "./pages/User"
+import './App.css'
 
 
 function App() {

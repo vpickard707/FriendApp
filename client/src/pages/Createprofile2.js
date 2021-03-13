@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import '../../App.css'
+import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import API from "../utils/API"
+
 
 function Createprofile2 (){
 const [gender, setGender] = useState();
@@ -15,24 +17,29 @@ const [cannabis, setCannabis] = useState();
 const [age, setAge] = useState();
 const [sign, setSign] = useState();
 const [interests, setInterests] = useState();
-const [user, setUser] = useState();
 
-useEffect(()=>{
-    setUser(`
-gender: ${gender ? `${gender}` : 'na'},
-politics: ${politics ? `${politics}` : 'na'},
-children: ${children ? `${children}` : 'na'},
-drink: ${drink ? `${drink}` : 'na'},
-smoke: ${smoke ? `${smoke}` : 'na'},
-cannabis: ${cannabis ? `${cannabis}` : 'na'},
-age: ${age ? `${age}` : 'na'},
-sign: ${sign ? `${sign}` : 'na'},
-interest: ${interests ? `${interests}` : 'na'}
 
-`)})
+const options = ['yes','no','na' ]
 
-const saveUser = () => {
-    console.log(user)
+    
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+    const userProfile = {
+        url: {props.children},
+        gender: gender, 
+        politics: politics, 
+        children: children, 
+        drink: drink, 
+        smoke: smoke, 
+        cannabis: cannabis, 
+        age: age,
+        sign:sign,
+        interests: interests}
+        console.log(userProfile)
+    API.saveUser(userProfile)
+
+    .catch(err => console.log(err));
 }
     return(
         <div className="container">
@@ -62,11 +69,11 @@ const saveUser = () => {
                 </Form.Group>
                 <Form.Group controlId="exampleForm.SelectCustomSizeLg">
                     <Form.Label>Do you have children:</Form.Label>
-                        <Form.Control as="select" size="lg" custom>
-                            <option onChange={() => setChildren('yes')}>Yes</option>
-                            <option onChange={() => setChildren('no')}>No</option>
-                            <option onChange={() => setChildren('na')}>I prefer not to say</option>
-                        </Form.Control>
+                        <Form.Control onChange={(e) => console.log(e)} as="select" size="lg" custom value={options}/>
+                            {/* <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                            <option value="na">I prefer not to say</option> */}
+                        
                 </Form.Group>
                 <Form.Group controlId="exampleForm.SelectCustomSizeLg">
                     <Form.Label>Do you drink:</Form.Label>
@@ -165,7 +172,7 @@ const saveUser = () => {
                     <Button onChange={() =>setInterests('winetasting')}>Wine Tasting</Button>
                     <Button onChange={() =>setInterests('gambling')}>Gambling</Button>
                 </ButtonGroup>
-                <Button variant="secondary" onClick={saveUser}>Save</Button>
+                <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
             </div>
         </div>
             
