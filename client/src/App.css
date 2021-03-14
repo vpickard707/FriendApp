@@ -1,6 +1,10 @@
 body, html{
   background-color: #25a4ad!important;
 }
+
+Button {
+  background-color: lightslategrey;
+}
 .App {
   text-align: center;
 }
@@ -60,7 +64,7 @@ label {
   border-radius: 50%;
 }
 
-.avatarCard {
+.avatarCard, .profileCard {
   padding: 15px;
   border-radius: 15px!important;
 }
