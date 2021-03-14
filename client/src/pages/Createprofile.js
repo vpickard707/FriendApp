@@ -3,6 +3,7 @@ import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import { Link, useLocation } from "react-router-dom";
 
 
 function Createprofile (){
@@ -15,6 +16,9 @@ const [mouth, setMouth] = useState();
 const [skin, setSkin] = useState();
 const [clothesChoice, setClothesChoice] = useState();
 const [url, setUrl] = useState();
+
+const location = useLocation();
+
 
 useEffect(()=>{
     setUrl(`https://avatars.dicebear.com/api/avataaars/${ base ? `${base}` : 'example'}.svg?${top ? `top[]=${top}` : ''}&${ hairColor ? `hairColor[]=${hairColor}` : ''}&${ eyes ? `eyes[]=${eyes}` : ''}&${ eyebrow ? `eyebrow[]=${eyebrow}` : ''}&${ mouth ? `mouth[]=${mouth}` : ''}&${ skin ? `skin[]=${skin}` : ''}&${ clothesChoice ? `clothesColor[]=${clothesChoice}` : ''}`)
@@ -136,7 +140,9 @@ useEffect(()=>{
         <Button variant="secondary" onClick={() => setClothesChoice("white")}>white</Button>
     </ButtonGroup>
     <br></br>
-    <Button variant="secondary" onClick={saveUrl}>Save</Button>
+    <Button variant="secondary" onClick={saveUrl}>
+        <Link to={{pathname: "/createprofile2", url: url }} className={location.pathname === "/createprofile2" ? "nav-link active" : "nav-link"}>Save</Link>
+    </Button>
     </div>
 </div>
     )
