@@ -34,4 +34,4 @@ const filterBySchema = new Schema({
     }
 });
 
-module.exports = mongoose.model( "Interests", filterBySchema );
+module.exports = mongoose.model( "FilterBy", filterBySchema );

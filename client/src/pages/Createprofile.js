@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import API from "../utils/API";
+import AuthService from "../services/authService";
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -7,6 +9,7 @@ import { Link, useLocation } from "react-router-dom";
 
 
 function Createprofile (){
+const currentUser = AuthService.getCurrentUser();
 const [base, setBase] = useState();
 const [top, setTop] = useState();
 const [hairColor, setHairColor] = useState();
@@ -24,9 +27,18 @@ useEffect(()=>{
     setUrl(`https://avatars.dicebear.com/api/avataaars/${ base ? `${base}` : 'example'}.svg?${top ? `top[]=${top}` : ''}&${ hairColor ? `hairColor[]=${hairColor}` : ''}&${ eyes ? `eyes[]=${eyes}` : ''}&${ eyebrow ? `eyebrow[]=${eyebrow}` : ''}&${ mouth ? `mouth[]=${mouth}` : ''}&${ skin ? `skin[]=${skin}` : ''}&${ clothesChoice ? `clothesColor[]=${clothesChoice}` : ''}`)
   }, [base, top, hairColor, eyes, eyebrow, mouth, skin, clothesChoice])
 
- const saveUrl = () => {
-     console.log(url)
+ const saveUrl = (e) => {
+    e.preventDefault() ;
+    console.log(url);
+
+    API.saveProfile({
+        avatar: url,
+        user: currentUser._id
+    })
+      .then(res => res.JSON())
+      .catch(err => console.log(err));
  }
+
     return(
 <div className="container">
     <div className="avatarCard card">
