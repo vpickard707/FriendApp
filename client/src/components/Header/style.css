@@ -1,0 +1,18 @@
+.nav {
+    background-color: white;
+    border-bottom: 5px groove!important;
+    
+}
+.nav-link {
+    color:#42899f!important;
+}
+
+.nav-link.active {
+    background-color: #25a4ad!important;
+    color: white!important;
+}
+
+.navbar-brand {
+    padding: 0!important;
+    border-radius: 50%;
+}
