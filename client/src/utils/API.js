@@ -1,7 +1,10 @@
 import axios from "axios"
 
 export default {
-    saveUser: (data) => {
-        return axios.post('/api/userprofiles', data)
+    saveProfile: (data) => {
+        return axios.post('/api/profile', data)
+    },
+    editProfile: (id) => {
+        return axios.put('api/profile' + id)
     }
 }
