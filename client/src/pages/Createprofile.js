@@ -5,7 +5,7 @@ import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, Redirect } from "react-router-dom";
 
 
 function Createprofile (){
@@ -35,7 +35,7 @@ useEffect(()=>{
         avatar: url,
         user: currentUser._id
     })
-      .then(res => res.JSON())
+      .then(res => <Redirect to="/createprofile2" />)
       .catch(err => console.log(err));
  }
 
@@ -153,7 +153,7 @@ useEffect(()=>{
     </ButtonGroup>
     <br></br>
     <Button variant="secondary" onClick={saveUrl}>
-        <Link to={{pathname: "/createprofile2", url: url }} className={location.pathname === "/createprofile2" ? "nav-link active" : "nav-link"}>Save</Link>
+        Save
     </Button>
     </div>
 </div>
