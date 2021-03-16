@@ -8,4 +8,5 @@ export default {
     editProfile: (id) => {
         return axios.put('api/profile' + id)
     }
+    
 }
