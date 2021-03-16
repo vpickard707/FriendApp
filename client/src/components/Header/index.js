@@ -102,7 +102,7 @@ const Header = () => {
       </li>
       <li className="nav-item">
         <Link
-          to="/contact/favorites"
+          to="/favorites"
           className={location.pathname === "/favorites" ? "nav-link active" : "nav-link"}
         >
           favorites

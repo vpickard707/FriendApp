@@ -28,7 +28,8 @@ setInterests(prevState => [
 function handleFormSubmit(event) {
     event.preventDefault();
     const userProfile = {
-        url: props.url,
+        name: props.name,
+        image: props.url,
         gender: gender, 
         politics: politics, 
         children: children, 
@@ -48,50 +49,50 @@ function handleFormSubmit(event) {
                 <h1>Now let's find out more about you:</h1>
                 <h4>Gender:</h4>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setGender('male')}>Male</Button>
-                    <Button variant="secondary" onClick={() => setGender('female')}>Female</Button>
-                    <Button variant="secondary" onClick={() => setGender('nonbinary')}>Non-binary</Button>
-                    <Button variant="secondary" onClick={() => setGender('transgender')}>Transgender</Button>
-                    <Button variant="secondary" onClick={() => setGender('intersex')}>Intersex</Button>
-                    <Button variant="secondary" onClick={() => setGender('na')}>I prefer not to say</Button>
+                    <Button variant="secondary" onClick={() => setGender('Male')}>Male</Button>
+                    <Button variant="secondary" onClick={() => setGender('Female')}>Female</Button>
+                    <Button variant="secondary" onClick={() => setGender('Non-Binary')}>Non-binary</Button>
+                    <Button variant="secondary" onClick={() => setGender('Transgender')}>Transgender</Button>
+                    <Button variant="secondary" onClick={() => setGender('Intersex')}>Intersex</Button>
+                    <Button variant="secondary" onClick={() => setGender('null')}>I prefer not to say</Button>
                 </ButtonGroup>
                 <h4>Political Affiliation:</h4>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setPolitics('republican')}>Republican</Button>
-                    <Button variant="secondary" onClick={() => setPolitics('independent')}>Independent</Button>
-                    <Button variant="secondary" onClick={() => setPolitics('democrat')}>Democrat</Button>
-                    <Button variant="secondary" onClick={() => setPolitics('noaffliation')}>No affliation</Button>
-                    <Button variant="secondary" onClick={() => setPolitics('na')}>I prefer not to say</Button>
+                    <Button variant="secondary" onClick={() => setPolitics('Republican')}>Republican</Button>
+                    <Button variant="secondary" onClick={() => setPolitics('Independent')}>Independent</Button>
+                    <Button variant="secondary" onClick={() => setPolitics('Democrat')}>Democrat</Button>
+                    <Button variant="secondary" onClick={() => setPolitics('No Affliation')}>No affliation</Button>
+                    <Button variant="secondary" onClick={() => setPolitics('null')}>I prefer not to say</Button>
                 </ButtonGroup>
                 <h4>Do you have children:</h4>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setChildren('yes')}>Yes</Button>
-                    <Button variant="secondary" onClick={() => setChildren('no')}>No</Button>
-                    <Button variant="secondary" onClick={() => setChildren('na')}>I prefer not to say</Button>
+                    <Button variant="secondary" onClick={() => setChildren('Has Children')}>Yes</Button>
+                    <Button variant="secondary" onClick={() => setChildren('No Children')}>No</Button>
+                    <Button variant="secondary" onClick={() => setChildren('null')}>I prefer not to say</Button>
                 </ButtonGroup>
                 <h4>Do you drink:</h4>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setDrink('regularly')}>Regularly</Button>
-                    <Button variant="secondary" onClick={() => setDrink('socially')}>Socially</Button>
-                    <Button variant="secondary" onClick={() => setDrink('occaionally')}>Occasionally</Button>
-                    <Button variant="secondary" onClick={() => setDrink('never')}>Never</Button>
-                    <Button variant="secondary" onClick={() => setDrink('na')}>I prefer not to say</Button>
+                    <Button variant="secondary" onClick={() => setDrink('Regularly')}>Regularly</Button>
+                    <Button variant="secondary" onClick={() => setDrink('Socially')}>Socially</Button>
+                    <Button variant="secondary" onClick={() => setDrink('Occaionally')}>Occasionally</Button>
+                    <Button variant="secondary" onClick={() => setDrink('Never')}>Never</Button>
+                    <Button variant="secondary" onClick={() => setDrink('null')}>I prefer not to say</Button>
                 </ButtonGroup>
                 <h4>Do you smoke:</h4>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setSmoke('regularly')}>Regularly</Button>
-                    <Button variant="secondary" onClick={() => setSmoke('socially')}>Socially</Button>
-                    <Button variant="secondary" onClick={() => setSmoke('occaionally')}>Occasionally</Button>
-                    <Button variant="secondary" onClick={() => setSmoke('never')}>Never</Button>
-                    <Button variant="secondary" onClick={() => setSmoke('na')}>I prefer not to say</Button>
+                    <Button variant="secondary" onClick={() => setSmoke('Regularly')}>Regularly</Button>
+                    <Button variant="secondary" onClick={() => setSmoke('Socially')}>Socially</Button>
+                    <Button variant="secondary" onClick={() => setSmoke('Occaionally')}>Occasionally</Button>
+                    <Button variant="secondary" onClick={() => setSmoke('Never')}>Never</Button>
+                    <Button variant="secondary" onClick={() => setSmoke('null')}>I prefer not to say</Button>
                 </ButtonGroup>
                 <h4>Do you use cannabis:</h4>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setCannabis('regularly')}>Regularly</Button>
-                    <Button variant="secondary" onClick={() => setCannabis('socially')}>Socially</Button>
-                    <Button variant="secondary" onClick={() => setCannabis('occaionally')}>Occasionally</Button>
-                    <Button variant="secondary" onClick={() => setCannabis('never')}>Never</Button>
-                    <Button variant="secondary" onClick={() => setCannabis('na')}>I prefer not to say</Button>
+                    <Button variant="secondary" onClick={() => setCannabis('Regularly')}>Regularly</Button>
+                    <Button variant="secondary" onClick={() => setCannabis('Socially')}>Socially</Button>
+                    <Button variant="secondary" onClick={() => setCannabis('Occaionally')}>Occasionally</Button>
+                    <Button variant="secondary" onClick={() => setCannabis('Never')}>Never</Button>
+                    <Button variant="secondary" onClick={() => setCannabis('null')}>I prefer not to say</Button>
                 </ButtonGroup>
                 <h4>How old are you?:</h4>          
                 <ButtonGroup>
@@ -108,7 +109,7 @@ function handleFormSubmit(event) {
                     <Button variant="secondary" onClick={() => setAge('56-60')}>56-60</Button>
                     <Button variant="secondary" onClick={() => setAge('61-65')}>61-65</Button>
                     <Button variant="secondary" onClick={() => setAge('65+')}> over 65</Button>
-                    <Button variant="secondary" onClick={() => setAge('na')}>I prefer not to say</Button>
+                    <Button variant="secondary" onClick={() => setAge('null')}>I prefer not to say</Button>
                 </ButtonGroup>
                 <h4>What's your sign?:</h4>
                  <ButtonGroup>
@@ -120,7 +121,7 @@ function handleFormSubmit(event) {
                     <Button variant="secondary" onClick={() => setSign('Cancer')}>Cancer</Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setSign('leo')}>Leo</Button>
+                    <Button variant="secondary" onClick={() => setSign('Leo')}>Leo</Button>
                     <Button variant="secondary" onClick={() => setSign('Virgo')}>Virgo</Button>
                     <Button variant="secondary" onClick={() => setSign('Libra')}>Libra</Button>
                     <Button variant="secondary" onClick={() => setSign('Scorpio')}>Scorpio</Button>
@@ -130,32 +131,32 @@ function handleFormSubmit(event) {
                  </ButtonGroup>
                 <h4>What activities are you looking to build a friendship on:</h4>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={ interestsClick } value="books">Books</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="tv">TV Shows</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="videogames">Video Games</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="boardgames">Board Games</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="music">Music</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Books ">Books</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Watching TV ">TV Show</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Video games ">Video Games</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Boardgames ">Board Games</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Music ">Music</Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={ interestsClick } value="workingout">Working Out</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="yoga">Yoga</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="hiking">Hiking</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="biking">Biking/Cycling</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="sports">Sports</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Working out ">Working Out</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Yoga ">Yoga</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Hiking ">Hiking</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Biking ">Biking/Cycling</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Sports ">Sports</Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={ interestsClick } value="gardening">Gardening</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="crafting">Crafting</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="sewing">Sewing</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="shopping">Shopping</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="volunteering">Volunteering</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Gardening ">Gardening</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Crafting ">Crafting</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Sewing ">Sewing</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Shopping ">Shopping</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Volunteering ">Volunteering</Button>
                 </ButtonGroup>
                 <ButtonGroup>
-                    <Button variant="secondary" onClick={ interestsClick } value="cars">Cars</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="goingout">Going Out/NightClubs</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="roadtrips">Roap Trips</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="wine">Wine Tasting</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="gambling">Gambling</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Cars ">Cars</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Going out ">Going Out/NightClubs</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Road trips ">Roap Trips</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Wine tasting ">Wine Tasting</Button>
+                    <Button variant="secondary" onClick={ interestsClick } value="Gambling ">Gambling</Button>
                 </ButtonGroup>
                 <br></br>
                 <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
