@@ -5,10 +5,10 @@ import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
-import { useLocation, Redirect } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 
 
-function Createprofile (){
+function Createprofile (props){
 const currentUser = AuthService.getCurrentUser();
 const [base, setBase] = useState();
 const [top, setTop] = useState();
@@ -35,7 +35,10 @@ useEffect(()=>{
         avatar: url,
         user: currentUser._id
     })
-      .then(res => <Redirect to="/createprofile2" />)
+      .then(res => {
+          props.history.push("/createprofile2");
+          window.location.reload()
+        })
       .catch(err => console.log(err));
  }
 
