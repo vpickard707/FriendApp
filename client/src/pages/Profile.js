@@ -1,5 +1,6 @@
 import React from 'react';
 import AuthService from "../services/authService";
+import UserCard from "../components/UserCard.js"
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -24,6 +25,7 @@ const Profile = () => {
           <strong>Email:</strong>{" "}
           {currentUser.email}
         </p>
+        <UserCard />
       </div>
     )
 }
