@@ -12,7 +12,6 @@ function UserCard (props){
         <Image className="userImage" variant="top" src={props.image} roundedCircle/>
         <Card.Body>
             <h2>{props.name}</h2>
-            <Card.Text>
                 <h3>
                     <Badge className="badge" variant="info">{props.age}</Badge>
                     <Badge className="badge" variant="info">{props.gender}</Badge> 
@@ -29,7 +28,6 @@ function UserCard (props){
                     Interests:
                     <Badge pill variant="info">{props.interests}</Badge>
                 </h3>
-            </Card.Text>
             <Button variant="info">Chat</Button>
         </Card.Body>
     </Card>
