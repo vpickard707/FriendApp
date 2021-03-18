@@ -40,7 +40,7 @@ function handleFormSubmit(event) {
         sign:sign,
         interests: interests}
         console.log(userProfile)
-    API.saveUser(userProfile)
+    API.saveProfile(userProfile)
     .catch(err => console.log(err));
 }
     return(

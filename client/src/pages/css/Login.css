@@ -1,0 +1,18 @@
+.login h2 {
+    color: #17a2b8;
+    font-size: 36px!important;
+    margin-top:10px!important;
+}
+.login.card {
+    height: fit-content;
+    opacity: .9;
+    border-color: #25a4ad!important;
+    border-radius: 15px!important;
+    border-style: inset!important;
+}
+.login.btn-primary {
+    background-color: #17a2b8!important;
+}
+.login.btn-primary:hover {
+    background-color: #15899b!important;
+}

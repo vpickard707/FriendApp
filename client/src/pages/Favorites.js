@@ -4,7 +4,7 @@ import seedUserProfiles from "../seedUserProfiles.json"
 
 function Favorites (){
     return(
-    <main>
+    <main className="favorites">
         <div className="container">
             <div className="row">
                 <h2>Your Favorites:</h2>
