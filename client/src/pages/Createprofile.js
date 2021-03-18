@@ -33,7 +33,8 @@ const [url, setUrl] = useState();
         API.saveProfile({
             avatar: url,
             userId: currentUser._id,
-            username: currentUser.username
+            username: currentUser.username,
+            location: userLocation
         })
         .then(res => {
             console.log(res.data)
