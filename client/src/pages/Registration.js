@@ -2,9 +2,12 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import Button from 'react-bootstrap/Button'
 import { isEmail } from "validator";
-
+import logo from '../images/bffllogoonly.png'
+import { Link } from "react-router-dom";
 import AuthService from "../services/authService";
+import './css/Registration.css'
 
 const required = value => {
   if (!value) {
@@ -97,6 +100,7 @@ const Register = (props) => {
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
+          
         },
         (error) => {
           const resMessage =
@@ -118,8 +122,9 @@ const Register = (props) => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
+        <h2>Welcome!</h2>
         <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          src={logo}
           alt="profile-img"
           className="profile-img-card"
         />
@@ -132,7 +137,7 @@ const Register = (props) => {
                 <Input
                   type="text"
                   className="form-control"
-                  name="usernafirstNameme"
+                  name="firstName"
                   value={firstName}
                   onChange={onChangeFirstName}
                   validations={[required]}
@@ -206,6 +211,12 @@ const Register = (props) => {
             </div>
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          {successful && (
+              <Button>
+                    <Link to="/createprofile" className="buildProfileBtn">Build Out Your Profile</Link>
+              </Button>
+  
+          )}
         </Form>
       </div>
     </div>

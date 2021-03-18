@@ -7,7 +7,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 
 
-
 function Createprofile (props){
 const currentUser = AuthService.getCurrentUser();
 const [base, setBase] = useState();
