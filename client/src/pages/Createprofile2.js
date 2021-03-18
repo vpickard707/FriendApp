@@ -3,10 +3,10 @@ import API from "../utils/API"
 import AuthService from "../services/authService";
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ToggleButtonGroup from'react-bootstrap/ToggleButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
-
-
 
 function Createprofile2 (props){
 const currentUser = AuthService.getCurrentUser();
@@ -19,6 +19,15 @@ const [cannabis, setCannabis] = useState();
 const [age, setAge] = useState();
 const [sign, setSign] = useState();
 const [interests, setInterests] = useState([]);
+
+const handleGenderChange = (val) => setGender(val);
+const handlePoliticsChange = (val) => setPolitics(val);
+const handleChildrenChange = (val) => setChildren(val);
+const handleDrinkChange = (val) => setDrink(val);
+const handleSmokeChange = (val) => setSmoke(val);
+const handleCannabisChange = (val) => setCannabis(val);
+const handleAgeChange = (val) => setAge(val);
+const handleSignChange = (val) => setSign(val);
 
 function interestsClick(e){
 const value = e.target.value
@@ -57,122 +66,123 @@ function handleFormSubmit(event) {
                 console.log('um, sh*ts really broken') 
             } });
  
+
 }
     return(
         <div className="container">
             <div className="profileCard card">
                 <h1>Now let's find out more about you:</h1>
                 <h4>Gender:</h4>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setGender('Male')}>Male</Button>
-                    <Button variant="secondary" onClick={() => setGender('Female')}>Female</Button>
-                    <Button variant="secondary" onClick={() => setGender('Non-Binary')}>Non-binary</Button>
-                    <Button variant="secondary" onClick={() => setGender('Transgender')}>Transgender</Button>
-                    <Button variant="secondary" onClick={() => setGender('Intersex')}>Intersex</Button>
-                    <Button variant="secondary" onClick={() => setGender('null')}>I prefer not to say</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup type="radio" name="gender" defaultValue={'null'} onChange={handleGenderChange}>
+                    <ToggleButton variant="secondary" value={'Male'}>Male</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Female'}>Female</ToggleButton>
+                    <ToggleButton variant="secondary" value={ 'Non-Binary'}>Non-binary</ToggleButton>
+                    <ToggleButton variant="secondary" value={ 'Transgender'}>Transgender</ToggleButton>
+                    <ToggleButton variant="secondary" value={ 'Intersex' }>Intersex</ToggleButton>
+                    <ToggleButton variant="secondary" value={ 'null'}>I prefer not to say</ToggleButton>
+                </ToggleButtonGroup>
                 <h4>Political Affiliation:</h4>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setPolitics('Republican')}>Republican</Button>
-                    <Button variant="secondary" onClick={() => setPolitics('Independent')}>Independent</Button>
-                    <Button variant="secondary" onClick={() => setPolitics('Democrat')}>Democrat</Button>
-                    <Button variant="secondary" onClick={() => setPolitics('No Affliation')}>No affliation</Button>
-                    <Button variant="secondary" onClick={() => setPolitics('null')}>I prefer not to say</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup type="radio" name="politics" defaultValue={'null'} onChange={handlePoliticsChange}>
+                    <ToggleButton variant="secondary" value={'Conservative'}>Conservative</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Moderate'}>Moderate</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Liberal'}>Liberal</ToggleButton>
+                    <ToggleButton variant="secondary" value={'No Affliation'}>No affliation</ToggleButton>
+                    <ToggleButton variant="secondary" value={'null'}>I prefer not to say</ToggleButton>
+                </ToggleButtonGroup>
                 <h4>Do you have children:</h4>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setChildren('Has Children')}>Yes</Button>
-                    <Button variant="secondary" onClick={() => setChildren('No Children')}>No</Button>
-                    <Button variant="secondary" onClick={() => setChildren('null')}>I prefer not to say</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup type="radio" name="children" defaultValue={'null'} onChange={handleChildrenChange}>
+                    <ToggleButton variant="secondary" value={'Has Children'}>Yes</ToggleButton>
+                    <ToggleButton variant="secondary" value={'No Children'}>No</ToggleButton>
+                    <ToggleButton variant="secondary" value={'null'}>I prefer not to say</ToggleButton>
+                </ToggleButtonGroup>
                 <h4>Do you drink:</h4>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setDrink('Regularly')}>Regularly</Button>
-                    <Button variant="secondary" onClick={() => setDrink('Socially')}>Socially</Button>
-                    <Button variant="secondary" onClick={() => setDrink('Occaionally')}>Occasionally</Button>
-                    <Button variant="secondary" onClick={() => setDrink('Never')}>Never</Button>
-                    <Button variant="secondary" onClick={() => setDrink('null')}>I prefer not to say</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup type="radio" name="drink" defaultValue={'null'} onChange={handleDrinkChange}>
+                    <ToggleButton variant="secondary" value={'Regularly'}>Regularly</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Socially'}>Socially</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Occaionally'}>Occasionally</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Never'}>Never</ToggleButton>
+                    <ToggleButton variant="secondary" value={'null'}>I prefer not to say</ToggleButton>
+                </ToggleButtonGroup>
                 <h4>Do you smoke:</h4>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setSmoke('Regularly')}>Regularly</Button>
-                    <Button variant="secondary" onClick={() => setSmoke('Socially')}>Socially</Button>
-                    <Button variant="secondary" onClick={() => setSmoke('Occaionally')}>Occasionally</Button>
-                    <Button variant="secondary" onClick={() => setSmoke('Never')}>Never</Button>
-                    <Button variant="secondary" onClick={() => setSmoke('null')}>I prefer not to say</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup type="radio" name="smoke" defaultValue={'null'} onChange={handleSmokeChange}>
+                    <ToggleButton variant="secondary" value={'Regularly'}>Regularly</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Socially'}>Socially</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Occaionally'}>Occasionally</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Never'}>Never</ToggleButton>
+                    <ToggleButton variant="secondary" value={'null'}>I prefer not to say</ToggleButton>
+                </ToggleButtonGroup>
                 <h4>Do you use cannabis:</h4>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setCannabis('Regularly')}>Regularly</Button>
-                    <Button variant="secondary" onClick={() => setCannabis('Socially')}>Socially</Button>
-                    <Button variant="secondary" onClick={() => setCannabis('Occaionally')}>Occasionally</Button>
-                    <Button variant="secondary" onClick={() => setCannabis('Never')}>Never</Button>
-                    <Button variant="secondary" onClick={() => setCannabis('null')}>I prefer not to say</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup type="radio" name="cannabis" defaultValue={'null'} onChange={handleCannabisChange}>
+                    <ToggleButton variant="secondary" value={'Regularly'}>Regularly</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Socially'}>Socially</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Occasionally'}>Occasionally</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Never'}>Never</ToggleButton>
+                    <ToggleButton variant="secondary" value={'null'}>I prefer not to say</ToggleButton>
+                </ToggleButtonGroup>
                 <h4>How old are you?:</h4>          
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setAge('18-20')}>18-20</Button>
-                    <Button variant="secondary" onClick={() => setAge('26-30')}>26-30</Button>
-                    <Button variant="secondary" onClick={() => setAge('21-25')}>21-25</Button>
-                    <Button variant="secondary" onClick={() => setAge('31-35')}>31-35</Button>
-                    <Button variant="secondary" onClick={() => setAge('36-40')}>36-40</Button>
-                    <Button variant="secondary" onClick={() => setAge('41-45')}>41-45</Button>
-                </ButtonGroup>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setAge('46-50')}>46-50</Button>
-                    <Button variant="secondary" onClick={() => setAge('51-55')}>51-55</Button>
-                    <Button variant="secondary" onClick={() => setAge('56-60')}>56-60</Button>
-                    <Button variant="secondary" onClick={() => setAge('61-65')}>61-65</Button>
-                    <Button variant="secondary" onClick={() => setAge('65+')}> over 65</Button>
-                    <Button variant="secondary" onClick={() => setAge('null')}>I prefer not to say</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup type="radio" name="age" defaultValue={'null'} onChange={handleAgeChange}>
+                    <ToggleButton variant="secondary" value={'18-20'}>18-20</ToggleButton>
+                    <ToggleButton variant="secondary" value={'26-30'}>26-30</ToggleButton>
+                    <ToggleButton variant="secondary" value={'21-25'}>21-25</ToggleButton>
+                    <ToggleButton variant="secondary" value={'31-35'}>31-35</ToggleButton>
+                    <ToggleButton variant="secondary" value={'36-40'}>36-40</ToggleButton>
+                    <ToggleButton variant="secondary" value={'41-45'}>41-45</ToggleButton>
+                </ToggleButtonGroup>
+                <ToggleButtonGroup type="radio" name="age" defaultValue={'null'} onChange={handleAgeChange}>
+                    <ToggleButton variant="secondary" value={'46-50'}>46-50</ToggleButton>
+                    <ToggleButton variant="secondary" value={'51-55'}>51-55</ToggleButton>
+                    <ToggleButton variant="secondary" value={'56-60'}>56-60</ToggleButton>
+                    <ToggleButton variant="secondary" value={'61-65'}>61-65</ToggleButton>
+                    <ToggleButton variant="secondary" value={'65+'}> over 65</ToggleButton>
+                    <ToggleButton variant="secondary" value={'null'}>I prefer not to say</ToggleButton>
+                </ToggleButtonGroup>
                 <h4>What's your sign?:</h4>
-                 <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setSign('Aquarius')}>Aquarius</Button>
-                    <Button variant="secondary" onClick={() => setSign('Pisces')}>Pisces</Button>
-                    <Button variant="secondary" onClick={() => setSign('Aries')}>Aries</Button>
-                    <Button variant="secondary" onClick={() => setSign('Taurus')}>Taurus</Button>
-                    <Button variant="secondary" onClick={() => setSign('Gemini')}>Gemini</Button>
-                    <Button variant="secondary" onClick={() => setSign('Cancer')}>Cancer</Button>
-                </ButtonGroup>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={() => setSign('Leo')}>Leo</Button>
-                    <Button variant="secondary" onClick={() => setSign('Virgo')}>Virgo</Button>
-                    <Button variant="secondary" onClick={() => setSign('Libra')}>Libra</Button>
-                    <Button variant="secondary" onClick={() => setSign('Scorpio')}>Scorpio</Button>
-                    <Button variant="secondary" onClick={() => setSign('Sagittarius')}>Sagittarius</Button>
-                    <Button variant="secondary" onClick={() => setSign('Capricorn')}>Capricorn</Button>
-                    <Button variant="secondary" onClick={() => setSign('na')}>I prefer not to say</Button>
-                 </ButtonGroup>
+                 <ToggleButtonGroup type="radio" name="sign" defaultValue={'null'} onChange={handleSignChange}>
+                    <ToggleButton variant="secondary" value={'Aquarius'}>Aquarius</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Pisces'}>Pisces</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Aries'}>Aries</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Taurus'}>Taurus</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Gemini'}>Gemini</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Cancer'}>Cancer</ToggleButton>
+                </ToggleButtonGroup>
+                <ToggleButtonGroup type="radio" name="sign" defaultValue={'null'} onChange={handleSignChange}>
+                    <ToggleButton variant="secondary" value={'Leo'}>Leo</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Virgo'}>Virgo</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Libra'}>Libra</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Scorpio'}>Scorpio</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Sagittarius'}>Sagittarius</ToggleButton>
+                    <ToggleButton variant="secondary" value={'Capricorn'}>Capricorn</ToggleButton>
+                    <ToggleButton variant="secondary" value={'null'}>I prefer not to say</ToggleButton>
+                 </ToggleButtonGroup>
                 <h4>What activities are you looking to build a friendship on:</h4>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={ interestsClick } value="Books ">Books</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Watching TV ">TV Show</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Video games ">Video Games</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Boardgames ">Board Games</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Music ">Music</Button>
-                </ButtonGroup>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={ interestsClick } value="Working out ">Working Out</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Yoga ">Yoga</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Hiking ">Hiking</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Biking ">Biking/Cycling</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Sports ">Sports</Button>
-                </ButtonGroup>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={ interestsClick } value="Gardening ">Gardening</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Crafting ">Crafting</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Sewing ">Sewing</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Shopping ">Shopping</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Volunteering ">Volunteering</Button>
-                </ButtonGroup>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={ interestsClick } value="Cars ">Cars</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Going out ">Going Out/NightClubs</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Road trips ">Roap Trips</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Wine tasting ">Wine Tasting</Button>
-                    <Button variant="secondary" onClick={ interestsClick } value="Gambling ">Gambling</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}> 
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Books ">Books</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Watching TV ">TV Show</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Video games ">Video Games</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Boardgames ">Board Games</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Music ">Music</ToggleButton>
+                </ToggleButtonGroup>
+                <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Working out ">Working Out</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Yoga ">Yoga</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Hiking ">Hiking</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Biking ">Biking/Cycling</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Sports ">Sports</ToggleButton>
+                </ToggleButtonGroup>
+                <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Gardening ">Gardening</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Crafting ">Crafting</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Sewing ">Sewing</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Shopping ">Shopping</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Volunteering ">Volunteering</ToggleButton>
+                </ToggleButtonGroup>
+                <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Cars ">Cars</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Going out ">Going Out/NightClubs</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Road trips ">Roap Trips</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Wine tasting ">Wine Tasting</ToggleButton>
+                    <ToggleButton variant="secondary" onClick={ interestsClick } value="Gambling ">Gambling</ToggleButton>
+                </ToggleButtonGroup>
                 <br></br>
                 <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
             </div>
