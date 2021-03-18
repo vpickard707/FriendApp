@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const profileRoute = require("./routes/api/profileapi");
+const routes = require("./routes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose")
@@ -35,7 +35,7 @@ mongoose
 
 require('./routes/authRoutes')(app);
 require('./routes/userRoutes')(app);
-app.use(profileRoute);
+app.use(routes);
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {

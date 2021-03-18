@@ -5,7 +5,7 @@ import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
-import { useLocation} from "react-router-dom";
+
 
 
 function Createprofile (props){
@@ -20,27 +20,29 @@ const [skin, setSkin] = useState();
 const [clothesChoice, setClothesChoice] = useState();
 const [url, setUrl] = useState();
 
-const location = useLocation();
 
+    useEffect(()=>{
+        setUrl(`https://avatars.dicebear.com/api/avataaars/${ base ? `${base}` : 'example'}.svg?${top ? `top[]=${top}` : ''}&${ hairColor ? `hairColor[]=${hairColor}` : ''}&${ eyes ? `eyes[]=${eyes}` : ''}&${ eyebrow ? `eyebrow[]=${eyebrow}` : ''}&${ mouth ? `mouth[]=${mouth}` : ''}&${ skin ? `skin[]=${skin}` : ''}&${ clothesChoice ? `clothesColor[]=${clothesChoice}` : ''}`)
+        }, 
+        [base, top, hairColor, eyes, eyebrow, mouth, skin, clothesChoice]
+    )
 
-useEffect(()=>{
-    setUrl(`https://avatars.dicebear.com/api/avataaars/${ base ? `${base}` : 'example'}.svg?${top ? `top[]=${top}` : ''}&${ hairColor ? `hairColor[]=${hairColor}` : ''}&${ eyes ? `eyes[]=${eyes}` : ''}&${ eyebrow ? `eyebrow[]=${eyebrow}` : ''}&${ mouth ? `mouth[]=${mouth}` : ''}&${ skin ? `skin[]=${skin}` : ''}&${ clothesChoice ? `clothesColor[]=${clothesChoice}` : ''}`)
-  }, [base, top, hairColor, eyes, eyebrow, mouth, skin, clothesChoice])
+    const saveUrl = (e) => {
+        e.preventDefault() ;
+        console.log(url);
 
- const saveUrl = (e) => {
-    e.preventDefault() ;
-    console.log(url);
-
-    API.saveProfile({
-        avatar: url,
-        user: currentUser._id
-    })
-      .then(res => {
-          props.history.push("/createprofile2");
-          window.location.reload()
+        API.saveProfile({
+            avatar: url,
+            userId: currentUser._id,
+            username: currentUser.username
         })
-      .catch(err => console.log(err));
- }
+        .then(res => {
+            console.log(res.data)
+            props.history.push("/createprofile2");
+            window.location.reload()
+            })
+        .catch(err => console.log(err));
+    }
 
     return(
 <div className="container">

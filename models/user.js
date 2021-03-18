@@ -1,3 +1,4 @@
+const profileSchema = require('./profile')
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -28,12 +29,7 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    profile: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "Profile"
-        }
-    ]
+    profile: profileSchema
 });
 
 // Schema.set( 'toJSON', {
