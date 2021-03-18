@@ -5,7 +5,6 @@ import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ToggleButtonGroup from'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 
 function Createprofile2 (props){
@@ -47,15 +46,15 @@ function handleFormSubmit(event) {
         cannabis: cannabis, 
         age: age,
         sign: sign,
-        interests: [interests]
+        interests: interests
         }
         console.log(userProfile)
        
         API.editProfileByName(userProfile, currentUser.username)
         .then(res => {
             console.log(res.data)
-            // props.history.push("/profile");
-            // window.location.reload()
+            props.history.push("/profile");
+            window.location.reload()
             })
         .catch(err => { 
             if (err.response) { 

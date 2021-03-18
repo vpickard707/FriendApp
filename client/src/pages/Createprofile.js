@@ -7,6 +7,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 
 
+
 function Createprofile (props){
 const currentUser = AuthService.getCurrentUser();
 const [base, setBase] = useState();
@@ -34,7 +35,7 @@ const [url, setUrl] = useState();
             avatar: url,
             userId: currentUser._id,
             username: currentUser.username,
-            location: userLocation
+            // location: userLocation
         })
         .then(res => {
             console.log(res.data)

@@ -1,6 +1,6 @@
 const db = require("../models");
 
-// Defining methods for the booksController
+// Defining methods for the profileController
 module.exports = {
   findAll: function(req, res) {
     db.Profile
@@ -27,8 +27,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   updateByName: function(req, res) {
-    console.log(req)
-    console.log(req.params.username)
     const username = { username: req.params.username }
     const profileData = {
       gender: req.body.gender, 
