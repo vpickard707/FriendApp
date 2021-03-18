@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import API from "../utils/API"
+import AuthService from "../services/authService";
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import API from "../utils/API"
 import ToggleButtonGroup from'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
-import Button from 'react-bootstrap/Button'
-
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 
 function Createprofile2 (props){
-
+const currentUser = AuthService.getCurrentUser();
 const [gender, setGender] = useState();
 const [politics, setPolitics] = useState();
 const [children, setChildren] = useState();
@@ -38,8 +39,6 @@ setInterests(prevState => [
 function handleFormSubmit(event) {
     event.preventDefault();
     const userProfile = {
-        name: props.name,
-        image: props.url,
         gender: gender, 
         politics: politics, 
         children: children, 
@@ -47,12 +46,27 @@ function handleFormSubmit(event) {
         smoke: smoke, 
         cannabis: cannabis, 
         age: age,
-        sign:sign,
-        interests: interests}
+        sign: sign,
+        interests: [interests]
+        }
         console.log(userProfile)
-    API.saveProfile(userProfile)
-    .catch(err => console.log(err));
-    
+       
+        API.editProfileByName(userProfile, currentUser.username)
+        .then(res => {
+            console.log(res.data)
+            // props.history.push("/profile");
+            // window.location.reload()
+            })
+        .catch(err => { 
+            if (err.response) { 
+              console.log('error with response')
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('um, sh*ts really broken') 
+            } });
+ 
+
 }
     return(
         <div className="container">

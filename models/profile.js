@@ -2,8 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const profileSchema = new Schema({
+    userId: { 
+        type: String,
+    },
     avatar: { 
         type: String,
+    },
+    username: { 
+        type: String,
+
     },
     location: { 
         type: String,
@@ -63,4 +70,4 @@ const profileSchema = new Schema({
     ]
 });
 
-module.exports = mongoose.model( "Profile", profileSchema );
+module.exports = profileSchema
