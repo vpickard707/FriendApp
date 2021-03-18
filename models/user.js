@@ -1,4 +1,3 @@
-const profileSchema = require('./profile')
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -28,8 +27,7 @@ const userSchema = new Schema({
     createdDate: {
         type: Date,
         default: Date.now
-    },
-    profile: profileSchema
+    }
 });
 
 // Schema.set( 'toJSON', {

@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const profileSchema = new Schema({
-    userId: { 
-        type: String,
-    },
     avatar: { 
         type: String,
     },
@@ -13,8 +10,18 @@ const profileSchema = new Schema({
 
     },
     location: { 
-        type: String,
-
+        latitude: {
+            type: Number,
+        },
+        longitude: {
+            type: Number,
+        },
+        zipcode: {
+            type: Number,
+        },
+        city: {
+            type: Number,
+        }
     },
     gender: {
         type: String,
@@ -46,28 +53,25 @@ const profileSchema = new Schema({
     },
     interests: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "Interests"
+          interest: {type: String},
+          _id: {type: String}
         }
     ],
     filterBy: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "FilterBy"
+            _id: {type: String}
         }
     ],
     favorites: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "Favorites"
+            _id: {type: String}
         }
     ],
     matches: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "Matches"
+            _id: {type: String}
         }
     ]
 });
 
-module.exports = profileSchema
+module.exports = mongoose.model( "Profile", profileSchema );
