@@ -5,6 +5,7 @@ import Chat from "./pages/Chat"
 import Connections from "./pages/Connections"
 import Createprofile from "./pages/Createprofile"
 import Createprofile2 from "./pages/Createprofile2"
+import Createprofile3 from "./pages/Createprofile3"
 import Favorites from "./pages/Favorites"
 import Landing from "./pages/Landing"
 import Login from "./pages/Login"
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/user" component={User} />
         <Route exact path="/createprofile" component={Createprofile} />
         <Route exact path="/createprofile2" component={Createprofile2} />
+        <Route exact path="/createprofile3" component={Createprofile3} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/matching" component={Matching} />
         <Route exact path="/connections" component={Connections} />
