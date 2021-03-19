@@ -37,7 +37,9 @@ module.exports = {
       cannabis: req.body.cannabis, 
       age: req.body.age,
       sign: req.body.sign,
+      interests: req.body.interests
     }
+    console.log(req.body.interests)
     db.Profile
       .findOneAndUpdate(username, {$set: profileData }, {new: true},
         (err, doc) => {

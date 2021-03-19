@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import API from "../utils/API"
 import AuthService from "../services/authService";
 import '../App.css'
@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ToggleButtonGroup from'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function Createprofile2 (props){
 const currentUser = AuthService.getCurrentUser();
@@ -17,7 +18,12 @@ const [smoke, setSmoke] = useState();
 const [cannabis, setCannabis] = useState();
 const [age, setAge] = useState();
 const [sign, setSign] = useState();
-const [interests, setInterests] = useState([]);
+const [interestList, setInterestList] = useState([]);
+// const [interestItem, setInterestItem] = useState({});
+// const [interests, setInterests] = useState([]);
+const checkboxArray = document.getElementsByClassName('interests')
+
+
 
 const handleGenderChange = (val) => setGender(val);
 const handlePoliticsChange = (val) => setPolitics(val);
@@ -28,15 +34,62 @@ const handleCannabisChange = (val) => setCannabis(val);
 const handleAgeChange = (val) => setAge(val);
 const handleSignChange = (val) => setSign(val);
 
-function interestsClick(e){
-const value = e.target.value
-setInterests(prevState => [
-    ...prevState, value
-])
-};
+useEffect(() => {
+    
+    API.getInterests()
+        .then(res => {
+            setInterestList(res.data)
+            })
+        .catch(err => { 
+            if (err.response) { 
+            console.log('error with response')
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('um, sh*ts really broken') 
+            } });
+    
+}, [])
+
+// function interestsClick(e){
+//     console.log(e.target)
+//     setInterestItem(e.target)
+//     if(interests.length === 0){
+//         setInterests(state => {
+//             const newList = state.concat(interestItem)
+//             console.log(newList)
+//             return newList
+//         })
+//     } else if(interests.some(item => item === interestItem)){
+//         setInterests(state => {
+//             const filteredList = state.filter(item => {return item !== interestItem})
+//             console.log(filteredList)
+//             return filteredList
+//         })
+//     } 
+//     // else 
+//     //     setInterests(state => {
+//     //     const list = state.concat(interestItem)
+//     //     console.log(list)
+//     //     return list
+//     // })
+// };
 
 function handleFormSubmit(event) {
     event.preventDefault();
+    const myinterests = []
+
+    for( var i = 0; i < checkboxArray.length; i ++){
+        if (checkboxArray[i].children[0].checked === true){
+            
+            const object = {
+                interest: checkboxArray[i].children[0].id,
+                _id: checkboxArray[i].children[0].dataset.id
+            }
+            myinterests.push(object)
+        }
+    }
+    
     const userProfile = {
         gender: gender, 
         politics: politics, 
@@ -46,9 +99,8 @@ function handleFormSubmit(event) {
         cannabis: cannabis, 
         age: age,
         sign: sign,
-        interests: interests
+        interests: myinterests
         }
-        console.log(userProfile)
        
         API.editProfileByName(userProfile, currentUser.username)
         .then(res => {
@@ -154,7 +206,7 @@ function handleFormSubmit(event) {
                     <ToggleButton variant="secondary" value={'null'}>I prefer not to say</ToggleButton>
                  </ToggleButtonGroup>
                 <h4>What activities are you looking to build a friendship on:</h4>
-                <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}> 
+                {/* <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}> 
                     <ToggleButton variant="secondary" onClick={ interestsClick } value="Books ">Books</ToggleButton>
                     <ToggleButton variant="secondary" onClick={ interestsClick } value="Watching TV ">TV Show</ToggleButton>
                     <ToggleButton variant="secondary" onClick={ interestsClick } value="Video games ">Video Games</ToggleButton>
@@ -181,8 +233,16 @@ function handleFormSubmit(event) {
                     <ToggleButton variant="secondary" onClick={ interestsClick } value="Road trips ">Roap Trips</ToggleButton>
                     <ToggleButton variant="secondary" onClick={ interestsClick } value="Wine tasting ">Wine Tasting</ToggleButton>
                     <ToggleButton variant="secondary" onClick={ interestsClick } value="Gambling ">Gambling</ToggleButton>
-                </ToggleButtonGroup>
+                </ToggleButtonGroup> */}
                 <br></br>
+                <Form>
+                    <div className="mb-3">
+                    {interestList.map((item) =>(
+                        <Form.Check inline key={item._id} className="interests" label={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
+                    ))}
+                    </div>
+                </Form>
+
                 <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
             </div>
         </div>
