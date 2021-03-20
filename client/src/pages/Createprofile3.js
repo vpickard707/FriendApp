@@ -5,7 +5,9 @@ import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
 
 
 
@@ -107,12 +109,67 @@ function handleFormSubmit(e){
             console.log('um, sh*ts really broken') 
         } });
 }
+const useStyles = makeStyles({
+    root: {
+      width: 300,
+    },
+  });
+  
+  function valuetext(value) {
+    return `${value}`;
+  }
+  
+    const classes = useStyles();
+    const [ageRange, setAgeRange] = React.useState([18, 65]);
+  
+    const handleChange = (event, newValue) => {
+      setAgeRange(newValue);
+      console.log(ageRange)
+    };
+
+    const marks = [
+        {
+          value: 20,
+          label: '20',
+        },
+        {
+          value: 30,
+          label: '30',
+        },
+        {
+          value: 40,
+          label: '40',
+        },
+        {
+          value: 50,
+          label: '50',
+        },
+        {
+             value: 60,
+            label: '60',
+          },
+      ];
 return (
     <div className="container">
             <div className="profileCard card">
                 <h1>Pick how you'd like to filter your friends:</h1>
                 <h4>Distance:</h4>
-                <input id="typeinp" onChange={handleDistanceChange} value={distance} type="range" min="0" max="50" step="5"/>
+                <input id="typeinp" type="range" min="0" max="50" step="5"/>
+                <div className={classes.root}>
+                    <Typography id="range-slider" gutterBottom>
+                        Age Range:
+                    </Typography>
+                    <Slider
+                        value={ageRange}
+                        onChange={handleChange}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="range-slider"
+                        getAriaValueText={valuetext}
+                        min={18}
+                        max={66}
+                        marks={marks}
+                    />
+                </div>
                 <h4>Gender:</h4>
                 <Form name="gender">
                     <Form.Check inline type="checkbox" className="gender" variant="secondary" label={'Male'} />
@@ -160,17 +217,6 @@ return (
                     <Form.Check inline type="checkbox" variant="secondary" label={'Never'} />
                     <Form.Check inline type="checkbox" variant="secondary" label={'No Preference'} />
                 </Form>
-                <h4>Age Range:</h4>          
-                <form>
-                    <div data-role="rangeslider">
-                        <label htmlFor="range-1a">Rangeslider:</label>
-                        <input type="range" name="range-1a" id="range-1a" min="18" max="65" onChange={handleMinAgeChange} value={minage} data-popup-enabled="true" data-show-value="true" />
-                        <label htmlFor="range-1b">Rangeslider:</label>
-                        <input type="range" name="range-1b" id="range-1b" min="18" max="65" onChange={handleMaxAgeChange}  value={maxage} data-popup-enabled="true" data-show-value="true" />
-                    </div>
-                    <Form.Check inline type="checkbox" variant="secondary" label={'No Preference'} />
-                </form>
-                
                 <h4>Sign:</h4>
                  <Form name="sign">
                     <Form.Check inline type="checkbox" variant="secondary" label='Aquarius' />
