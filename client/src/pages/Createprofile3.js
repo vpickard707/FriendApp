@@ -15,8 +15,9 @@ import Badge from 'react-bootstrap/Badge'
 
 
 function Createprofile3 (props){
-const [distance, setDistance] = useState(10)
 const currentUser = AuthService.getCurrentUser();
+const [ageRange, setAgeRange] = React.useState([18, 65]);
+const [distance, setDistance] = React.useState();
 const [interestList, setInterestList] = useState([]);
 const [filterGender, setFilterGender] = useState([]);
 const [filterPolitics, setFilterPolitics] = useState([]);
@@ -60,11 +61,15 @@ const handleSignChange = (newVal) => {
     setFilterSign([...filterSign, newVal])
     console.log(filterSign)
 }
-const handleDistanceChange = (e) => {
-    console.log(e)
-    console.log(e.target)
-    setDistance(e.target.value)
+const handleAgeChange = (event, newValue) => {
+    setAgeRange(newValue);
+    console.log(ageRange)
+  };
 
+  const handleDistanceChange = (event, newValue) => {
+      setDistance(newValue);
+      console.log(distance + "miles")
+    };
 useEffect(() => {
     
     API.getInterests()
@@ -82,87 +87,76 @@ useEffect(() => {
     
 }, [])
 
-function findSelected (array) {
-    selected = []
-    for (var i = 0; i < array.length; i ++){
-        if (array[i].children[0].children[0].checked === true){
-            selected.push(array[i].innerText)
-        }
-    }
-}
+// function findSelected (array) {
+//      const selected = []
+//     for (var i = 0; i < array.length; i ++){
+//         if (array[i].children[0].children[0].checked === true){
+//             selected.push(array[i].innerText)
+//         }
+//     }
+// }
 
-function updateState () {
-    return new Promise (() => {
-        findSelected(politicsArray)
-        setPolitics(selected)
+// function updateState () {
+//     return new Promise (() => {
+//         findSelected(politicsArray)
+//         setPolitics(selected)
         
-        findSelected(genderArray)
-        setGender(selected)
-    }) 
-}
+//         findSelected(genderArray)
+//         setGender(selected)
+//     }) 
+// }
 
-async function setData (){
-    const result = await updateState()
-    console.log(result)
-}
+// async function setData (){
+//     const result = await updateState()
+//     console.log(result)
+// }
 
-async function handleFormSubmit(e){
-    e.preventDefault()
+// async function handleFormSubmit(e){
+//     e.preventDefault()
     
-    setData.then(() => {
-       const Object = { filterBy: [{
-            distance: distance,
-            gender: gender,
-            politics: politics,
-            minAge: minage,
-            maxAge: maxage,
-            children: children, 
-            drink: drink, 
-            smoke: smoke, 
-            cannabis: cannabis
-        }]
-        }
+//     setData.then(() => {
+//        const Object = { filterBy: [{
+//             distance: distance,
+//             gender: gender,
+//             politics: politics,
+//             minAge: minage,
+//             maxAge: maxage,
+//             children: children, 
+//             drink: drink, 
+//             smoke: smoke, 
+//             cannabis: cannabis
+//         }]
+//         }
 
-    API.editProfileByName(Object, currentUser.username)
-    .then(res => {
-        console.log(res.data)
-        // props.history.push("/profile");
-        // window.location.reload()
-        })
-    .catch(err => { 
-        if (err.response) { 
-          console.log('error with response')
-        } else if (err.request) { 
-            console.log('error with request') 
-        } else { 
-            console.log('um, sh*ts really broken') 
-        } })
-    });
-}
+//     API.editProfileByName(Object, currentUser.username)
+//     .then(res => {
+//         console.log(res.data)
+//         // props.history.push("/profile");
+//         // window.location.reload()
+//         })
+//     .catch(err => { 
+//         if (err.response) { 
+//           console.log('error with response')
+//         } else if (err.request) { 
+//             console.log('error with request') 
+//         } else { 
+//             console.log('um, sh*ts really broken') 
+//         } })
+//     });
+// }
 
 const useStyles = makeStyles({
     root: {
       width: 300,
     },
   });
+
+  const classes = useStyles();
   
   function valuetext(value) {
     return `${value}`;
   }
-  
-    const classes = useStyles();
-    const [ageRange, setAgeRange] = React.useState([18, 65]);
-    const [distance, setDistance] = React.useState();
-  
-    const handleAgeChange = (event, newValue) => {
-      setAgeRange(newValue);
-      console.log(ageRange)
-    };
 
-    const handleDistanceChange = (event, newValue) => {
-        setDistance(newValue);
-        console.log(distance + "miles")
-      };
 
     const marks = [
         {
@@ -328,7 +322,7 @@ return (
                     </div>
                 </Form>
 
-                <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
+                <Button variant="secondary">Save</Button>
             </div>
         </div>
 )

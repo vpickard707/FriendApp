@@ -5,28 +5,20 @@ import TinderCard from 'react-tinder-card'
 import UserCard from '../components/UserCard.js'
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import Button from 'react-bootstrap/Button'
-<<<<<<< HEAD
 import FilterModal from '../components/FilterModal'
-=======
-import API from '../utils/API';
->>>>>>> cdf5ee1a37ce65277dc0f35658f405cb9fabf756
+import API from '../utils/API'
 
 const db = seedUserProfiles
 
-
+const alreadyRemoved = []
 let usersState = db
 
 function Matching () {
   const currentUser = AuthService.getCurrentUser();
   const [users, setusers] = useState(db)
   const [lastDirection, setLastDirection] = useState()
-<<<<<<< HEAD
   
-=======
-  const alreadyRemoved = []
->>>>>>> cdf5ee1a37ce65277dc0f35658f405cb9fabf756
 
-  
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   const swiped = (direction, nameToDelete) => {
@@ -53,10 +45,9 @@ function Matching () {
 
   return (
     <div>
-      <h1 style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
-      {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
-      <div className='cardContainer'>
+      <h1 className='MatchingHeader'style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
       <FilterModal />
+      <div className='cardContainer'>
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
               <div className="card" style={{width: '30%', background: 'transparent'}}>
@@ -81,7 +72,7 @@ function Matching () {
             </div>
           </TinderCard>
         )}
-       
+        {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
       </div>
     </div>
   )
