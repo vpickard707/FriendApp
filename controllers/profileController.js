@@ -21,9 +21,14 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   filter: function(req,res) {
-    console.log(req.params)
+    console.log(req.query)
     db.Profile
-    .find(req.params)
+    .find({
+      gender: { $in: req.query.gender},
+      politics: { $in: ["Moderate"]},
+      smoke: "Socially",
+      age: { $gt: 24, $lt: 40},
+  })
       // .where("gender").in(['Female', 'Male'])
       // .where("age").gt('23').lt('40')
       // .where("politics").in(["Liberal", "Moderate"])
