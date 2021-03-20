@@ -10,8 +10,8 @@ function FilterModal() {
           
             return (
               <>
-                <Button variant="secondary" onClick={handleShow}>
-                  Filter
+                <Button variant="secondary" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
+                  Filter <i className="fas fa-filter"></i>
                 </Button>
           
                 <Modal

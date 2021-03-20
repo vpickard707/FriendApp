@@ -46,7 +46,7 @@ function Matching () {
   return (
     <div>
       <h1 className='MatchingHeader'style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
-      <FilterModal />
+      <FilterModal style={{textAlign:"center"}}/>
       <div className='cardContainer'>
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
