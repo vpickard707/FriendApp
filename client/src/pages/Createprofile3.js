@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from "../utils/API";
 import AuthService from "../services/authService";
 import '../App.css'
+import './css/Createprofile.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';

@@ -62,7 +62,7 @@ const Profile = () => {
           <strong>Email:</strong>{" "}
           {currentUser.email}
         </p>
-        <img src={profile.avatar} alt='avatar'/>
+        <img src={profile.avatar} alt='avatar' style={{width: "300px"}}/>
             <h2>{profile.username}</h2>
                 <ul>
                     <li>Age Group:{profile.age}</li>
