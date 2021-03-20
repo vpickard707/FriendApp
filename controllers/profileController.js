@@ -20,6 +20,17 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  filter: function(req,res) {
+    console.log(req)
+    db.Profile
+    .find()
+      // .where("gender").in(['Female', 'Male'])
+      // .where("age").gt('23').lt('30')
+      // .where("politics").in(["Liberal", "Moderate"])
+      // .where("smoke").equals('Socially')
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     db.Profile
       .create(req.body)

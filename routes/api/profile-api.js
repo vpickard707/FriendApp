@@ -13,6 +13,9 @@ router.route("/")
 //   .put(profileController.update)
 //   .delete(profileController.remove);
 
+router.route('/filter')
+  .get(profileController.filter)
+
 router.route("/:username")
   .get(profileController.findByName)
   .post(profileController.updateByName);

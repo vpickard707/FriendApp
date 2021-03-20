@@ -21,6 +21,44 @@ function Matching () {
   
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
+  useEffect(() => {
+    API.getAll()
+    .then(res => {
+      console.log(res.data)
+      setusers(res.data)
+      })
+  .catch(err => { 
+      if (err.response) { 
+      console.log('error with response')
+      } else if (err.request) { 
+          console.log('error with request') 
+      } else { 
+          console.log('um, sh*ts really broken') 
+      } });
+  }, [])
+
+  useEffect(() => {
+    const query = {
+        gender: { $in: ["Female", "Male"]},
+        politics: { $in: ["Moderate"]},
+        smoke: "Socially",
+        age: { $gt: 24, $lt: 40},
+    }
+    API.filterUsers(query)
+        .then(res => {
+            console.log(res)
+            })
+        .catch(err => { 
+            if (err.response) { 
+            console.log('error with response')
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('um, sh*ts really broken') 
+            } });
+    
+  }, [])
+
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
@@ -53,8 +91,8 @@ function Matching () {
               <div className="card" style={{width: '30%', background: 'transparent'}}>
             <UserCard
                                 key={userProfile.id}
-                                name={userProfile.name}
-                                image={userProfile.image}
+                                name={userProfile.username}
+                                image={userProfile.avatar}
                                 gender={userProfile.gender}
                                 politics={userProfile.politics}
                                 children={userProfile.children}
@@ -63,7 +101,7 @@ function Matching () {
                                 cannabis={userProfile.cannabis}
                                 age={userProfile.age}
                                 sign={userProfile.sign}
-                                interests={userProfile.interests}
+                                interests={userProfile.interests[0].interest}
                                 />
             <ButtonGroup>
                 <Button variant="danger" onClick={() => swipe('left')}><i className="far fa-times-circle"></i></Button>
