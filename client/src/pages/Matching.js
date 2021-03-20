@@ -1,21 +1,32 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
+import AuthService from "../services/authService";
 import seedUserProfiles from "../seedUserProfiles.json"
 import TinderCard from 'react-tinder-card'
 import UserCard from '../components/UserCard.js'
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import Button from 'react-bootstrap/Button'
+<<<<<<< HEAD
 import FilterModal from '../components/FilterModal'
+=======
+import API from '../utils/API';
+>>>>>>> cdf5ee1a37ce65277dc0f35658f405cb9fabf756
 
 const db = seedUserProfiles
 
-const alreadyRemoved = []
+
 let usersState = db
 
 function Matching () {
+  const currentUser = AuthService.getCurrentUser();
   const [users, setusers] = useState(db)
   const [lastDirection, setLastDirection] = useState()
+<<<<<<< HEAD
   
+=======
+  const alreadyRemoved = []
+>>>>>>> cdf5ee1a37ce65277dc0f35658f405cb9fabf756
 
+  
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   const swiped = (direction, nameToDelete) => {
@@ -34,7 +45,7 @@ function Matching () {
     const cardsLeft = users.filter(person => !alreadyRemoved.includes(person.name))
     if (cardsLeft.length) {
       const toBeRemoved = cardsLeft[cardsLeft.length - 1].name // Find the card object to be removed
-      const index = db.map(person => person.name).indexOf(toBeRemoved) // Find the index of which to make the reference to
+      const index = users.map(person => person.name).indexOf(toBeRemoved) // Find the index of which to make the reference to
       alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
       childRefs[index].current.swipe(dir) // Swipe the card!
     }
@@ -43,6 +54,7 @@ function Matching () {
   return (
     <div>
       <h1 style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
+      {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
       <div className='cardContainer'>
       <FilterModal />
         {users.map((userProfile, index) =>
@@ -69,7 +81,7 @@ function Matching () {
             </div>
           </TinderCard>
         )}
-        {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
+       
       </div>
     </div>
   )

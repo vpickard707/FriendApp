@@ -108,7 +108,7 @@ function handleFormSubmit(event) {
         API.editProfileByName(userProfile, currentUser.username)
         .then(res => {
             console.log(res.data)
-            props.history.push("/profile");
+            props.history.push("/createprofile3");
             window.location.reload()
             })
         .catch(err => { 
