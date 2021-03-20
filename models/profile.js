@@ -59,7 +59,15 @@ const profileSchema = new Schema({
     ],
     filterBy: [
         {
-            _id: {type: String}
+            distance: {type: Number},
+            gender: [{type: Number}],
+            politics: [{type: String}],
+            minAge: {type: Number},
+            maxAge: {type: Number},
+            children: [{type: String}],
+            drink: [{type: String}],
+            smoke: [{type: String}],
+            cannabis: [{type: String}]
         }
     ],
     favorites: [

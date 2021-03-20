@@ -28,20 +28,20 @@ module.exports = {
   },
   updateByName: function(req, res) {
     const username = { username: req.params.username }
-    const profileData = {
-      gender: req.body.gender, 
-      politics: req.body.politics, 
-      children: req.body.children, 
-      drink: req.body.drink, 
-      smoke: req.body.smoke, 
-      cannabis: req.body.cannabis, 
-      age: req.body.age,
-      sign: req.body.sign,
-      interests: req.body.interests
-    }
-    console.log(req.body.interests)
+    // const profileData = {
+    //   gender: req.body.gender, 
+    //   politics: req.body.politics, 
+    //   children: req.body.children, 
+    //   drink: req.body.drink, 
+    //   smoke: req.body.smoke, 
+    //   cannabis: req.body.cannabis, 
+    //   age: req.body.age,
+    //   sign: req.body.sign,
+    //   interests: req.body.interests
+    // }
+    console.log(req.body)
     db.Profile
-      .findOneAndUpdate(username, {$set: profileData }, {new: true},
+      .findOneAndUpdate(username, {$set: req.body }, {new: true},
         (err, doc) => {
           if(err){
             console.log("err with update")
