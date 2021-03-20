@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import API from "../utils/API";
-import AuthService from "../services/authService";
-import '../App.css'
+import API from "../../utils/API";
+import AuthService from "../../services/authService";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
-import Button from 'react-bootstrap/Button';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Badge from 'react-bootstrap/Badge'
+import '../../App.css'
+import './Filter.css'
 
 
-function Createprofile3 (){
+function Filter(){
 const currentUser = AuthService.getCurrentUser();
 const [interestList, setInterestList] = useState([]);
 const [filterGender, setFilterGender] = useState([]);
@@ -24,39 +24,35 @@ const [filterSmoke, setFilterSmoke] = useState([]);
 const [filterCannabis, setFilterCannabis] = useState([]);
 const [filterSign, setFilterSign] = useState([]);
 
+
+
 const handleGenderChange = (newVal) => {
-    setFilterGender([...filterGender, newVal])
-    console.log(filterGender)
+    setFilterGender([...filterPolitics, newVal])
 }
 
 const handlePoliticsChange = (newVal) => {
     setFilterPolitics([...filterPolitics, newVal])
-    console.log(filterPolitics)
 }
 
 const handleChildrenChange = (newVal) => {
     setFilterChildren([...filterChildren, newVal])
-    console.log(filterChildren)
 }
 
 const handleDrinkChange = (newVal) => {
     setFilterDrink([...filterDrink, newVal])
-    console.log(filterDrink)
 }
 
 const handleSmokeChange = (newVal) => {
     setFilterSmoke([...filterSmoke, newVal])
-    console.log(filterSmoke)
 }
 
 const handleCannabisChange = (newVal) => {
     setFilterCannabis([...filterCannabis, newVal])
-    console.log(filterCannabis)
 }
 
 const handleSignChange = (newVal) => {
     setFilterSign([...filterSign, newVal])
-    console.log(filterSign)
+
 }
 
 useEffect(() => {
@@ -92,12 +88,10 @@ const useStyles = makeStyles({
   
     const handleAgeChange = (event, newValue) => {
       setAgeRange(newValue);
-      console.log(ageRange)
     };
 
     const handleDistanceChange = (event, newValue) => {
         setDistance(newValue);
-        console.log(distance + "miles")
       };
 
     const marks = [
@@ -189,7 +183,7 @@ return (
                         max={66}
                         marks={marks}
                     />
-                    <Badge variant="info">Age Range: {ageRange} years old</Badge>
+                    <Badge variant="info">Age Range: {ageRange[0]+' - '+ageRange[1]} years old</Badge>
                     </div>
                 </div>
                 <h4>Gender:</h4>
@@ -264,10 +258,9 @@ return (
                     </div>
                 </Form>
 
-                <Button variant="info" >Save</Button>
             </div>
         </div>
 )
 }
 
-export default Createprofile3;
+export default Filter;

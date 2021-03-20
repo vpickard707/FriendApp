@@ -4,6 +4,7 @@ import TinderCard from 'react-tinder-card'
 import UserCard from '../components/UserCard.js'
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import Button from 'react-bootstrap/Button'
+import FilterModal from '../components/FilterModal'
 
 const db = seedUserProfiles
 
@@ -13,6 +14,7 @@ let usersState = db
 function Matching () {
   const [users, setusers] = useState(db)
   const [lastDirection, setLastDirection] = useState()
+  
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
@@ -42,6 +44,7 @@ function Matching () {
     <div>
       <h1 style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
       <div className='cardContainer'>
+      <FilterModal />
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
               <div className="card" style={{width: '30%', background: 'transparent'}}>

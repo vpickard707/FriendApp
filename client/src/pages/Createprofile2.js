@@ -126,7 +126,10 @@ function handleFormSubmit(event) {
         <div className="container">
             <div className="profileCard card">
                 <h1>Now let's find out more about you:</h1>
+                <Badge variant="secondary"
+                        style={{width: 'fit-content', fontSize: 'inherit'}}>Age:{age}</Badge>
                 <DropdownButton
+                variant="secondary"
                 alignRight
                 title="Age"
                 id="dropdown-menu-align-right"
@@ -182,7 +185,7 @@ function handleFormSubmit(event) {
                     <Dropdown.Item eventKey='65'>65</Dropdown.Item>
                     <Dropdown.Item eventKey='66'>"66+"</Dropdown.Item>
                     </DropdownButton>
-                    <Badge>Age:{age}</Badge>
+                    
                 <h4>Gender:</h4>
                 <ToggleButtonGroup type="radio" name="gender" defaultValue={'null'} onChange={handleGenderChange}>
                     <ToggleButton variant="secondary" value={'Male'}>Male</ToggleButton>
@@ -295,13 +298,13 @@ function handleFormSubmit(event) {
                     <ToggleButton variant="secondary" onClick={ interestsClick } value="Gambling ">Gambling</ToggleButton>
                 </ToggleButtonGroup> */}
                 <br></br>
-                <Form>
+                <ToggleButtonGroup type="checkbox">
                     <div className="mb-3">
                     {interestList.map((item) =>(
-                        <Form.Check inline key={item._id} className="interests" label={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
+                        <ToggleButton inline key={item._id} className="interests" label={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
                     ))}
                     </div>
-                </Form>
+                </ToggleButtonGroup>
 
                 <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
             </div>
