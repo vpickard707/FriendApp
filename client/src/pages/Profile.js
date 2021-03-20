@@ -1,9 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import AuthService from "../services/authService";
 import API from "../utils/API";
-import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import { Link } from 'react-router-dom'
+import ProfileModal from '../components/ProfileModal';
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -79,17 +77,7 @@ const Profile = () => {
                   <p>{item.interest}</p>
                 ))}
                 
-        <ButtonGroup>
-          <Button variant="secondary">
-            <Link to="/createprofile">Edit Account</Link>
-          </Button>
-          <Button variant="secondary">
-            <Link to="/createprofile">Edit Avatar</Link>
-          </Button>
-          <Button variant="secondary">
-            <Link to="/createprofile2">Edit Profile</Link>
-          </Button>
-        </ButtonGroup>
+        <ProfileModal />
         </div>
       </div>
     )
