@@ -7,7 +7,7 @@ const profileSchema = new Schema({
     },
     username: { 
         type: String,
-
+        unique: true
     },
     location: { 
         latitude: {
@@ -62,8 +62,7 @@ const profileSchema = new Schema({
             distance: {type: Number},
             gender: [{type: Number}],
             politics: [{type: String}],
-            minAge: {type: Number},
-            maxAge: {type: Number},
+            ageRange: [{type: Number}],
             children: [{type: String}],
             drink: [{type: String}],
             smoke: [{type: String}],

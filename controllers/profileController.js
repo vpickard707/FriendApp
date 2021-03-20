@@ -14,6 +14,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findByName: function(req, res) {
+    db.Profile
+      .find({username: req.params.username})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
     db.Profile
       .create(req.body)
@@ -27,21 +33,8 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   updateByName: function(req, res) {
-    const username = { username: req.params.username }
-    // const profileData = {
-    //   gender: req.body.gender, 
-    //   politics: req.body.politics, 
-    //   children: req.body.children, 
-    //   drink: req.body.drink, 
-    //   smoke: req.body.smoke, 
-    //   cannabis: req.body.cannabis, 
-    //   age: req.body.age,
-    //   sign: req.body.sign,
-    //   interests: req.body.interests
-    // }
-    console.log(req.body)
     db.Profile
-      .findOneAndUpdate(username, {$set: req.body }, {new: true},
+      .findOneAndUpdate(req.params.username, {$set: req.body }, {new: true},
         (err, doc) => {
           if(err){
             console.log("err with update")

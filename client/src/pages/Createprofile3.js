@@ -71,17 +71,26 @@ function findSelected (array) {
     }
 }
 
-function handleFormSubmit(e){
+function updateState () {
+    return new Promise (() => {
+        findSelected(politicsArray)
+        setPolitics(selected)
+        
+        findSelected(genderArray)
+        setGender(selected)
+    }) 
+}
+
+async function setData (){
+    const result = await updateState()
+    console.log(result)
+}
+
+async function handleFormSubmit(e){
     e.preventDefault()
     
-    findSelected(politicsArray)
-    setPolitics(selected)
-    
-    findSelected(genderArray )
-    setGender(selected)
-
-    const data = {
-        filterBy: [{
+    setData.then(() => {
+       const Object = { filterBy: [{
             distance: distance,
             gender: gender,
             politics: politics,
@@ -92,9 +101,9 @@ function handleFormSubmit(e){
             smoke: smoke, 
             cannabis: cannabis
         }]
-    }
+        }
 
-    API.editProfileByName(data, currentUser.username)
+    API.editProfileByName(Object, currentUser.username)
     .then(res => {
         console.log(res.data)
         // props.history.push("/profile");
@@ -107,8 +116,10 @@ function handleFormSubmit(e){
             console.log('error with request') 
         } else { 
             console.log('um, sh*ts really broken') 
-        } });
+        } })
+    });
 }
+
 const useStyles = makeStyles({
     root: {
       width: 300,
@@ -123,6 +134,7 @@ const useStyles = makeStyles({
     const [ageRange, setAgeRange] = React.useState([18, 65]);
   
     const handleChange = (event, newValue) => {
+        console.log(event)
       setAgeRange(newValue);
       console.log(ageRange)
     };
