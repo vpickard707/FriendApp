@@ -5,20 +5,20 @@ import TinderCard from 'react-tinder-card'
 import UserCard from '../components/UserCard.js'
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import Button from 'react-bootstrap/Button'
-import API from '../utils/API';
+import FilterModal from '../components/FilterModal'
+import API from '../utils/API'
 
 const db = seedUserProfiles
 
-
+const alreadyRemoved = []
 let usersState = db
 
 function Matching () {
   const currentUser = AuthService.getCurrentUser();
   const [users, setusers] = useState(db)
   const [lastDirection, setLastDirection] = useState()
-  const alreadyRemoved = []
-
   
+
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   useEffect(() => {
@@ -78,8 +78,8 @@ function Matching () {
 
   return (
     <div>
-      <h1 style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
-      {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
+      <h1 className='MatchingHeader'style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
+      <FilterModal style={{textAlign:"center"}}/>
       <div className='cardContainer'>
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
@@ -105,7 +105,7 @@ function Matching () {
             </div>
           </TinderCard>
         )}
-       
+        {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
       </div>
     </div>
   )

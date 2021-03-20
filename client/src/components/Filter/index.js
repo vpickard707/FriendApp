@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import API from "../utils/API";
-import AuthService from "../services/authService";
-import '../App.css'
-import './css/Createprofile.css'
+import API from "../../utils/API";
+import AuthService from "../../services/authService";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
-import Button from 'react-bootstrap/Button';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Badge from 'react-bootstrap/Badge'
+import '../../App.css'
+import './Filter.css'
 
 
-
-function Createprofile3 (props){
+function Filter(){
 const currentUser = AuthService.getCurrentUser();
-const [ageRange, setAgeRange] = React.useState([18, 65]);
-const [distance, setDistance] = React.useState();
 const [interestList, setInterestList] = useState([]);
 const [filterGender, setFilterGender] = useState([]);
 const [filterPolitics, setFilterPolitics] = useState([]);
@@ -28,49 +24,37 @@ const [filterSmoke, setFilterSmoke] = useState([]);
 const [filterCannabis, setFilterCannabis] = useState([]);
 const [filterSign, setFilterSign] = useState([]);
 
+
+
 const handleGenderChange = (newVal) => {
     setFilterGender([...filterGender, newVal])
-    console.log(filterGender)
 }
 
 const handlePoliticsChange = (newVal) => {
     setFilterPolitics([...filterPolitics, newVal])
-    console.log(filterPolitics)
 }
 
 const handleChildrenChange = (newVal) => {
     setFilterChildren([...filterChildren, newVal])
-    console.log(filterChildren)
 }
 
 const handleDrinkChange = (newVal) => {
     setFilterDrink([...filterDrink, newVal])
-    console.log(filterDrink)
 }
 
 const handleSmokeChange = (newVal) => {
     setFilterSmoke([...filterSmoke, newVal])
-    console.log(filterSmoke)
 }
 
 const handleCannabisChange = (newVal) => {
     setFilterCannabis([...filterCannabis, newVal])
-    console.log(filterCannabis)
 }
 
 const handleSignChange = (newVal) => {
     setFilterSign([...filterSign, newVal])
-    console.log(filterSign)
-}
-const handleAgeChange = (event, newValue) => {
-    setAgeRange(newValue);
-    console.log(ageRange)
-  };
 
-  const handleDistanceChange = (event, newValue) => {
-      setDistance(newValue);
-      console.log(distance + "miles")
-    };
+}
+
 useEffect(() => {
     
     API.getInterests()
@@ -88,76 +72,27 @@ useEffect(() => {
     
 }, [])
 
-// function findSelected (array) {
-//      const selected = []
-//     for (var i = 0; i < array.length; i ++){
-//         if (array[i].children[0].children[0].checked === true){
-//             selected.push(array[i].innerText)
-//         }
-//     }
-// }
-
-// function updateState () {
-//     return new Promise (() => {
-//         findSelected(politicsArray)
-//         setPolitics(selected)
-        
-//         findSelected(genderArray)
-//         setGender(selected)
-//     }) 
-// }
-
-// async function setData (){
-//     const result = await updateState()
-//     console.log(result)
-// }
-
-// async function handleFormSubmit(e){
-//     e.preventDefault()
-    
-//     setData.then(() => {
-//        const Object = { filterBy: [{
-//             distance: distance,
-//             gender: gender,
-//             politics: politics,
-//             minAge: minage,
-//             maxAge: maxage,
-//             children: children, 
-//             drink: drink, 
-//             smoke: smoke, 
-//             cannabis: cannabis
-//         }]
-//         }
-
-//     API.editProfileByName(Object, currentUser.username)
-//     .then(res => {
-//         console.log(res.data)
-//         // props.history.push("/profile");
-//         // window.location.reload()
-//         })
-//     .catch(err => { 
-//         if (err.response) { 
-//           console.log('error with response')
-//         } else if (err.request) { 
-//             console.log('error with request') 
-//         } else { 
-//             console.log('um, sh*ts really broken') 
-//         } })
-//     });
-// }
-
 const useStyles = makeStyles({
     root: {
       width: 300,
     },
   });
-
-  const classes = useStyles();
   
   function valuetext(value) {
     return `${value}`;
   }
+  
+    const classes = useStyles();
+    const [ageRange, setAgeRange] = React.useState([18, 65]);
+    const [distance, setDistance] = React.useState();
+  
+    const handleAgeChange = (event, newValue) => {
+      setAgeRange(newValue);
+    };
 
+    const handleDistanceChange = (event, newValue) => {
+        setDistance(newValue);
+      };
 
     const marks = [
         {
@@ -323,10 +258,9 @@ return (
                     </div>
                 </Form>
 
-                <Button variant="secondary">Save</Button>
             </div>
         </div>
 )
 }
 
-export default Createprofile3;
+export default Filter;
