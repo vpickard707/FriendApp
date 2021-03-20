@@ -247,7 +247,7 @@ return (
                         max={66}
                         marks={marks}
                     />
-                    <Badge variant="info">Age Range: {ageRange} years old</Badge>
+                    <Badge variant="info">Age Range: {ageRange[0]+' - '+ageRange[1]} years old</Badge>
                     </div>
                 </div>
                 <h4>Gender:</h4>

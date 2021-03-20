@@ -27,7 +27,7 @@ const [filterSign, setFilterSign] = useState([]);
 
 
 const handleGenderChange = (newVal) => {
-    setFilterGender([...filterPolitics, newVal])
+    setFilterGender([...filterGender, newVal])
 }
 
 const handlePoliticsChange = (newVal) => {
