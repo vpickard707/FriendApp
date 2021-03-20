@@ -38,15 +38,10 @@ function Matching () {
   }, [])
 
   useEffect(() => {
-    const query = {
-        gender: { $in: ["Female", "Male"]},
-        politics: { $in: ["Moderate"]},
-        smoke: "Socially",
-        age: { $gt: 24, $lt: 40},
-    }
-    API.filterUsers(query)
+    // const query = `gender=${gender}`
+    API.filterUsers()
         .then(res => {
-            console.log(res)
+            console.log(res.data)
             })
         .catch(err => { 
             if (err.response) { 
@@ -90,7 +85,7 @@ function Matching () {
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
               <div className="card" style={{width: '30%', background: 'transparent'}}>
             <UserCard
-                                key={userProfile.id}
+                                key={userProfile._id}
                                 name={userProfile.username}
                                 image={userProfile.avatar}
                                 gender={userProfile.gender}

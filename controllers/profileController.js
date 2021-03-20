@@ -21,11 +21,11 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   filter: function(req,res) {
-    console.log(req)
+    console.log(req.params)
     db.Profile
-    .find()
+    .find(req.params)
       // .where("gender").in(['Female', 'Male'])
-      // .where("age").gt('23').lt('30')
+      // .where("age").gt('23').lt('40')
       // .where("politics").in(["Liberal", "Moderate"])
       // .where("smoke").equals('Socially')
       .then(dbModel => res.json(dbModel))

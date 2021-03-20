@@ -12,8 +12,8 @@ export default {
     findProfileByName: (username) => {
         return axios.get('api/profile/' + username)
     },
-    filterUsers: (object) => {
-        return axios.get('api/profile/filter', object)
+    filterUsers: (queryInfo) => {
+        return axios.get(`api/profile/filter?${queryInfo}`)
     },
     // editProfile: (data, id) => {
     //     return axios.put('api/profile/' + id, data)
