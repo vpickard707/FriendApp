@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import API from "../utils/API"
-import AuthService from "../services/authService";
-import '../App.css'
-import './css/Createprofile.css'
+import API from "../../utils/API"
+import AuthService from "../../services/authService";
+import '../../App.css'
+import '../../pages/css/Createprofile.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ToggleButtonGroup from'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
@@ -11,7 +11,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import Badge from 'react-bootstrap/Badge'
 
-function Createprofile2 (props){
+function EditProfileForm (props){
 const currentUser = AuthService.getCurrentUser();
 const [gender, setGender] = useState();
 const [politics, setPolitics] = useState();
@@ -124,8 +124,7 @@ function handleFormSubmit(event) {
 }
     return(
         <div className="container">
-            <div className="profileCard card">
-                <h1>Now let's find out more about you:</h1>
+            <div className="card">
                 <Badge variant="info"
                         style={{width: 'fit-content', fontSize: 'inherit'}}>Age:{age}</Badge>
                 <DropdownButton
@@ -294,4 +293,4 @@ function handleFormSubmit(event) {
     )
 }
 
-export default Createprofile2;
+export default EditProfileForm;

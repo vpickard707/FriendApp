@@ -11,7 +11,7 @@ function UserCard (props){
     <Card className="userCard" style={{ width: '21rem' }}>
         <Image className="userImage" variant="top" src={props.image} roundedCircle/>
         <Card.Body>
-            <h2>{props.name}</h2>
+            <h2>{props.username}</h2>
                 <h3>
                     <Badge className="badge" variant="info">{props.age}</Badge>
                     <Badge className="badge" variant="info">{props.gender}</Badge> 
