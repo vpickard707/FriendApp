@@ -7,13 +7,15 @@ router.route("/")
   .post(profileController.create);
 
 // Matches with "/api/profile/:id"
-router
-  .route("/:id")
-  .get(profileController.findById)
-  .put(profileController.update)
-  .delete(profileController.remove);
+// router
+//   .route("/:id")
+//   .get(profileController.findById)
+//   .put(profileController.update)
+//   .delete(profileController.remove);
 
 router.route("/:username")
+  .get(profileController.findByName)
   .post(profileController.updateByName);
+  
 
 module.exports = router;

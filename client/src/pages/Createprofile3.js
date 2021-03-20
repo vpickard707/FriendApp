@@ -10,9 +10,40 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 
 
-function Createprofile3 (){
+
+function Createprofile3 (props){
 const currentUser = AuthService.getCurrentUser();
 const [interestList, setInterestList] = useState([]);
+const [distance, setDistance] = useState(10)
+const [gender, setGender] = useState([]);
+const [politics, setPolitics] = useState([]);
+const [children, setChildren] = useState([]);
+const [drink, setDrink] = useState([]);
+const [smoke, setSmoke] = useState([]);
+const [cannabis, setCannabis] = useState([]);
+const [minage, setMinAge] = useState(25);
+const [maxage, setMaxAge] = useState(45);
+const [sign, setSign] = useState();
+
+const handleDistanceChange = (e) => {
+    console.log(e)
+    console.log(e.target)
+    setDistance(e.target.value)
+}
+const handleGenderChange = (val) => setGender(val);
+const handlePoliticsChange = (val) => setPolitics(val);
+const handleChildrenChange = (val) => setChildren(val);
+const handleDrinkChange = (val) => setDrink(val);
+const handleSmokeChange = (val) => setSmoke(val);
+const handleCannabisChange = (val) => setCannabis(val);
+const handleMinAgeChange = (val) => setMinAge(val);
+const handleMaxAgeChange = (val) => setMaxAge(val);
+const handleSignChange = (val) => setSign(val);
+
+let selected = []
+const politicsArray = document.getElementsByClassName('politics')
+const genderArray = document.getElementsByClassName('gender')
+
 
 useEffect(() => {
     
@@ -31,6 +62,64 @@ useEffect(() => {
     
 }, [])
 
+function findSelected (array) {
+    selected = []
+    for (var i = 0; i < array.length; i ++){
+        if (array[i].children[0].children[0].checked === true){
+            selected.push(array[i].innerText)
+        }
+    }
+}
+
+function updateState () {
+    return new Promise (() => {
+        findSelected(politicsArray)
+        setPolitics(selected)
+        
+        findSelected(genderArray)
+        setGender(selected)
+    }) 
+}
+
+async function setData (){
+    const result = await updateState()
+    console.log(result)
+}
+
+async function handleFormSubmit(e){
+    e.preventDefault()
+    
+    setData.then(() => {
+       const Object = { filterBy: [{
+            distance: distance,
+            gender: gender,
+            politics: politics,
+            minAge: minage,
+            maxAge: maxage,
+            children: children, 
+            drink: drink, 
+            smoke: smoke, 
+            cannabis: cannabis
+        }]
+        }
+
+    API.editProfileByName(Object, currentUser.username)
+    .then(res => {
+        console.log(res.data)
+        // props.history.push("/profile");
+        // window.location.reload()
+        })
+    .catch(err => { 
+        if (err.response) { 
+          console.log('error with response')
+        } else if (err.request) { 
+            console.log('error with request') 
+        } else { 
+            console.log('um, sh*ts really broken') 
+        } })
+    });
+}
+
 const useStyles = makeStyles({
     root: {
       width: 300,
@@ -45,6 +134,7 @@ const useStyles = makeStyles({
     const [ageRange, setAgeRange] = React.useState([18, 65]);
   
     const handleChange = (event, newValue) => {
+        console.log(event)
       setAgeRange(newValue);
       console.log(ageRange)
     };
@@ -94,20 +184,20 @@ return (
                 </div>
                 <h4>Gender:</h4>
                 <Form name="gender">
-                    <Form.Check inline type="checkbox" label={'Male'} />
-                    <Form.Check inline type="checkbox" variant="secondary" label={'Female'} />
-                    <Form.Check inline type="checkbox" variant="secondary" label={ 'Non-Binary'} />
-                    <Form.Check inline type="checkbox" variant="secondary" label={ 'Transgender'} />
-                    <Form.Check inline type="checkbox" variant="secondary" label={ 'Intersex' } />
-                    <Form.Check inline type="checkbox" variant="secondary" label={ 'No Preference'} />
+                    <Form.Check inline type="checkbox" className="gender" variant="secondary" label={'Male'} />
+                    <Form.Check inline type="checkbox" className="gender" variant="secondary" label={'Female'} data-id={'Female'} />
+                    <Form.Check inline type="checkbox" className="gender" variant="secondary" label={ 'Non-Binary'} data-id={ 'Non-Binary'} />
+                    <Form.Check inline type="checkbox" className="gender" variant="secondary" label={ 'Transgender'} data-id={ 'Transgender'}/>
+                    <Form.Check inline type="checkbox" className="gender" variant="secondary" label={ 'Intersex' } data-id={ 'Intersex' } />
+                    <Form.Check inline type="checkbox" className="gender" variant="secondary" label={ 'No Preference'} data-id={ 'No Preference'} />
                 </Form>
                 <h4>Political Affiliation:</h4>
                 <Form name="politics">
-                    <Form.Check inline type="checkbox" variant="secondary" label={'Conservative'} />
-                    <Form.Check inline type="checkbox" variant="secondary" label={'Moderate'} />
-                    <Form.Check inline type="checkbox" variant="secondary" label={'Liberal'} />
-                    <Form.Check inline type="checkbox" variant="secondary" label={'No Affliation'} />
-                    <Form.Check inline type="checkbox" variant="secondary" label={'No Preference'} />
+                    <Form.Check inline type="checkbox" className="politics" variant="secondary" label={'Conservative'} />
+                    <Form.Check inline type="checkbox" className="politics" variant="secondary" label={'Moderate'} />
+                    <Form.Check inline type="checkbox" className="politics" variant="secondary" label={'Liberal'} />
+                    <Form.Check inline type="checkbox" className="politics" variant="secondary" label={'No Affliation'} />
+                    <Form.Check inline type="checkbox" className="politics" variant="secondary" label={'No Preference'} />
                 </Form>
                 <h4>Children:</h4>
                 <Form name="children">
@@ -164,7 +254,7 @@ return (
                     </div>
                 </Form>
 
-                <Button variant="secondary" >Save</Button>
+                <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
             </div>
         </div>
 )
