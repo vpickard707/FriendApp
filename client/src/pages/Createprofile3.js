@@ -4,7 +4,6 @@ import AuthService from "../services/authService";
 import '../App.css'
 import './css/Createprofile.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Form from 'react-bootstrap/Form';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import Button from 'react-bootstrap/Button';
@@ -28,51 +27,73 @@ const [filterSmoke, setFilterSmoke] = useState([]);
 const [filterCannabis, setFilterCannabis] = useState([]);
 const [filterSign, setFilterSign] = useState([]);
 
+let newState = []
+
 const handleGenderChange = (newVal) => {
-    setFilterGender([...filterGender, newVal])
-    console.log(filterGender)
+    newState = [...filterGender, newVal]
+    if(newState.length > 1){
+      newState.shift()
+    }
+    setFilterGender(newState)
 }
 
 const handlePoliticsChange = (newVal) => {
-    setFilterPolitics([...filterPolitics, newVal])
-    console.log(filterPolitics)
+    newState = [...filterPolitics, newVal]
+    if(newState.length > 1){
+      newState.shift()
+    }
+    setFilterPolitics(newState)
 }
 
 const handleChildrenChange = (newVal) => {
-    setFilterChildren([...filterChildren, newVal])
-    console.log(filterChildren)
+    newState = [...filterChildren, newVal]
+    if(newState.length > 1){
+      newState.shift()
+    }
+    setFilterChildren(newState)
 }
 
 const handleDrinkChange = (newVal) => {
-    setFilterDrink([...filterDrink, newVal])
-    console.log(filterDrink)
+    newState = [...filterDrink, newVal]
+    if(newState.length > 1){
+      newState.shift()
+    }
+    setFilterDrink(newState)
 }
 
 const handleSmokeChange = (newVal) => {
-    setFilterSmoke([...filterSmoke, newVal])
-    console.log(filterSmoke)
+    newState = [...filterSmoke, newVal]
+    if(newState.length > 1){
+      newState.shift()
+    }
+    setFilterSmoke(newState)
 }
 
 const handleCannabisChange = (newVal) => {
-    setFilterCannabis([...filterCannabis, newVal])
-    console.log(filterCannabis)
+    newState = [...filterCannabis, newVal]
+    if(newState.length > 1){
+      newState.shift()
+    }
+    setFilterCannabis(newState)
 }
 
 const handleSignChange = (newVal) => {
-    setFilterSign([...filterSign, newVal])
-    console.log(filterSign)
+    newState = [...filterSign, newVal]
+    if(newState.length > 1){
+      newState.shift()
+    }
+    setFilterSign(newState)
 }
+
 const handleAgeChange = (event, newValue) => {
     setAgeRange(newValue);
-    console.log(ageRange)
   };
 
-  const handleDistanceChange = (event, newValue) => {
+const handleDistanceChange = (event, newValue) => {
       setDistance(newValue);
-      console.log(distance + "miles")
     };
+
 useEffect(() => {
-    
     API.getInterests()
         .then(res => {
             setInterestList(res.data)
@@ -85,66 +106,40 @@ useEffect(() => {
             } else { 
                 console.log('um, sh*ts really broken') 
             } });
-    
 }, [])
 
-// function findSelected (array) {
-//      const selected = []
-//     for (var i = 0; i < array.length; i ++){
-//         if (array[i].children[0].children[0].checked === true){
-//             selected.push(array[i].innerText)
-//         }
-//     }
-// }
+function handleFormSubmit(e){
+    e.preventDefault()
+      console.log(filterGender)
+       const Object = { filterBy: [{
+            distance: distance,
+            gender: filterGender[0],
+            politics: filterPolitics[0],
+            ageRange: ageRange,
+            children: filterChildren[0], 
+            drink: filterDrink[0], 
+            smoke: filterSmoke[0], 
+            cannabis: filterCannabis[0]
+        }]
+        }
+        console.log(Object)
 
-// function updateState () {
-//     return new Promise (() => {
-//         findSelected(politicsArray)
-//         setPolitics(selected)
-        
-//         findSelected(genderArray)
-//         setGender(selected)
-//     }) 
-// }
-
-// async function setData (){
-//     const result = await updateState()
-//     console.log(result)
-// }
-
-// async function handleFormSubmit(e){
-//     e.preventDefault()
-    
-//     setData.then(() => {
-//        const Object = { filterBy: [{
-//             distance: distance,
-//             gender: gender,
-//             politics: politics,
-//             minAge: minage,
-//             maxAge: maxage,
-//             children: children, 
-//             drink: drink, 
-//             smoke: smoke, 
-//             cannabis: cannabis
-//         }]
-//         }
-
-//     API.editProfileByName(Object, currentUser.username)
-//     .then(res => {
-//         console.log(res.data)
-//         // props.history.push("/profile");
-//         // window.location.reload()
-//         })
-//     .catch(err => { 
-//         if (err.response) { 
-//           console.log('error with response')
-//         } else if (err.request) { 
-//             console.log('error with request') 
-//         } else { 
-//             console.log('um, sh*ts really broken') 
-//         } })
-//     });
-// }
+    API.editProfileByName(Object, currentUser.username)
+    .then(res => {
+        console.log(res.data)
+        // props.history.push("/profile");
+        // window.location.reload()
+        })
+    .catch(err => { 
+        if (err.response) { 
+          console.log('error with response')
+        } else if (err.request) { 
+            console.log('error with request') 
+        } else { 
+            console.log('um, sh*ts really broken') 
+        } 
+      });
+}
 
 const useStyles = makeStyles({
     root: {
@@ -258,7 +253,7 @@ return (
                     <ToggleButton   variant="info"  value={'Non-Binary'}>Non-Binary</ToggleButton>
                     <ToggleButton   variant="info"  value={'Transgender'}>Transgender</ToggleButton>
                     <ToggleButton   variant="info"  value={'Intersex' }>Intersex</ToggleButton>
-                    <ToggleButton   variant="info"  value={''}>No Preference</ToggleButton>
+                    <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
                 </ToggleButtonGroup>
                 <h4>Political Affiliation:</h4>
                 <ToggleButtonGroup type="checkbox" name="politics" onChange={handlePoliticsChange}>
@@ -266,13 +261,13 @@ return (
                     <ToggleButton   variant="info"  value={'Moderate'}>Moderate</ToggleButton>
                     <ToggleButton   variant="info"  value={'Liberal'}>Liberal</ToggleButton>
                     <ToggleButton   variant="info"  value={'No Affliation'}>No Affliation</ToggleButton>
-                    <ToggleButton   variant="info"  value={''}>No Preference</ToggleButton>
+                    <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
                 </ToggleButtonGroup>
                 <h4>Children:</h4>
                 <ToggleButtonGroup type="checkbox" name="children" onChange={handleChildrenChange}>
                     <ToggleButton   variant="info"  value={'Has Children'}>Yes</ToggleButton>
                     <ToggleButton   variant="info"  value={'No Children'}>No</ToggleButton>
-                    <ToggleButton   variant="info"  value={''}>No Preference</ToggleButton>
+                    <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
                 </ToggleButtonGroup>
                 <h4>Drinks:</h4>
                 <ToggleButtonGroup type="checkbox" name="drink" onChange={handleDrinkChange}>
@@ -280,7 +275,7 @@ return (
                     <ToggleButton   variant="info"  value={'Socially'}>Socially</ToggleButton>
                     <ToggleButton   variant="info"  value={'Occasionally'}>Occasionally</ToggleButton>
                     <ToggleButton   variant="info"  value={'Never'}>Never</ToggleButton>
-                    <ToggleButton   variant="info"  value={''}>No Preference</ToggleButton>
+                    <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
                 </ToggleButtonGroup>
                 <h4>Smokes:</h4>
                 <ToggleButtonGroup type="checkbox" name="smoke" onChange={handleSmokeChange}>
@@ -288,7 +283,7 @@ return (
                     <ToggleButton   variant="info"  value={'Socially'}>Socially</ToggleButton>
                     <ToggleButton   variant="info"  value={'Occasionally'}>Occasionally</ToggleButton>
                     <ToggleButton   variant="info"  value={'Never'}>Never</ToggleButton>
-                    <ToggleButton   variant="info"  value={''}>No Preference</ToggleButton>
+                    <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
                 </ToggleButtonGroup>
                 <h4>Uses cannabis:</h4>
                 <ToggleButtonGroup type="checkbox" name="cannabis" onChange={handleCannabisChange}>
@@ -296,7 +291,7 @@ return (
                     <ToggleButton   variant="info"  value={'Socially'}>Socially</ToggleButton>
                     <ToggleButton   variant="info"  value={'Occasionally'}>Occasionally</ToggleButton>
                     <ToggleButton   variant="info"  value={'Never'}>Never</ToggleButton>
-                    <ToggleButton   variant="info"  value={''}>No Preference</ToggleButton>
+                    <ToggleButton   variant="info"  value={'No Preference'}>No Preference</ToggleButton>
                 </ToggleButtonGroup>
                 <h4>Sign:</h4>
                  <ToggleButtonGroup type="checkbox" name="sign" onChange={handleSignChange}>
@@ -312,18 +307,18 @@ return (
                     <ToggleButton   variant="info"  value='Scorpio'>Scorpio</ToggleButton>
                     <ToggleButton   variant="info"  value='Sagittarius'>Sagittarius</ToggleButton>
                     <ToggleButton   variant="info"  value='Capricorn'>Capricorn</ToggleButton>
-                    <ToggleButton   variant="info"  value=''>No Preference</ToggleButton>
+                    <ToggleButton   variant="info"  value='No Preference'>No Preference</ToggleButton>
                  </ToggleButtonGroup>
                 <h4>Interests:</h4>
-                <Form>
+                <ToggleButtonGroup type="checkbox">
                     <div className="mb-3">
                     {interestList.map((item) =>(
-                        <Form.Check inline key={item._id} className="interests"  value={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
+                        <ToggleButton variant="info" key={item._id} className="interests"  value={item.interest} data-id={item._id}>{item.interest}</ToggleButton>
                     ))}
                     </div>
-                </Form>
+                </ToggleButtonGroup>
 
-                <Button variant="secondary">Save</Button>
+                <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
             </div>
         </div>
 )
