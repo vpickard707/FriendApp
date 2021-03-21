@@ -22,17 +22,18 @@ module.exports = {
   },
   filter: function(req,res) {
     console.log(req.query)
+    const query = req.query
+
     db.Profile
     .find({
-      gender: { $in: req.query.gender},
-      politics: { $in: ["Moderate"]},
-      smoke: "Socially",
-      age: { $gt: 24, $lt: 40},
-  })
-      // .where("gender").in(['Female', 'Male'])
-      // .where("age").gt('23').lt('40')
-      // .where("politics").in(["Liberal", "Moderate"])
-      // .where("smoke").equals('Socially')
+      gender: { $in: query.gender},
+      politics: { $in: query.politics},
+      age: { $gt: query.age[0], $lt: query.age[1]},
+      smoke: { $in: query.smoke},
+      drink: { $in: query.drink},
+      cannabis: { $in: query.cannabis},
+      children: { $in: query.children}
+    })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

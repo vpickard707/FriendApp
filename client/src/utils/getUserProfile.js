@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react';
-import AuthService from "../services/authService";
 import API from "../utils/API";
 
-const getUserProfile = () => {
-    const currentUser = AuthService.getCurrentUser();
+const getUserProfile = (username) => {
+    console.log(username)
     const [profile, setProfile] = useState({
         avatar: "",
         username: "",
@@ -22,7 +21,7 @@ const getUserProfile = () => {
         distance: 10,
         gender: [],
         politics: [],
-        ageRange: [],
+        ageRange: [18, 68],
         children: "",
         drink: [],
         smoke: [],
@@ -31,9 +30,9 @@ const getUserProfile = () => {
 
 
         useEffect (() => {
-        API.findProfileByName(currentUser.username)
+        API.findProfileByName(username)
         .then((res) => {
-        console.log(res.data[0])
+        console.log(res.data[0].filterBy)
         const filt = res.data[0].filterBy[0]
                 const filterObj = {
                     distance: filt.distance,

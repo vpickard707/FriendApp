@@ -83,7 +83,7 @@ const useStyles = makeStyles({
   }
   
     const classes = useStyles();
-    const [ageRange, setAgeRange] = React.useState([18, 65]);
+    const [ageRange, setAgeRange] = React.useState([18, 68]);
     const [distance, setDistance] = React.useState();
   
     const handleAgeChange = (event, newValue) => {
