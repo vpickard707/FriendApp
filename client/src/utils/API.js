@@ -3,11 +3,17 @@ import axios from "axios"
 
 export default {
     //Profile queries
+    getAll: () => {
+        return axios.get('/api/profile')
+    },
     saveProfile: (profileData) => {
         return axios.post('/api/profile', profileData)
     },
     findProfileByName: (username) => {
         return axios.get('api/profile/' + username)
+    },
+    filterUsers: (queryInfo) => {
+        return axios.get(`api/profile/filter?${queryInfo}`)
     },
     // editProfile: (data, id) => {
     //     return axios.put('api/profile/' + id, data)

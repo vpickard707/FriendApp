@@ -21,6 +21,39 @@ function Matching () {
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
+  useEffect(() => {
+    API.getAll()
+    .then(res => {
+      console.log(res.data)
+      setusers(res.data)
+      })
+  .catch(err => { 
+      if (err.response) { 
+      console.log('error with response')
+      } else if (err.request) { 
+          console.log('error with request') 
+      } else { 
+          console.log('um, sh*ts really broken') 
+      } });
+  }, [])
+
+  useEffect(() => {
+    // const query = `gender=${gender}`
+    API.filterUsers()
+        .then(res => {
+            console.log(res.data)
+            })
+        .catch(err => { 
+            if (err.response) { 
+            console.log('error with response')
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('um, sh*ts really broken') 
+            } });
+    
+  }, [])
+
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
@@ -52,9 +85,9 @@ function Matching () {
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
               <div className="card" style={{width: '30%', background: 'transparent'}}>
             <UserCard
-                                key={userProfile.id}
-                                name={userProfile.name}
-                                image={userProfile.image}
+                                key={userProfile._id}
+                                name={userProfile.username}
+                                image={userProfile.avatar}
                                 gender={userProfile.gender}
                                 politics={userProfile.politics}
                                 children={userProfile.children}
@@ -63,7 +96,7 @@ function Matching () {
                                 cannabis={userProfile.cannabis}
                                 age={userProfile.age}
                                 sign={userProfile.sign}
-                                interests={userProfile.interests}
+                                interests={userProfile.interests[0].interest}
                                 />
             <ButtonGroup>
                 <Button variant="danger" onClick={() => swipe('left')}><i className="far fa-times-circle"></i></Button>
