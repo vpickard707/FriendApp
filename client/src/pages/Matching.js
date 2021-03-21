@@ -6,7 +6,9 @@ import UserCard from '../components/UserCard.js'
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import Button from 'react-bootstrap/Button'
 import FilterModal from '../components/FilterModal'
+import getUserProfile from '../utils/getUserProfile'
 import API from '../utils/API'
+
 
 const db = seedUserProfiles
 
@@ -17,31 +19,57 @@ function Matching () {
   const currentUser = AuthService.getCurrentUser();
   const [users, setusers] = useState(db)
   const [lastDirection, setLastDirection] = useState()
-  
+  // const { filterGender, filterPolitics, filterChildren, filterDrink, filterSmoke, filterCannabis, filterSign, ageRange, distance } = Filter
+  const { filters } = getUserProfile(currentUser.username)
+  console.log(filters)
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   useEffect(() => {
-    API.getAll()
-    .then(res => {
-      console.log(res.data)
-      setusers(res.data)
-      })
-  .catch(err => { 
-      if (err.response) { 
-      console.log('error with response')
-      } else if (err.request) { 
-          console.log('error with request') 
-      } else { 
-          console.log('um, sh*ts really broken') 
-      } });
-  }, [])
+    const check = filters.gender.includes("No Preference")
+    console.log(check)
+    
+    let gendering = ["Female", "Male","Non-binary", "Transgender", "Intersex"]
+    let politicing = ["Conservative", "Moderate", "Liberal", "No Affiliation"]
+    let smoking = ["Regularly", "Socially", "Occasionally", "Never"]
+    let drinking = ["Regularly", "Socially", "Occasionally", "Never"]
+    let cannabising = ["Regularly", "Socially", "Occasionally", "Never"]
+    let kidding = ["Has Children", "No Children"]
 
-  useEffect(() => {
-    // const query = `gender=${gender}`
-    API.filterUsers()
+    if (filters.gender.length !== 0 && filters.gender.includes("No Preference") === false){
+      gendering = filters.gender
+    }
+    if (filters.politics.length !== 0 && filters.politics.includes("No Preference") === false){
+      politicing = filters.politics
+    }
+    if (filters.smoke.length !== 0 && filters.smoke.includes("No Preference") === false){
+      smoking = filters.smoke
+    }
+    if (filters.drink.length !== 0 && filters.drink.includes("No Preference") === false){
+      drinking = filters.drink
+    }
+    if (filters.cannabis.length !== 0 && filters.cannabis.includes("No Preference") === false){
+      cannabising = filters.cannabis
+    }
+    if (filters.children.length !== 0 && filters.children.includes("No Preference") === false){
+      kidding = filters.children
+    }
+
+    const query = {
+      gender: gendering,
+      politics: politicing,
+      age: filters.ageRange,
+      smoke: smoking,
+      drink: drinking,
+      cannabis: cannabising,
+      children: kidding
+    }
+    console.log(query)
+
+    API.filterUsers(query)
         .then(res => {
             console.log(res.data)
+            setusers(res.data)
             })
         .catch(err => { 
             if (err.response) { 
@@ -52,7 +80,7 @@ function Matching () {
                 console.log('um, sh*ts really broken') 
             } });
     
-  }, [])
+  }, [filters])
 
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)

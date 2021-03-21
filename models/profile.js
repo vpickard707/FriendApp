@@ -60,7 +60,7 @@ const profileSchema = new Schema({
     filterBy: [
         {
             distance: {type: Number},
-            gender: [{type: Number}],
+            gender: [{type: String}],
             politics: [{type: String}],
             ageRange: [{type: Number}],
             children: [{type: String}],
