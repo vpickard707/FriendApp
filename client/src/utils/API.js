@@ -22,7 +22,7 @@ export default {
     // },
     editProfileByName: (data, username) => {
         console.log(data)
-        return axios.post('api/profile/' + username, data)
+        return axios.post(`api/profile/${username}`, data)
     },
     
     //Interests queries
