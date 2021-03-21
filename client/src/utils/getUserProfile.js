@@ -18,14 +18,14 @@ const getUserProfile = (username) => {
         interests: []
       })
     const [filters, setFilters] = useState({
-        distance: 10,
-        gender: [],
-        politics: [],
+        distance: 50,
+        gender: "",
+        politics: "",
         ageRange: [18, 68],
         children: "",
-        drink: [],
-        smoke: [],
-        cannabis: []
+        drink: "",
+        smoke: "",
+        cannabis: ""
     })
 
 

@@ -23,11 +23,12 @@ function Matching () {
   const { filters } = getUserProfile(currentUser.username)
   console.log(filters)
 
-
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   useEffect(() => {
-
+    const check = filters.gender.includes("No Preference")
+    console.log(check)
+    
     let gendering = ["Female", "Male","Non-binary", "Transgender", "Intersex"]
     let politicing = ["Conservative", "Moderate", "Liberal", "No Affiliation"]
     let smoking = ["Regularly", "Socially", "Occasionally", "Never"]
@@ -35,23 +36,23 @@ function Matching () {
     let cannabising = ["Regularly", "Socially", "Occasionally", "Never"]
     let kidding = ["Has Children", "No Children"]
 
-    if (filters.gender.length !==0 && filters.gender.includes("No Preference" === false)){
-      gendering = filters.gender[0]
+    if (filters.gender.length !== 0 && filters.gender.includes("No Preference") === false){
+      gendering = filters.gender
     }
-    if (filters.politics.length !==0 && filters.politics.includes("No Preference" === false)){
-      politicing = filters.politics[0]
+    if (filters.politics.length !== 0 && filters.politics.includes("No Preference") === false){
+      politicing = filters.politics
     }
-    if (filters.smoke.length !==0 && filters.smoke.includes("No Preference" === false)){
-      smoking = filters.smoke[0]
+    if (filters.smoke.length !== 0 && filters.smoke.includes("No Preference") === false){
+      smoking = filters.smoke
     }
-    if (filters.drink.length !==0 && filters.drink.includes("No Preference" === false)){
-      drinking = filters.drink[0]
+    if (filters.drink.length !== 0 && filters.drink.includes("No Preference") === false){
+      drinking = filters.drink
     }
-    if (filters.cannabis.length !==0 && filters.cannabis.includes("No Preference" === false)){
-      cannabising = filters.cannabis[0]
+    if (filters.cannabis.length !== 0 && filters.cannabis.includes("No Preference") === false){
+      cannabising = filters.cannabis
     }
-    if (filters.children.length !==0 && filters.children.includes("No Preference" === false)){
-      kidding = filters.children[0]
+    if (filters.children.length !== 0 && filters.children.includes("No Preference") === false){
+      kidding = filters.children
     }
 
     const query = {
