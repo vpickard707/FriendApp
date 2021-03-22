@@ -1,0 +1,18 @@
+.jumbotron{
+    background-color: #e2564c!important;
+    color: white;
+    border-bottom: #17a2b8 double thick;
+}
+.profileImg {
+    width: 300px;
+    border-style: inset;
+    border-radius: 50%; 
+    position: relative;
+    left: 36%
+}
+ul{
+    list-style: none;
+}
+.badge-pill {
+    width:fit-content;
+}

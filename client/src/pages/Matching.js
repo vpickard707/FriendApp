@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button'
 import Filter from '../components/Filter'
 import getUserProfile from '../utils/getUserProfile'
 import API from '../utils/API'
-import FilterModal from '../components/FilterModal'
+import './css/Matching.css'
 
 
 const db = seedUserProfiles
@@ -142,7 +142,7 @@ function Matching () {
       </div>
      : 
       <div>
-      <h1 className='MatchingHeader'style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
+      <h1 className='MatchingHeader'>Are you my BFFL?</h1>
       <Button variant="secondary" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>
@@ -168,7 +168,7 @@ function Matching () {
       <div className='cardContainer'>
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
-              <div className="card" style={{width: '30%', background: 'transparent'}}>
+              <div className="card" style={{width: 'fit-content', background: '#17a2b8', borderRadius:'15px'}}>
             <UserCard
                                 key={userProfile._id}
                                 name={userProfile.username}
