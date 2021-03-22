@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import API from "../../utils/API";
 import AuthService from "../../services/authService";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Form from 'react-bootstrap/Form';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import { makeStyles, withStyles } from '@material-ui/core/styles';

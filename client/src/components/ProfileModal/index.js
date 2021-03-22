@@ -10,7 +10,7 @@ function ProfileModal() {
           
             return (
               <>
-                <Button variant="secondary" onClick={handleShow} style={{position: 'relative',fontSize: 'x-large'}}>
+                <Button variant="info" onClick={handleShow} style={{position: 'relative',fontSize: 'x-large'}}>
                   Edit Profile
                 </Button>
           
@@ -27,7 +27,7 @@ function ProfileModal() {
                     <EditProfileForm />
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="info" onClick={handleClose}>
                       Close
                     </Button>
                   </Modal.Footer>
