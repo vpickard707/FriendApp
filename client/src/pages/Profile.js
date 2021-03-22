@@ -2,6 +2,8 @@ import React, { useState, useEffect} from 'react';
 import AuthService from "../services/authService";
 import API from "../utils/API";
 import ProfileModal from '../components/ProfileModal';
+import Badge from 'react-bootstrap/Badge'
+import './css/Profile.css'
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -46,37 +48,28 @@ const Profile = () => {
             <strong>{currentUser.username}'s</strong> Profile
           </h3>
         </header>
-        <div className="card">
-        <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-        </p>
-        <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
-        </p>
-        <p>
-          <strong>Email:</strong>{" "}
-          {currentUser.email}
-        </p>
-        <img src={profile.avatar} alt='avatar' style={{width: "300px"}}/>
+        <div className="card profileCard">
+        <img className="profileImg" src={profile.avatar} alt='avatar'/>
             <h2>{profile.username}</h2>
-                <ul>
-                    <li>Age Group:{profile.age}</li>
-                    <li>Gender:{profile.gender}</li>
-                    <li><i className="fas fa-landmark" /> {profile.politics}</li>
-                    <li><i className="fas fa-child" /> {profile.children}</li>
-                    <li><i className="fas fa-glass-martini" /> {profile.drink}</li>
-                    <li><i className="fas fa-smoking"/> {profile.smoke}</li>
-                    <li><i className="fas fa-cannabis" /> {profile.cannabis}</li>
-                    <li><i className="fas fa-star" /> {profile.sign}</li><br/>
-                </ul>
+                <h2>
+                    <Badge variant="info"><i className="fas fa-birthday-cake"/> {profile.age}</Badge>
+                    <Badge variant="info"><i class="fas fa-genderless"/> {profile.gender}</Badge>
+                    <Badge variant="info"><i className="fas fa-landmark" /> {profile.politics}</Badge>
+                    <Badge variant="info"><i className="fas fa-child" /> {profile.children}</Badge>
+                    <Badge variant="info"><i className="fas fa-glass-martini" /> {profile.drink}</Badge>
+                    <Badge variant="info"><i className="fas fa-smoking"/> {profile.smoke}</Badge>
+                    <Badge variant="info"><i className="fas fa-cannabis" /> {profile.cannabis}</Badge>
+                    <Badge variant="info"><i className="fas fa-star" /> {profile.sign}</Badge><br/>
+                </h2>
                 <h3>Interests:</h3>
+                <div className="row">
+                  <h3 style={{margin:"auto"}}>
                 {profile.interests.map(item => (
-                  <p>{item.interest}</p>
+                  <Badge pill variant="info">{item.interest}</Badge>
                 ))}
-                
+                </h3>
+                </div>
+                <br/>
         <ProfileModal />
         </div>
       </div>

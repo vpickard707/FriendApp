@@ -87,13 +87,6 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <Link
-              to="/connections"
-              className={location.pathname === "/connections" ? "nav-link active" : "nav-link"}>
-              connections
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
               to="/chat"
               className={location.pathname === "/chat" ? "nav-link active" : "nav-link"}>
               chat

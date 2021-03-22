@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import Badge from 'react-bootstrap/Badge'
+import Form from 'react-bootstrap/Form'
 
 function EditProfileForm (props){
 const currentUser = AuthService.getCurrentUser();
@@ -22,10 +23,7 @@ const [cannabis, setCannabis] = useState();
 const [age, setAge] = useState();
 const [sign, setSign] = useState();
 const [interestList, setInterestList] = useState([]);
-// const [interestItem, setInterestItem] = useState({});
-// const [interests, setInterests] = useState([]);
 const checkboxArray = document.getElementsByClassName('interests')
-
 
 
 const handleGenderChange = (val) => setGender(val);
@@ -53,30 +51,6 @@ useEffect(() => {
             } });
     
 }, [])
-
-// function interestsClick(e){
-//     console.log(e.target)
-//     setInterestItem(e.target)
-//     if(interests.length === 0){
-//         setInterests(state => {
-//             const newList = state.concat(interestItem)
-//             console.log(newList)
-//             return newList
-//         })
-//     } else if(interests.some(item => item === interestItem)){
-//         setInterests(state => {
-//             const filteredList = state.filter(item => {return item !== interestItem})
-//             console.log(filteredList)
-//             return filteredList
-//         })
-//     } 
-//     // else 
-//     //     setInterests(state => {
-//     //     const list = state.concat(interestItem)
-//     //     console.log(list)
-//     //     return list
-//     // })
-// };
 
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -249,42 +223,14 @@ function handleFormSubmit(event) {
                     <ToggleButton variant="info" value={'null'}>I prefer not to say</ToggleButton>
                  </ToggleButtonGroup>
                 <h4>What activities are you looking to build a friendship on:</h4>
-                {/* <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}> 
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Books ">Books</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Watching TV ">TV Show</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Video games ">Video Games</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Boardgames ">Board Games</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Music ">Music</ToggleButton>
-                </ToggleButtonGroup>
-                <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Working out ">Working Out</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Yoga ">Yoga</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Hiking ">Hiking</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Biking ">Biking/Cycling</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Sports ">Sports</ToggleButton>
-                </ToggleButtonGroup>
-                <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Gardening ">Gardening</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Crafting ">Crafting</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Sewing ">Sewing</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Shopping ">Shopping</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Volunteering ">Volunteering</ToggleButton>
-                </ToggleButtonGroup>
-                <ToggleButtonGroup type="checkbox" defaultValue={['Books','Watching TV']}>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Cars ">Cars</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Going out ">Going Out/NightClubs</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Road trips ">Roap Trips</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Wine tasting ">Wine Tasting</ToggleButton>
-                    <ToggleButton variant="info" onClick={ interestsClick } value="Gambling ">Gambling</ToggleButton>
-                </ToggleButtonGroup> */}
                 <br></br>
-                <ToggleButtonGroup type="checkbox">
+                <Form type="checkbox">
                     <div className="mb-3">
                     {interestList.map((item) =>(
-                        <ToggleButton inline key={item._id} className="interests" label={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
+                        <Form.Check inline key={item._id} className="interests" label={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
                     ))}
                     </div>
-                </ToggleButtonGroup>
+                </Form>
 
                 <Button variant="info" onClick={handleFormSubmit}>Save</Button>
             </div>
