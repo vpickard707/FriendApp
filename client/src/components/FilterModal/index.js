@@ -2,10 +2,15 @@ import React, { useState }from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Filter from '../Filter'
+import getUserProfile from '../../utils/getUserProfile'
+
 function FilterModal() {
             const [show, setShow] = useState(false);
+            const { filterUpdate, setFilterUpdate } = getUserProfile();
           
-            const handleClose = () => setShow(false);
+            const handleClose = () => {
+              setFilterUpdate(!filterUpdate)
+              setShow(false)};
             const handleShow = () => setShow(true);
           
             return (
