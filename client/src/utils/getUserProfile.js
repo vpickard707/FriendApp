@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react';
 import API from "../utils/API";
+import AuthService from "../services/authService";
 
-const getUserProfile = (username) => {
-    console.log(username)
+const getUserProfile = () => {
+    const currentUser = AuthService.getCurrentUser();
     const [profile, setProfile] = useState({
         avatar: "",
         username: "",
@@ -28,9 +29,11 @@ const getUserProfile = (username) => {
         cannabis: ""
     })
 
+    const [filterUpdate, setFilterUpdate] = useState(true)
+
 
         useEffect (() => {
-        API.findProfileByName(username)
+        API.findProfileByName(currentUser.username)
         .then((res) => {
         console.log(res.data[0].filterBy)
         const filt = res.data[0].filterBy[0]
@@ -55,11 +58,14 @@ const getUserProfile = (username) => {
         } else { 
         console.log('um, sh*ts really broken') 
         } });
-        }, [])
+        }, [filterUpdate])
 
     return {
         profile,
-        filters
+        filters,
+        filterUpdate,
+        setFilterUpdate,
+
     }
 }
 

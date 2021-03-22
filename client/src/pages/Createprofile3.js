@@ -111,7 +111,7 @@ useEffect(() => {
 function handleFormSubmit(e){
     e.preventDefault()
       console.log(filterGender)
-       const Object = { filterBy: [{
+       const object = { filterBy: [{
             distance: distance,
             gender: filterGender[0],
             politics: filterPolitics[0],
@@ -122,13 +122,13 @@ function handleFormSubmit(e){
             cannabis: filterCannabis[0]
         }]
         }
-        console.log(Object)
+        console.log(object)
 
-    API.editProfileByName(Object, currentUser.username)
+    API.editProfileByName(object, currentUser.username)
     .then(res => {
         console.log(res.data)
-        // props.history.push("/profile");
-        // window.location.reload()
+        props.history.push("/profile");
+        window.location.reload()
         })
     .catch(err => { 
         if (err.response) { 
@@ -206,6 +206,7 @@ const useStyles = makeStyles({
           borderRadius: 4,
         },
       })(Slider);
+      
 return (
     <div className="container">
             <div className="profileCard card">

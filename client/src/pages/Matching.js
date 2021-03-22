@@ -4,10 +4,12 @@ import seedUserProfiles from "../seedUserProfiles.json"
 import TinderCard from 'react-tinder-card'
 import UserCard from '../components/UserCard.js'
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
+import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-import FilterModal from '../components/FilterModal'
+import Filter from '../components/Filter'
 import getUserProfile from '../utils/getUserProfile'
 import API from '../utils/API'
+import FilterModal from '../components/FilterModal'
 
 
 const db = seedUserProfiles
@@ -19,15 +21,22 @@ function Matching () {
   const currentUser = AuthService.getCurrentUser();
   const [users, setusers] = useState(db)
   const [lastDirection, setLastDirection] = useState()
+  const [show, setShow] = useState(false);
+          
+
+  
   // const { filterGender, filterPolitics, filterChildren, filterDrink, filterSmoke, filterCannabis, filterSign, ageRange, distance } = Filter
-  const { filters } = getUserProfile(currentUser.username)
+  const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
   console.log(filters)
+  
+  const handleClose = () => {
+    setFilterUpdate(!filterUpdate)
+    setShow(false)};
+  const handleShow = () => setShow(true);
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
   useEffect(() => {
-    const check = filters.gender.includes("No Preference")
-    console.log(check)
     
     let gendering = ["Female", "Male","Non-binary", "Transgender", "Intersex"]
     let politicing = ["Conservative", "Moderate", "Liberal", "No Affiliation"]
@@ -64,7 +73,6 @@ function Matching () {
       cannabis: cannabising,
       children: kidding
     }
-    console.log(query)
 
     API.filterUsers(query)
         .then(res => {
@@ -105,9 +113,58 @@ function Matching () {
   }
 
   return (
+    
     <div>
+      {users.length === 0 ? 
+      <div><h1>There aren't any users who match your preferences. Keep looking!</h1>
+     <Button variant="secondary" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
+        Filter <i className="fas fa-filter"></i>
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Filter Your BFFL:</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Filter />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      </div>
+     : 
+      <div>
       <h1 className='MatchingHeader'style={{textAlign:"center", color:'white'}}>Are you my BFFL?</h1>
-      <FilterModal style={{textAlign:"center"}}/>
+      <Button variant="secondary" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
+        Filter <i className="fas fa-filter"></i>
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Filter Your BFFL:</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Filter />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className='cardContainer'>
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
@@ -134,7 +191,10 @@ function Matching () {
           </TinderCard>
         )}
         {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
-      </div>
+      </div> 
+    
+    </div>
+    }
     </div>
   )
 }
