@@ -1,41 +1,41 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import AuthService from "../services/authService";
-import seedUserProfiles from "../seedUserProfiles.json"
+import AuthService from '../services/authService';
+import Geolocation from '../utils/geolocation'
+import getUserProfile from '../utils/getUserProfile'
+import getFavorites from '../utils/getFavorites'
+import API from '../utils/API'
+import haversine from 'haversine-distance';
 import TinderCard from 'react-tinder-card'
 import UserCard from '../components/UserCard.js'
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Filter from '../components/Filter'
-import getUserProfile from '../utils/getUserProfile'
-import API from '../utils/API'
+
 import './css/Matching.css'
-
-
-const db = seedUserProfiles
-
-const alreadyRemoved = []
-let usersState = db
 
 function Matching () {
   const currentUser = AuthService.getCurrentUser();
-  const [users, setusers] = useState(db)
+  const [users, setusers] = useState([])
   const [lastDirection, setLastDirection] = useState()
   const [show, setShow] = useState(false);
-          
-
+  const alreadyRemoved = []     
+  let usersState = users
   
+
   // const { filterGender, filterPolitics, filterChildren, filterDrink, filterSmoke, filterCannabis, filterSign, ageRange, distance } = Filter
   const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
-  console.log(filters)
-  
+  const { location } = Geolocation()
+  const { favorites, setFavorites } = getFavorites()
+  console.log(favorites)  
+
   const handleClose = () => {
     setFilterUpdate(!filterUpdate)
     setShow(false)};
   const handleShow = () => setShow(true);
 
-  const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
-
+  const childRefs = useMemo(() => Array(usersState.length).fill(0).map(i => React.createRef()), [users])
+    
   useEffect(() => {
     
     let gendering = ["Female", "Male","Non-binary", "Transgender", "Intersex"]
@@ -45,22 +45,22 @@ function Matching () {
     let cannabising = ["Regularly", "Socially", "Occasionally", "Never"]
     let kidding = ["Has Children", "No Children"]
 
-    if (filters.gender.length !== 0 && filters.gender.includes("No Preference") === false){
+    if (filters.gender.length !== 0 && filters.gender.includes("No Preference" || undefined) === false){
       gendering = filters.gender
     }
-    if (filters.politics.length !== 0 && filters.politics.includes("No Preference") === false){
+    if (filters.politics.length !== 0 && filters.politics.includes("No Preference" || undefined) === false){
       politicing = filters.politics
     }
-    if (filters.smoke.length !== 0 && filters.smoke.includes("No Preference") === false){
+    if (filters.smoke.length !== 0 && filters.smoke.includes("No Preference" || undefined) === false){
       smoking = filters.smoke
     }
-    if (filters.drink.length !== 0 && filters.drink.includes("No Preference") === false){
+    if (filters.drink.length !== 0 && filters.drink.includes("No Preference" || undefined) === false){
       drinking = filters.drink
     }
-    if (filters.cannabis.length !== 0 && filters.cannabis.includes("No Preference") === false){
+    if (filters.cannabis.length !== 0 && filters.cannabis.includes("No Preference" || undefined) === false){
       cannabising = filters.cannabis
     }
-    if (filters.children.length !== 0 && filters.children.includes("No Preference") === false){
+    if (filters.children.length !== 0 && filters.children.includes("No Preference" || undefined) === false){
       kidding = filters.children
     }
 
@@ -76,8 +76,36 @@ function Matching () {
 
     API.filterUsers(query)
         .then(res => {
-            console.log(res.data)
-            setusers(res.data)
+          
+          const newArray = []
+          // const myLocation = {
+          //   latitude: location.coordinates.lat,
+          //   longitude: location.coordinates.lng
+          // }
+          
+          for(var i = 0; i < res.data.length; i++){
+            if(favorites.includes(res.data[i]._id) === false){
+              newArray.push(res.data[i])
+            }
+
+          }
+          // {
+          //   const itemLocation = {
+          //     latitude: res.data[i].location.latitude,
+          //     longitude: res.data[i].location.longitude
+          //   }
+            
+          //   const meters = haversine(myLocation, itemLocation)
+          //   const distances = parseInt(meters)*0.00062137
+            
+          //   if(distances < filters.distance){
+          //     newArray.push(res.data[i])
+          //   }
+          // }
+
+          
+            console.log(newArray)
+            setusers(newArray)
             })
         .catch(err => { 
             if (err.response) { 
@@ -88,27 +116,50 @@ function Matching () {
                 console.log('um, sh*ts really broken') 
             } });
     
-  }, [filters])
+  }, [filters, favorites])
 
-  const swiped = (direction, nameToDelete) => {
+  function saveFavorite(id){
+    API.saveFavorites({ 
+      username: currentUser.username,
+      favedId: id})
+    .then()
+    .catch(err => { 
+      if (err.response) { 
+      console.log('error with response')
+      } else if (err.request) { 
+          console.log('error with request') 
+      } else { 
+          console.log('um, sh*ts really broken') 
+      } });
+  }
+
+  const swiped = (direction, nameToDelete, profileId) => {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
     alreadyRemoved.push(nameToDelete)
+    if(direction === 'right'){
+     saveFavorite(profileId)
+    }
   }
 
-  const outOfFrame = (name) => {
-    console.log(name + ' left the screen!')
-    usersState = usersState.filter(userProfile => userProfile.name !== name)
-    setusers(usersState)
+  const outOfFrame = (username) => {
+    console.log(username + ' left the screen!')
+
   }
 
-  const swipe = (dir) => {
-    const cardsLeft = users.filter(person => !alreadyRemoved.includes(person.name))
+  const swipe = (dir, nameToDelete, profileId) => {
+    let usersState = users
+    const cardsLeft = usersState.filter(person => !alreadyRemoved.includes(person.username))
+    console.log(cardsLeft)
     if (cardsLeft.length) {
-      const toBeRemoved = cardsLeft[cardsLeft.length - 1].name // Find the card object to be removed
-      const index = users.map(person => person.name).indexOf(toBeRemoved) // Find the index of which to make the reference to
+      const toBeRemoved = nameToDelete // Find the card object to be removed
+      console.log(toBeRemoved)
+      const index = usersState.map(person => person.username).indexOf(toBeRemoved) // Find the index of which to make the reference to
       alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
       childRefs[index].current.swipe(dir) // Swipe the card!
+    }
+    if (dir === 'right'){
+      saveFavorite(profileId)
     }
   }
 
@@ -117,7 +168,7 @@ function Matching () {
     <div>
       {users.length === 0 ? 
       <div><h1>There aren't any users who match your preferences. Keep looking!</h1>
-     <Button variant="secondary" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
+     <Button variant="info" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>
 
@@ -134,7 +185,7 @@ function Matching () {
           <Filter />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="info" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>
@@ -143,7 +194,7 @@ function Matching () {
      : 
       <div>
       <h1 className='MatchingHeader'>Are you my BFFL?</h1>
-      <Button variant="secondary" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
+      <Button variant="info" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>
 
@@ -160,19 +211,20 @@ function Matching () {
           <Filter />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="info" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>
       </Modal>
       <div className='cardContainer'>
+      {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
         {users.map((userProfile, index) =>
-          <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
+          <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.username} onSwipe={(dir) => swiped(dir, userProfile.username, userProfile._id)} onCardLeftScreen={() => outOfFrame(userProfile.username)} preventSwipe={['up', 'down']}>
               <div className="card" style={{width: '24rem', borderRadius:'15px'}}>
             <UserCard
                                 key={userProfile._id}
                                 name={userProfile.username}
-                                image={userProfile.avatar || "https://loremflickr.com/320/240"}
+                                avatar={userProfile.avatar || "https://loremflickr.com/320/240"}
                                 gender={userProfile.gender || "not specified"}
                                 politics={userProfile.politics || "not specified"}
                                 children={userProfile.children || "not specified"}
@@ -184,13 +236,13 @@ function Matching () {
                                 interests={userProfile.interests[0].interest || "anything"}
                                 />
             <ButtonGroup>
-                <Button variant="danger" onClick={() => swipe('left')}><i className="far fa-times-circle"></i></Button>
-                <Button variant="success" onClick={() => swipe('right')}><i className="far fa-check-circle"></i></Button>
+                <Button variant="danger" onClick={() => swipe('left', userProfile.username, userProfile._id)}><i className="far fa-times-circle"></i></Button>
+                <Button variant="success" onClick={() => swipe('right', userProfile.username, userProfile._id)}><i className="far fa-check-circle"></i></Button>
             </ButtonGroup>
             </div>
           </TinderCard>
         )}
-        {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
+       
       </div> 
     
     </div>
