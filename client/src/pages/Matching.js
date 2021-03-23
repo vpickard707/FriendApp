@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import AuthService from "../services/authService";
-import seedUserProfiles from "../seedUserProfiles.json"
+import Geolocation from "../utils/geolocation"
+import haversine from 'haversine-distance';
 import TinderCard from 'react-tinder-card'
 import UserCard from '../components/UserCard.js'
 import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
@@ -12,29 +13,28 @@ import API from '../utils/API'
 import './css/Matching.css'
 
 
-const db = seedUserProfiles
 
-const alreadyRemoved = []
-let usersState = db
 
 function Matching () {
   const currentUser = AuthService.getCurrentUser();
-  const [users, setusers] = useState(db)
+  const [users, setusers] = useState([])
   const [lastDirection, setLastDirection] = useState()
   const [show, setShow] = useState(false);
-          
-
+  const alreadyRemoved = []     
+  let usersState = []
   
+
   // const { filterGender, filterPolitics, filterChildren, filterDrink, filterSmoke, filterCannabis, filterSign, ageRange, distance } = Filter
   const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
+  const { location, a, b } = Geolocation()
   console.log(filters)
-  
+
   const handleClose = () => {
     setFilterUpdate(!filterUpdate)
     setShow(false)};
   const handleShow = () => setShow(true);
 
-  const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
+  const childRefs = useMemo(() => Array(usersState.length).fill(0).map(i => React.createRef()), [])
 
   useEffect(() => {
     
@@ -45,22 +45,22 @@ function Matching () {
     let cannabising = ["Regularly", "Socially", "Occasionally", "Never"]
     let kidding = ["Has Children", "No Children"]
 
-    if (filters.gender.length !== 0 && filters.gender.includes("No Preference") === false){
+    if (filters.gender.length !== 0 && filters.gender.includes("No Preference" || undefined) === false){
       gendering = filters.gender
     }
-    if (filters.politics.length !== 0 && filters.politics.includes("No Preference") === false){
+    if (filters.politics.length !== 0 && filters.politics.includes("No Preference" || undefined) === false){
       politicing = filters.politics
     }
-    if (filters.smoke.length !== 0 && filters.smoke.includes("No Preference") === false){
+    if (filters.smoke.length !== 0 && filters.smoke.includes("No Preference" || undefined) === false){
       smoking = filters.smoke
     }
-    if (filters.drink.length !== 0 && filters.drink.includes("No Preference") === false){
+    if (filters.drink.length !== 0 && filters.drink.includes("No Preference" || undefined) === false){
       drinking = filters.drink
     }
-    if (filters.cannabis.length !== 0 && filters.cannabis.includes("No Preference") === false){
+    if (filters.cannabis.length !== 0 && filters.cannabis.includes("No Preference" || undefined) === false){
       cannabising = filters.cannabis
     }
-    if (filters.children.length !== 0 && filters.children.includes("No Preference") === false){
+    if (filters.children.length !== 0 && filters.children.includes("No Preference" || undefined) === false){
       kidding = filters.children
     }
 
@@ -76,8 +76,32 @@ function Matching () {
 
     API.filterUsers(query)
         .then(res => {
+          const newArray = []
+          const results = res.data
+          const myLocation = {
+            latitude: location.coordinates.lat,
+            longitude: location.coordinates.lng
+          }
+          console.log(location.coordinates.lng)
+          for(var i = 0; i < res.data.length; i++)
+          {
+            const itemLocation = {
+              latitude: res.data[i].location.latitude,
+              longitude: res.data[i].location.longitude
+            }
+            console.log(res.data[i].location.latitude)
+            const meters = haversine(myLocation, itemLocation)
+            const distances = parseInt(meters)*0.00062137
+            console.log(distances)
+            console.log(filters.distance)
+            if(distances < filters.distance){
+              newArray.push(res.data[i])
+            }
+          }
+            console.log(newArray)
             console.log(res.data)
-            setusers(res.data)
+            usersState = res.data
+            setusers(newArray)
             })
         .catch(err => { 
             if (err.response) { 
@@ -96,17 +120,18 @@ function Matching () {
     alreadyRemoved.push(nameToDelete)
   }
 
-  const outOfFrame = (name) => {
-    console.log(name + ' left the screen!')
-    usersState = usersState.filter(userProfile => userProfile.name !== name)
+  const outOfFrame = (username) => {
+    console.log(username + ' left the screen!')
+    usersState.filter(userProfile => userProfile.username === username)
+    console.log(usersState)
     setusers(usersState)
   }
 
   const swipe = (dir) => {
-    const cardsLeft = users.filter(person => !alreadyRemoved.includes(person.name))
+    const cardsLeft = usersState.filter(person => !alreadyRemoved.includes(person.username))
     if (cardsLeft.length) {
-      const toBeRemoved = cardsLeft[cardsLeft.length - 1].name // Find the card object to be removed
-      const index = users.map(person => person.name).indexOf(toBeRemoved) // Find the index of which to make the reference to
+      const toBeRemoved = cardsLeft[cardsLeft.length - 1].username // Find the card object to be removed
+      const index = users.map(person => person.username).indexOf(toBeRemoved) // Find the index of which to make the reference to
       alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
       childRefs[index].current.swipe(dir) // Swipe the card!
     }
@@ -117,7 +142,7 @@ function Matching () {
     <div>
       {users.length === 0 ? 
       <div><h1>There aren't any users who match your preferences. Keep looking!</h1>
-     <Button variant="secondary" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
+     <Button variant="info" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>
 
@@ -134,7 +159,7 @@ function Matching () {
           <Filter />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="info" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>
@@ -143,7 +168,7 @@ function Matching () {
      : 
       <div>
       <h1 className='MatchingHeader'>Are you my BFFL?</h1>
-      <Button variant="secondary" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
+      <Button variant="info" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>
 
@@ -160,19 +185,20 @@ function Matching () {
           <Filter />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="info" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>
       </Modal>
       <div className='cardContainer'>
+      {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
         {users.map((userProfile, index) =>
-          <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
+          <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.username} onSwipe={(dir) => swiped(dir, userProfile.username)} onCardLeftScreen={() => outOfFrame(userProfile.username)} preventSwipe={['up', 'down']}>
               <div className="card" style={{width: 'fit-content', background: '#17a2b8', borderRadius:'15px'}}>
             <UserCard
                                 key={userProfile._id}
-                                name={userProfile.username}
-                                image={userProfile.avatar}
+                                username={userProfile.username}
+                                avatar={userProfile.avatar}
                                 gender={userProfile.gender}
                                 politics={userProfile.politics}
                                 children={userProfile.children}
@@ -190,7 +216,7 @@ function Matching () {
             </div>
           </TinderCard>
         )}
-        {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
+       
       </div> 
     
     </div>

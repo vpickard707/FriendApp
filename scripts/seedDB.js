@@ -211,5 +211,26 @@ const populateIntersts = [{
             "longitude": 13.4619422
         }
     },
+    {
+        "username":"Popcorn",
+        "avatar": "https://avatars.dicebear.com/api/avataaars/example.svg?&&&&&&",
+        "gender": "Intersex", 
+        "politics": "Moderate", 
+        "children": "No Children", 
+        "drink": "Regularly", 
+        "smoke": "Regularly", 
+        "cannabis": "Never", 
+        "age": "52",
+        "sign":"Aries",
+        "interests": [  {"interest": "Yoga ",
+                        "_id": "605384df83a432644d843ef9"}, 
+                        {"interest":"Wine",
+                        "_id": "605384df83a432644d843ef9"}
+                     ],
+        "location": {
+            "latitude": 38.483040,
+            "longitude": -121.543110
+        }
+    },
     ]
 }]
