@@ -71,13 +71,6 @@ const Header = () => {
                 account
               </Link>
             </li>
-            <li className="nav-item">
-            <Link
-              to="/createprofile"
-              className={location.pathname === "/createprofile" ? "nav-link active" : "nav-link"}>
-              createprofile
-            </Link>
-          </li>
           <li className="nav-item">
             <Link
               to="/matching"
