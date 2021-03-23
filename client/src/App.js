@@ -1,19 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Chat from "./pages/Chat";
-import Connections from "./pages/Connections";
-import Createprofile from "./pages/Createprofile";
-import Createprofile2 from "./pages/Createprofile2";
-import Createprofile3 from "./pages/Createprofile3";
-import Favorites from "./pages/Favorites";
-import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Matching from "./pages/Matching";
-import Profile from "./pages/Profile";
-import Register from "./pages/Registration";
-import User from "./pages/User";
-import "./App.css";
+import Header from "./components/Header"
+import Chat from "./pages/Chat"
+import Createprofile from "./pages/Createprofile"
+import Createprofile2 from "./pages/Createprofile2"
+import Createprofile3 from "./pages/Createprofile3"
+import Favorites from "./pages/Favorites"
+import Landing from "./pages/Landing"
+import Login from "./pages/Login"
+import Matching from "./pages/Matching"
+import Profile from "./pages/Profile"
+import Register from "./pages/Registration"
+import User from "./pages/User"
+import './App.css'
 
 function App() {
   return (
@@ -29,7 +28,6 @@ function App() {
         <Route exact path="/createprofile3" component={Createprofile3} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/matching" component={Matching} />
-        <Route exact path="/connections" component={Connections} />
         <Route exact path="/chat" component={Chat} />
         <Route exact path="/favorites" component={Favorites} />
       </div>

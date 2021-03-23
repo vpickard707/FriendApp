@@ -1,5 +1,9 @@
 body, html{
-  background-color: #25a4ad!important;
+  background-color: #f1e47f!important;
+  background-image: url(../src/images/catrin-johnson-ym96FAhQ8o4-unsplash.jpg);
+  background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 Button {
@@ -68,4 +72,5 @@ label {
   padding: 15px;
   border-radius: 15px!important;
 }
+
 
