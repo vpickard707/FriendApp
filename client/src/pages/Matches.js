@@ -1,17 +1,24 @@
 import React from 'react';
-import UserCard from '../components/UserCard.js'
+import UserCard from '../components/UserCard.js/index.js'
 import seedUserProfiles from "../seedUserProfiles.json"
 import './css/Favorites.css'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+function Favorites (props){
 
-function Favorites (){
+    const goToChat=()=>{
+        props.history.push('/chat')
+        window.location.reload()
+    }
     return(
     <main className="favorites">
-        <h1 className='FavoritesHeader'>Your Favorites:</h1>
+        <h1 className='FavoritesHeader'>Your Matches:</h1>
         <div className="container">
             <div className="row">
                 <div className="card favoritesCard">
                     <div className="row">
                         {seedUserProfiles.map(userProfile => (
+                        <Card className="userCard" style={{ width: '21rem' }}>
                             <UserCard
                             key={userProfile.id}
                             name={userProfile.name}
@@ -26,6 +33,8 @@ function Favorites (){
                             sign={userProfile.sign}
                             interests={userProfile.interests}
                             />
+                            <Button variant="info" onClick={goToChat}>chat</Button>
+                        </Card>
                         ))}
                     </div>
                 </div>

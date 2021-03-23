@@ -71,18 +71,11 @@ const Header = () => {
                 account
               </Link>
             </li>
-            <li className="nav-item">
-            <Link
-              to="/createprofile"
-              className={location.pathname === "/createprofile" ? "nav-link active" : "nav-link"}>
-              createprofile
-            </Link>
-          </li>
           <li className="nav-item">
             <Link
               to="/matching"
               className={location.pathname === "/matching" ? "nav-link active" : "nav-link"}>
-              matching
+              start swiping
             </Link>
           </li>
           <li className="nav-item">
@@ -94,9 +87,9 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <Link
-              to="/favorites"
+              to="/matches"
               className={location.pathname === "/favorites" ? "nav-link active" : "nav-link"}>
-              favorites
+              matches
             </Link>
           </li>
         </div>

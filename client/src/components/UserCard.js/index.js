@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge'
 import Image from 'react-bootstrap/Image'
 import './style.css'
 
 
 function UserCard (props){
+    const [chatBtn, setChatBtn] = useState(false)
+
     return (
-    <Card className="userCard" style={{ width: '21rem' }}>
-        
+    <>
+        <Image className="userImage" variant="top" src={props.image} roundedCircle/>
         <Card.Body>
             <h2>{props.username}</h2>
             <Image className="userImage" variant="top" src={props.avatar} roundedCircle/>
@@ -29,9 +30,8 @@ function UserCard (props){
                     Interests:
                     <Badge pill variant="info">{props.interests}</Badge>
                 </h3>
-            <Button variant="info">Chat</Button>
         </Card.Body>
-    </Card>
+    </>
     )
 }
 

@@ -101,7 +101,11 @@ const Register = (props) => {
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
-          
+          AuthService.login(username, password).then(
+            () => {
+              props.history.push("/createprofile");
+              window.location.reload();
+            })
         },
         (error) => {
           const resMessage =

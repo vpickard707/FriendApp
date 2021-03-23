@@ -220,20 +220,20 @@ function Matching () {
       {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.username} onSwipe={(dir) => swiped(dir, userProfile.username, userProfile._id)} onCardLeftScreen={() => outOfFrame(userProfile.username)} preventSwipe={['up', 'down']}>
-              <div className="card" style={{width: 'fit-content', background: '#17a2b8', borderRadius:'15px'}}>
+              <div className="card" style={{width: '24rem', borderRadius:'15px'}}>
             <UserCard
                                 key={userProfile._id}
-                                username={userProfile.username}
-                                avatar={userProfile.avatar}
-                                gender={userProfile.gender}
-                                politics={userProfile.politics}
-                                children={userProfile.children}
-                                drink={userProfile.drink}
-                                smoke={userProfile.smoke}
-                                cannabis={userProfile.cannabis}
-                                age={userProfile.age}
-                                sign={userProfile.sign}
-                                interests={userProfile.interests[0].interest}
+                                name={userProfile.username}
+                                avatar={userProfile.avatar || "https://loremflickr.com/320/240"}
+                                gender={userProfile.gender || "not specified"}
+                                politics={userProfile.politics || "not specified"}
+                                children={userProfile.children || "not specified"}
+                                drink={userProfile.drink || "not specified"}
+                                smoke={userProfile.smoke || "not specified"}
+                                cannabis={userProfile.cannabis || "not specified" }
+                                age={userProfile.age || "not specified"}
+                                sign={userProfile.sign || "not specified"}
+                                interests={userProfile.interests[0].interest || "anything"}
                                 />
             <ButtonGroup>
                 <Button variant="danger" onClick={() => swipe('left', userProfile.username, userProfile._id)}><i className="far fa-times-circle"></i></Button>
