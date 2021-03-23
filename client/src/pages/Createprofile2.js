@@ -262,6 +262,8 @@ function handleFormSubmit(event) {
 
                 <Button variant="info" onClick={handleFormSubmit}>Save</Button>
             </div>
+            <br></br>
+            <br></br>
         </div>
             
     )
