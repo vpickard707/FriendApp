@@ -5,9 +5,23 @@ const profileSchema = new Schema({
     avatar: { 
         type: String,
     },
-    location: { 
+    username: { 
         type: String,
-
+        unique: true
+    },
+    location: { 
+        latitude: {
+            type: Number,
+        },
+        longitude: {
+            type: Number,
+        },
+        zipcode: {
+            type: Number,
+        },
+        city: {
+            type: Number,
+        }
     },
     gender: {
         type: String,
@@ -39,26 +53,30 @@ const profileSchema = new Schema({
     },
     interests: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "Interests"
+          interest: {type: String},
+          _id: {type: String}
         }
     ],
     filterBy: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "FilterBy"
+            distance: {type: Number},
+            gender: [{type: String}],
+            politics: [{type: String}],
+            ageRange: [{type: Number}],
+            children: [{type: String}],
+            drink: [{type: String}],
+            smoke: [{type: String}],
+            cannabis: [{type: String}]
         }
     ],
     favorites: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "Favorites"
+            _id: {type: String}
         }
     ],
     matches: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "Matches"
+            _id: {type: String}
         }
     ]
 });

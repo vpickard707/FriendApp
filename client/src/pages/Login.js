@@ -2,8 +2,11 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
 import AuthService from "../services/authService";
+import logo from '../images/bffllogoonly.png';
+import './css/Login.css'
+import confettiBackground from '../images/jason-leung-Xaanw0s0pMk-unsplash.jpg'
+
 
 const required = value => {
   if (!value) {
@@ -66,17 +69,22 @@ const Login = (props) => {
   };
 
   return (
+    <main className="login" style={{ 
+      backgroundImage: `url(${confettiBackground})` 
+    }}>
     <div className="col-md-12">
-      <div className="card card-container">
+      <div className="card card-container loginCard">
+        <h2>Welcome Back!</h2>
         <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          src={logo}
           alt="profile-img"
           className="profile-img-card"
         />
 
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username"><i className="fas fa-user"/>
+              Username</label>
             <Input
               type="text"
               className="form-control"
@@ -88,7 +96,8 @@ const Login = (props) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password"><i className="fas fa-lock"/>
+              Password</label>
             <Input
               type="password"
               className="form-control"
@@ -100,7 +109,7 @@ const Login = (props) => {
           </div>
 
           <div className="form-group">
-            <button className="btn btn-primary btn-block" disabled={loading}>
+            <button className="btn btn-info btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
@@ -119,6 +128,7 @@ const Login = (props) => {
         </Form>
       </div>
     </div>
+  </main>
   );
 };
 

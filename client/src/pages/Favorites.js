@@ -1,13 +1,15 @@
 import React from 'react';
 import UserCard from '../components/UserCard.js'
 import seedUserProfiles from "../seedUserProfiles.json"
+import './css/Favorites.css'
 
 function Favorites (){
     return(
-    <main>
+    <main className="favorites">
+        <h1 className='FavoritesHeader'>Your Favorites:</h1>
         <div className="container">
             <div className="row">
-                <h2>Your Favorites:</h2>
+                <div className="card favoritesCard">
                     <div className="row">
                         {seedUserProfiles.map(userProfile => (
                             <UserCard
@@ -26,6 +28,7 @@ function Favorites (){
                             />
                         ))}
                     </div>
+                </div>
             </div>
         </div>
     </main>

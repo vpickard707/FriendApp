@@ -1,31 +1,77 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import AuthService from "../services/authService";
-import UserCard from "../components/UserCard.js"
+import API from "../utils/API";
+import ProfileModal from '../components/ProfileModal';
+import Badge from 'react-bootstrap/Badge'
+import './css/Profile.css'
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
+  const [profile, setProfile] = useState({
+                                  avatar: "https://via.placeholder.com/150",
+                                  username: "",
+                                  location: "",
+                                  gender: "",
+                                  politics: "",
+                                  children: "",
+                                  drink: "",
+                                  smoke: "",
+                                  cannabis: "",
+                                  age: "",
+                                  sign: "",
+                                  interests: []
+                                })
+  
+  
+
+  useEffect (() => {
+      API.findProfileByName(currentUser.username)
+          .then((res) => {
+              console.log(res.data[0])
+              setProfile(res.data[0])
+          })
+          .catch(err => { 
+          if (err.response) { 
+          console.log('error with response')
+          } else if (err.request) { 
+              console.log('error with request') 
+          } else { 
+              console.log('um, sh*ts really broken') 
+          } });
+  }, [])
+  
 
     return(
         <div className="container">
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.username}</strong> Profile
+            <strong>{currentUser.username}'s</strong> Profile
           </h3>
         </header>
-        <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-        </p>
-        <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
-        </p>
-        <p>
-          <strong>Email:</strong>{" "}
-          {currentUser.email}
-        </p>
-        <UserCard />
+        <div className="card profileCard">
+        <img className="profileImg" src={profile.avatar} alt='avatar'/>
+            <h2>{profile.username}</h2>
+                <h2>
+                    <Badge variant="info"><i className="fas fa-birthday-cake"/> {profile.age}</Badge>
+                    <Badge variant="info"><i class="fas fa-genderless"/> {profile.gender}</Badge>
+                    <Badge variant="info"><i className="fas fa-landmark" /> {profile.politics}</Badge>
+                    <Badge variant="info"><i className="fas fa-child" /> {profile.children}</Badge>
+                    <Badge variant="info"><i className="fas fa-glass-martini" /> {profile.drink}</Badge>
+                    <Badge variant="info"><i className="fas fa-smoking"/> {profile.smoke}</Badge>
+                    <Badge variant="info"><i className="fas fa-cannabis" /> {profile.cannabis}</Badge>
+                    <Badge variant="info"><i className="fas fa-star" /> {profile.sign}</Badge><br/>
+                </h2>
+                <h3>Interests:</h3>
+                <div className="row">
+                  <h3 style={{margin:"auto"}}>
+                {profile.interests.map(item => (
+                  <Badge pill variant="info">{item.interest}</Badge>
+                ))}
+                </h3>
+                </div>
+                <br/>
+        <ProfileModal />
+        </div>
       </div>
     )
 }

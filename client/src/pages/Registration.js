@@ -2,9 +2,13 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import Button from 'react-bootstrap/Button'
 import { isEmail } from "validator";
-
+import logo from '../images/bffllogoonly.png'
+import { Link } from "react-router-dom";
 import AuthService from "../services/authService";
+import './css/Login.css'
+import confettiBackground from '../images/jason-leung-Xaanw0s0pMk-unsplash.jpg'
 
 const required = value => {
   if (!value) {
@@ -97,6 +101,7 @@ const Register = (props) => {
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
+          
         },
         (error) => {
           const resMessage =
@@ -116,10 +121,13 @@ const Register = (props) => {
 
   
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+    <div className="col-md-12 signup"style={{ 
+      backgroundImage: `url(${confettiBackground})` 
+    }}>
+      <div className="card card-container signupCard">
+        <h2>Welcome!</h2>
         <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          src={logo}
           alt="profile-img"
           className="profile-img-card"
         />
@@ -128,18 +136,20 @@ const Register = (props) => {
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="firstName">First Name</label>
+                <label htmlFor="firstName"><i className="fas fa-user"/>
+                   First Name</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="usernafirstNameme"
+                  name="firstName"
                   value={firstName}
                   onChange={onChangeFirstName}
                   validations={[required]}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="lastName">Last Name</label>
+                <label htmlFor="lastName"><i className="fas fa-user"/>
+                   Last Name</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -150,7 +160,8 @@ const Register = (props) => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username"><i className="fas fa-user"/>
+                   Username</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -162,7 +173,8 @@ const Register = (props) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email"><i className="fas fa-envelope-open-text"/>
+                  Email</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -174,7 +186,8 @@ const Register = (props) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password"><i className="fas fa-lock"/>
+                  Password</label>
                 <Input
                   type="password"
                   className="form-control"
@@ -186,7 +199,7 @@ const Register = (props) => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <button className="btn btn-info btn-block">Sign Up</button>
               </div>
             </div>
           )}
@@ -206,6 +219,12 @@ const Register = (props) => {
             </div>
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          {successful && (
+              <Button>
+                    <Link to="/createprofile" variant="info" className="buildProfileBtn">Build Out Your Profile</Link>
+              </Button>
+  
+          )}
         </Form>
       </div>
     </div>

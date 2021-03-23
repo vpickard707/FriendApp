@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import API from "../utils/API"
-import AuthService from "../services/authService";
-import '../App.css'
-import './css/Createprofile.css'
+import API from "../../utils/API"
+import AuthService from "../../services/authService";
+import '../../App.css'
+import '../../pages/css/Createprofile.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ToggleButtonGroup from'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton'
@@ -12,7 +12,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import Badge from 'react-bootstrap/Badge'
 import Form from 'react-bootstrap/Form'
 
-function Createprofile2 (props){
+function EditProfileForm (props){
 const currentUser = AuthService.getCurrentUser();
 const [gender, setGender] = useState();
 const [politics, setPolitics] = useState();
@@ -23,10 +23,7 @@ const [cannabis, setCannabis] = useState();
 const [age, setAge] = useState();
 const [sign, setSign] = useState();
 const [interestList, setInterestList] = useState([]);
-// const [interestItem, setInterestItem] = useState({});
-// const [interests, setInterests] = useState([]);
 const checkboxArray = document.getElementsByClassName('interests')
-
 
 
 const handleGenderChange = (val) => setGender(val);
@@ -54,30 +51,6 @@ useEffect(() => {
             } });
     
 }, [])
-
-// function interestsClick(e){
-//     console.log(e.target)
-//     setInterestItem(e.target)
-//     if(interests.length === 0){
-//         setInterests(state => {
-//             const newList = state.concat(interestItem)
-//             console.log(newList)
-//             return newList
-//         })
-//     } else if(interests.some(item => item === interestItem)){
-//         setInterests(state => {
-//             const filteredList = state.filter(item => {return item !== interestItem})
-//             console.log(filteredList)
-//             return filteredList
-//         })
-//     } 
-//     // else 
-//     //     setInterests(state => {
-//     //     const list = state.concat(interestItem)
-//     //     console.log(list)
-//     //     return list
-//     // })
-// };
 
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -125,8 +98,7 @@ function handleFormSubmit(event) {
 }
     return(
         <div className="container">
-            <div className="profileCard card">
-                <h1>Now let's find out more about you:</h1>
+            <div className="card">
                 <Badge variant="info"
                         style={{width: 'fit-content', fontSize: 'inherit'}}>Age:{age}</Badge>
                 <DropdownButton
@@ -251,7 +223,7 @@ function handleFormSubmit(event) {
                     <ToggleButton variant="info" value={'null'}>I prefer not to say</ToggleButton>
                  </ToggleButtonGroup>
                 <h4>What activities are you looking to build a friendship on:</h4>
-                <br/>
+                <br></br>
                 <Form type="checkbox">
                     <div className="mb-3">
                     {interestList.map((item) =>(
@@ -267,4 +239,4 @@ function handleFormSubmit(event) {
     )
 }
 
-export default Createprofile2;
+export default EditProfileForm;

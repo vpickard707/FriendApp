@@ -21,9 +21,16 @@ const Header = () => {
 
     return (
     <ul className="nav nav-tabs">
-      <Link to="/" className="nav-link">
+      {currentUser ? (
+        <Link to="/matching" className="nav-link">
+          <img src={bffl} alt="bffl logo" width="80px" className="navbar-brand" />
+        </Link>
+      ) : (
+        <Link to="/" className="nav-link">
             <img src={bffl} alt="bffl logo" width="80px" className="navbar-brand" />
-      </Link>
+        </Link>
+      )}
+      
       {currentUser ? (
             <div className="navbar mr-auto">
               <li className="nav-item">
@@ -33,7 +40,7 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut
+                  Log Out
                 </a>
               </li>
             </div>
@@ -76,13 +83,6 @@ const Header = () => {
               to="/matching"
               className={location.pathname === "/matching" ? "nav-link active" : "nav-link"}>
               matching
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="/connections"
-              className={location.pathname === "/connections" ? "nav-link active" : "nav-link"}>
-              connections
             </Link>
           </li>
           <li className="nav-item">

@@ -27,13 +27,7 @@ const userSchema = new Schema({
     createdDate: {
         type: Date,
         default: Date.now
-    },
-    profile: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "Profile"
-        }
-    ]
+    }
 });
 
 // Schema.set( 'toJSON', {
