@@ -8,7 +8,7 @@ import './css/Profile.css'
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
   const [profile, setProfile] = useState({
-                                  avatar: "https://via.placeholder.com/150",
+                                  avatar: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fnautiluslive.org%2Fvideo%2F2015%2F08%2F21%2Fshy-dumbo-octopus-hides-inside-its-own-tentacles&psig=AOvVaw0jo9F8ir0R5bYDQ0K3Z_Z0&ust=1616554094045000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIjn37izxe8CFQAAAAAdAAAAABAD",
                                   username: "",
                                   location: "",
                                   gender: "",
@@ -72,6 +72,11 @@ const Profile = () => {
                 <br/>
         <ProfileModal />
         </div>
+        <p>
+          <br></br>
+          <br></br>
+          <br></br>
+        </p>
       </div>
     )
 }

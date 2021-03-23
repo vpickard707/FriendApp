@@ -5,7 +5,10 @@ import EditProfileForm from '../EditProfileForm';
 function ProfileModal() {
             const [show, setShow] = useState(false);
           
-            const handleClose = () => setShow(false);
+            const handleClose = () => {
+              setShow(false);
+              document.location.reload();
+            }
             const handleShow = () => setShow(true);
           
             return (

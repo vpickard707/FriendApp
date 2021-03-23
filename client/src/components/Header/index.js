@@ -40,7 +40,7 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={logOut}>
-                  Log Out
+                  log Out
                 </a>
               </li>
             </div>
@@ -48,13 +48,13 @@ const Header = () => {
             <div className="navbar mr-auto">
               <li className="nav-item">
                 <Link to={"/login"} className={location.pathname === "/login" ? "nav-link active" : "nav-link"}>
-                  Login
+                  login
                 </Link>
               </li>
 
               <li className="nav-item">
                 <Link to={"/register"} className={location.pathname === "/register" ? "nav-link active" : "nav-link"}>
-                  Sign Up
+                  sign Up
                 </Link>
               </li>
             </div>
@@ -68,7 +68,7 @@ const Header = () => {
               <Link 
                to="/user"
                className={location.pathname === "/user" ? "nav-link active" : "nav-link"}>
-                User
+                account
               </Link>
             </li>
             <li className="nav-item">

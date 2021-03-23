@@ -27,5 +27,9 @@ export default {
     //Interests queries
     getInterests: () => {
         return axios.get('api/interests')
+    },
+
+    editPasswordByName: (data, username) => {
+        return axios.post(`api/user/${username}`, data)
     }
 }
