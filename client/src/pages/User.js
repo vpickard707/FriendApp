@@ -4,11 +4,13 @@ import UserService from "../services/userService";
 import API from "../utils/API";
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
 
 const currentUser = (props) => {
   const currentUser = AuthService.getCurrentUser();
   const [content, setContent] = useState("");
   const [show, setShow] = useState(false);
+  const [password, setPassword] = useState("");
 
   const redirect = () => {
     props.history.push("/profile");
@@ -36,6 +38,16 @@ const currentUser = (props) => {
       }
     );
   }, []);
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+
+  const changePassWordSubmit= (e) => {
+    e.preventDefault();
+    API.editPasswordByName(password, currentUser.username)
+  }
 
   return (
     <div className="container">
@@ -76,16 +88,30 @@ const currentUser = (props) => {
                   <Modal.Header closeButton>
                     <Modal.Title>Change your Password:</Modal.Title>
                   </Modal.Header>
+                  
+                  <Form>
                   <Modal.Body>
-                    <input >
-                    </input>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Input New Password</Form.Label>
+                    <Form.Control 
+                      type="password" 
+                      placeholder="New Password"
+                      value={password}
+                      onChange={onChangePassword}
+                       />
+                  </Form.Group>
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                       Close
                     </Button>
-                    <Button variant="info">Save</Button>
-                  </Modal.Footer>
+                    <Button 
+                      variant="info" 
+                      type='Submit'
+                      onClick={changePassWordSubmit}
+                      >Save</Button>
+                    </Modal.Footer>
+                    </Form>
                 </Modal>
         </div>
       </div>

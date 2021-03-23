@@ -12,6 +12,7 @@ import Matching from "./pages/Matching"
 import Profile from "./pages/Profile"
 import Register from "./pages/Registration"
 import User from "./pages/User"
+import Footer from './components/Footer'
 import './App.css'
 
 function App() {
@@ -30,8 +31,10 @@ function App() {
         <Route exact path="/matching" component={Matching} />
         <Route exact path="/chat" component={Chat} />
         <Route exact path="/favorites" component={Favorites} />
-      </div>
-    </Router>
+        <Footer/>
+  </div>
+</Router>
+
   );
 }
 

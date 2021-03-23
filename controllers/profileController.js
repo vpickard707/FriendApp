@@ -50,8 +50,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   updateByName: function(req, res) {
-    console.log(req.body)
-    
     db.Profile
       .findOneAndUpdate({username: req.params.username}, {$set: req.body }, {new: true},
         (err, doc) => {
