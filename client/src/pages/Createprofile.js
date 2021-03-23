@@ -22,6 +22,28 @@ const [skin, setSkin] = useState();
 const [clothesChoice, setClothesChoice] = useState();
 const [url, setUrl] = useState();
 
+const [location, setLocation] = useState({
+    loaded: false,
+    coordinates: { lat: "", lng: ""}
+});
+    
+const onSuccess = location => {
+    setLocation({
+        loaded: true,
+        coordinates: {
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+        },
+    });
+};
+
+const onError = error => {
+    setLocation({
+        loaded: true,
+        error,
+    });
+}
+
 
     useEffect(()=>{
         setUrl(`https://avatars.dicebear.com/api/avataaars/${ base ? `${base}` : 'example'}.svg?${top ? `top[]=${top}` : ''}&${ hairColor ? `hairColor[]=${hairColor}` : ''}&${ eyes ? `eyes[]=${eyes}` : ''}&${ eyebrow ? `eyebrow[]=${eyebrow}` : ''}&${ mouth ? `mouth[]=${mouth}` : ''}&${ skin ? `skin[]=${skin}` : ''}&${ clothesChoice ? `clothesColor[]=${clothesChoice}` : ''}`)
