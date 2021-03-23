@@ -9,8 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 import '../../App.css'
 import './Filter.css'
+
 
 
 function Filter(props){
@@ -310,15 +312,15 @@ return (
                   <ToggleButton   variant="info"  value='No Preference'>No Preference</ToggleButton>
                </ToggleButtonGroup>
               <h4>Interests:</h4>
-              <ToggleButtonGroup type="checkbox">
+              <Form type="checkbox">
                   <div className="mb-3">
                   {interestList.map((item) =>(
-                      <ToggleButton variant="info" key={item._id} className="interests"  value={item.interest} data-id={item._id}>{item.interest}</ToggleButton>
+                      <Form.Check inline key={item._id} className="interests" label={item.interest} type="checkbox" id={item.interest} data-id={item._id} />
                   ))}
                   </div>
-              </ToggleButtonGroup>
+              </Form>
 
-              <Button variant="secondary" onClick={handleFormSubmit}>Save</Button>
+              <Button variant="info" onClick={handleFormSubmit}>Save</Button>
           </div>
       </div>
 )
