@@ -3,18 +3,16 @@ import MessageBox from "./MessageBox/MessageBox";
 import Messages from "./Messages/Messages";
 import useChat from "./useChat";
 
-const Chat = (currentUserData) => {
+const Messenger = (currentUserData) => {
   //useChat calls to our custom hook
   //it returns an object with messages and sending a message
-  const {messages, sendMessage} = useChat();
+  const { messages, sendMessage } = useChat();
   return (
     <div>
-      <Messages
-        messages={messages}
-      />
+      <Messages messages={messages} />
       <MessageBox
         userData={currentUserData}
-        onSendMessage={message => {
+        onSendMessage={(message) => {
           sendMessage(message);
         }}
       />
@@ -22,4 +20,4 @@ const Chat = (currentUserData) => {
   );
 };
 
-export default Chat;
+export default Messenger;
