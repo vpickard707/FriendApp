@@ -172,16 +172,16 @@ function Matching () {
             <UserCard
                                 key={userProfile._id}
                                 name={userProfile.username}
-                                image={userProfile.avatar}
-                                gender={userProfile.gender}
-                                politics={userProfile.politics}
-                                children={userProfile.children}
-                                drink={userProfile.drink}
-                                smoke={userProfile.smoke}
-                                cannabis={userProfile.cannabis}
-                                age={userProfile.age}
-                                sign={userProfile.sign}
-                                interests={userProfile.interests[0].interest}
+                                image={userProfile.avatar || "https://loremflickr.com/320/240"}
+                                gender={userProfile.gender || "not specified"}
+                                politics={userProfile.politics || "not specified"}
+                                children={userProfile.children || "not specified"}
+                                drink={userProfile.drink || "not specified"}
+                                smoke={userProfile.smoke || "not specified"}
+                                cannabis={userProfile.cannabis || "not specified" }
+                                age={userProfile.age || "not specified"}
+                                sign={userProfile.sign || "not specified"}
+                                interests={userProfile.interests[0].interest || "anything"}
                                 />
             <ButtonGroup>
                 <Button variant="danger" onClick={() => swipe('left')}><i className="far fa-times-circle"></i></Button>
