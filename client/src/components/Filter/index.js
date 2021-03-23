@@ -125,9 +125,8 @@ function Filter(props){
   
       API.editProfileByName(object, currentUser.username)
       .then(res => {
-          console.log(res.data)
-          props.history.push("/profile");
-          window.location.reload()
+          // props.history.push("/profile");
+          // window.location.reload()
           })
       .catch(err => { 
           if (err.response) { 

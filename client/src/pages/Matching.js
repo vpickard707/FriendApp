@@ -1,6 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import AuthService from "../services/authService";
-import Geolocation from "../utils/geolocation"
+import AuthService from '../services/authService';
+import Geolocation from '../utils/geolocation'
+import getUserProfile from '../utils/getUserProfile'
+import getFavorites from '../utils/getFavorites'
+import API from '../utils/API'
 import haversine from 'haversine-distance';
 import TinderCard from 'react-tinder-card'
 import UserCard from '../components/UserCard.js'
@@ -8,12 +11,8 @@ import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Filter from '../components/Filter'
-import getUserProfile from '../utils/getUserProfile'
-import API from '../utils/API'
+
 import './css/Matching.css'
-
-
-
 
 function Matching () {
   const currentUser = AuthService.getCurrentUser();
@@ -21,21 +20,21 @@ function Matching () {
   const [lastDirection, setLastDirection] = useState()
   const [show, setShow] = useState(false);
   const alreadyRemoved = []     
-  let usersState = []
-  
+  let usersState = users
 
   // const { filterGender, filterPolitics, filterChildren, filterDrink, filterSmoke, filterCannabis, filterSign, ageRange, distance } = Filter
   const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
-  const { location, a, b } = Geolocation()
-  console.log(filters)
+  const { location } = Geolocation()
+  const { favorites, setFavorites } = getFavorites()
+  console.log(favorites)  
 
   const handleClose = () => {
     setFilterUpdate(!filterUpdate)
     setShow(false)};
   const handleShow = () => setShow(true);
 
-  const childRefs = useMemo(() => Array(usersState.length).fill(0).map(i => React.createRef()), [])
-
+  const childRefs = useMemo(() => Array(usersState.length).fill(0).map(i => React.createRef()), [users])
+    
   useEffect(() => {
     
     let gendering = ["Female", "Male","Non-binary", "Transgender", "Intersex"]
@@ -76,31 +75,35 @@ function Matching () {
 
     API.filterUsers(query)
         .then(res => {
+          
           const newArray = []
-          const results = res.data
-          const myLocation = {
-            latitude: location.coordinates.lat,
-            longitude: location.coordinates.lng
-          }
-          console.log(location.coordinates.lng)
-          for(var i = 0; i < res.data.length; i++)
-          {
-            const itemLocation = {
-              latitude: res.data[i].location.latitude,
-              longitude: res.data[i].location.longitude
-            }
-            console.log(res.data[i].location.latitude)
-            const meters = haversine(myLocation, itemLocation)
-            const distances = parseInt(meters)*0.00062137
-            console.log(distances)
-            console.log(filters.distance)
-            if(distances < filters.distance){
+          // const myLocation = {
+          //   latitude: location.coordinates.lat,
+          //   longitude: location.coordinates.lng
+          // }
+          
+          for(var i = 0; i < res.data.length; i++){
+            if(favorites.includes(res.data[i]._id) === false){
               newArray.push(res.data[i])
             }
+
           }
+          // {
+          //   const itemLocation = {
+          //     latitude: res.data[i].location.latitude,
+          //     longitude: res.data[i].location.longitude
+          //   }
+            
+          //   const meters = haversine(myLocation, itemLocation)
+          //   const distances = parseInt(meters)*0.00062137
+            
+          //   if(distances < filters.distance){
+          //     newArray.push(res.data[i])
+          //   }
+          // }
+
+          
             console.log(newArray)
-            console.log(res.data)
-            usersState = res.data
             setusers(newArray)
             })
         .catch(err => { 
@@ -112,28 +115,50 @@ function Matching () {
                 console.log('um, sh*ts really broken') 
             } });
     
-  }, [filters])
+  }, [filters, favorites])
 
-  const swiped = (direction, nameToDelete) => {
+  function saveFavorite(id){
+    API.saveFavorites({ 
+      username: currentUser.username,
+      favedId: id})
+    .then()
+    .catch(err => { 
+      if (err.response) { 
+      console.log('error with response')
+      } else if (err.request) { 
+          console.log('error with request') 
+      } else { 
+          console.log('um, sh*ts really broken') 
+      } });
+  }
+
+  const swiped = (direction, nameToDelete, profileId) => {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
     alreadyRemoved.push(nameToDelete)
+    if(direction === 'right'){
+     saveFavorite(profileId)
+    }
   }
 
   const outOfFrame = (username) => {
     console.log(username + ' left the screen!')
-    usersState.filter(userProfile => userProfile.username === username)
-    console.log(usersState)
-    setusers(usersState)
+
   }
 
-  const swipe = (dir) => {
+  const swipe = (dir, nameToDelete, profileId) => {
+    let usersState = users
     const cardsLeft = usersState.filter(person => !alreadyRemoved.includes(person.username))
+    console.log(cardsLeft)
     if (cardsLeft.length) {
-      const toBeRemoved = cardsLeft[cardsLeft.length - 1].username // Find the card object to be removed
-      const index = users.map(person => person.username).indexOf(toBeRemoved) // Find the index of which to make the reference to
+      const toBeRemoved = nameToDelete // Find the card object to be removed
+      console.log(toBeRemoved)
+      const index = usersState.map(person => person.username).indexOf(toBeRemoved) // Find the index of which to make the reference to
       alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
       childRefs[index].current.swipe(dir) // Swipe the card!
+    }
+    if (dir === 'right'){
+      saveFavorite(profileId)
     }
   }
 
@@ -193,7 +218,7 @@ function Matching () {
       <div className='cardContainer'>
       {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2>}
         {users.map((userProfile, index) =>
-          <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.username} onSwipe={(dir) => swiped(dir, userProfile.username)} onCardLeftScreen={() => outOfFrame(userProfile.username)} preventSwipe={['up', 'down']}>
+          <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.username} onSwipe={(dir) => swiped(dir, userProfile.username, userProfile._id)} onCardLeftScreen={() => outOfFrame(userProfile.username)} preventSwipe={['up', 'down']}>
               <div className="card" style={{width: 'fit-content', background: '#17a2b8', borderRadius:'15px'}}>
             <UserCard
                                 key={userProfile._id}
@@ -210,8 +235,8 @@ function Matching () {
                                 interests={userProfile.interests[0].interest}
                                 />
             <ButtonGroup>
-                <Button variant="danger" onClick={() => swipe('left')}><i className="far fa-times-circle"></i></Button>
-                <Button variant="success" onClick={() => swipe('right')}><i className="far fa-check-circle"></i></Button>
+                <Button variant="danger" onClick={() => swipe('left', userProfile.username, userProfile._id)}><i className="far fa-times-circle"></i></Button>
+                <Button variant="success" onClick={() => swipe('right', userProfile.username, userProfile._id)}><i className="far fa-check-circle"></i></Button>
             </ButtonGroup>
             </div>
           </TinderCard>

@@ -42,10 +42,6 @@ const Geolocation = () => {
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }, []);
     
-    return {
-        location,
-        a,
-        b
-    };
+    return location;
 }
 export default Geolocation
