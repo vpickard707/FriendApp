@@ -1,0 +1,18 @@
+.footer {
+    background-color: #e2564c;
+    text-align: center;
+    font-size: 25px;
+    word-spacing: 20px;
+    border-top:thick #17a2b8 double;
+}
+
+.fa-github, .fa-unsplash{
+    color: #EBE8E7;
+
+}
+
+.fa-github:hover, .fa-unsplash:hover {
+    color:#17a2b8;
+    opacity: 70%;
+    text-decoration: none;
+}
