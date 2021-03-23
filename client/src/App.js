@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/Header"
 import Chat from "./pages/Chat"
@@ -14,12 +14,10 @@ import Register from "./pages/Registration"
 import User from "./pages/User"
 import './App.css'
 
-
 function App() {
   return (
-
-<Router>
-  <div>
+    <Router>
+      <div>
         <Header />
         <Route exact path="/" component={Landing} />
         <Route exact path="/login" component={Login} />
@@ -32,8 +30,8 @@ function App() {
         <Route exact path="/matching" component={Matching} />
         <Route exact path="/chat" component={Chat} />
         <Route exact path="/favorites" component={Favorites} />
-  </div>
-</Router>
+      </div>
+    </Router>
   );
 }
 

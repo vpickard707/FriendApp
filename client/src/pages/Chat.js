@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from "react";
+import Messenger from "../components/Chat/Messenger";
 
-function Chat (){
-
-    return(
+function Chat() {
+  const [userData, setUserData] = useState(null);
+  return (
     <div>
-        chat
+      <Messenger currentUserData={userData} />
     </div>
-    )
+  );
 }
 export default Chat;
