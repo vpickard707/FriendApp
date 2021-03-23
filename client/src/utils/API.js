@@ -29,7 +29,17 @@ export default {
         return axios.get('api/interests')
     },
 
+    //user queries
     editPasswordByName: (data, username) => {
         return axios.post(`api/user/${username}`, data)
+    },
+
+    //favorites queries
+    getFavoritesByName: (username) => {
+        return axios.get(`api/favorites/${username}`)
+    },
+    saveFavorites: (data) => {
+        return axios.post('api/favorites', data)
     }
+
 }

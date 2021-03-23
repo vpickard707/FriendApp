@@ -20,19 +20,16 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  filter: function(req,res) {
-    console.log(req.query)
-    const query = req.query
-
+  filter: function(req,res) {    
     db.Profile
     .find({
-      gender: { $in: query.gender},
-      politics: { $in: query.politics},
-      age: { $gt: query.age[0], $lt: query.age[1]},
-      smoke: { $in: query.smoke},
-      drink: { $in: query.drink},
-      cannabis: { $in: query.cannabis},
-      children: { $in: query.children}
+      gender: { $in: req.query.gender},
+      politics: { $in: req.query.politics},
+      age: { $gt: req.query.age[0], $lt: req.query.age[1]},
+      smoke: { $in: req.query.smoke},
+      drink: { $in: req.query.drink},
+      cannabis: { $in: req.query.cannabis},
+      children: { $in: req.query.children}
     })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -50,6 +47,8 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   updateByName: function(req, res) {
+    console.log(req.body)
+    
     db.Profile
       .findOneAndUpdate({username: req.params.username}, {$set: req.body }, {new: true},
         (err, doc) => {

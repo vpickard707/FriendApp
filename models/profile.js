@@ -71,7 +71,8 @@ const profileSchema = new Schema({
     ],
     favorites: [
         {
-            _id: {type: String}
+            type: Schema.Types.ObjectId,
+            ref: "Favorites"
         }
     ],
     matches: [
