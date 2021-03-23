@@ -168,7 +168,7 @@ function Matching () {
       <div className='cardContainer'>
         {users.map((userProfile, index) =>
           <TinderCard ref={childRefs[index]} className='swipe' key={userProfile.name} onSwipe={(dir) => swiped(dir, userProfile.name)} onCardLeftScreen={() => outOfFrame(userProfile.name)}>
-              <div className="card" style={{width: 'fit-content', background: '#17a2b8', borderRadius:'15px'}}>
+              <div className="card" style={{width: '24rem', borderRadius:'15px'}}>
             <UserCard
                                 key={userProfile._id}
                                 name={userProfile.username}
