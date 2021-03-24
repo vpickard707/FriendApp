@@ -4,6 +4,7 @@ import AuthService from "../services/authService";
 
 const getUserProfile = () => {
     const currentUser = AuthService.getCurrentUser();
+    
     const [profile, setProfile] = useState({
         avatar: "",
         username: "",
@@ -35,7 +36,7 @@ const getUserProfile = () => {
         useEffect (() => {
         API.findProfileByName(currentUser.username)
         .then((res) => {
-        console.log(res.data[0].filterBy)
+        console.log(res.data[0])
         const filt = res.data[0].filterBy[0]
                 const filterObj = {
                     distance: filt.distance,

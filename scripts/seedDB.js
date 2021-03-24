@@ -4,8 +4,8 @@ var seeder = require('mongoose-seed')
 const db = "mongodb://localhost/bffl_db"
 
 seeder.connect(db, () =>{
-    seeder.loadModels(["./models/interests", "./models/profile"])
-    seeder.clearModels(['Interests', 'Profile'], () => {
+    seeder.loadModels(["./models/interests", "./models/profile", "./models/favorites", "./models/user"])
+    seeder.clearModels(['Interests', 'Profile', 'Favorites', 'User'], () => {
         seeder.populateModels(populateIntersts, (err, success) => {
         if (err) {
             return console.log("seed err", err)
@@ -87,6 +87,7 @@ const populateIntersts = [{
     "model": "Profile",
     "documents": [
         {
+          
         "username":"Steve",
         "avatar": "https://avatars.dicebear.com/api/avataaars/Ronald%20Frank.svg",
         "gender": "Non-binary", 
@@ -118,6 +119,7 @@ const populateIntersts = [{
         }] 
     },
     {
+         
         "username":"Max",
         "avatar": "https://avatars.dicebear.com/api/avataaars/Stanley%20Newman.svg",
         "gender": "Male", 
@@ -139,6 +141,7 @@ const populateIntersts = [{
         }
     },
     {
+         
         "username":"Noa",
         "avatar": "https://avatars.dicebear.com/api/avataaars/Grace%20Singeton.svg?top[]=longHair&hairColor[]=pastel&eyes[]=happy&eyebrow[]=default&mouth[]=twinkle&&clothesColor[]=heather",
         "gender": "Female", 
@@ -159,7 +162,8 @@ const populateIntersts = [{
             "longitude": 106.8133
         }
     },
-    {
+    {   
+         
         "username":"Bananas",
         "avatar": "https://avatars.dicebear.com/api/avataaars/example.svg?&&&&&&",
         "gender": "Female", 
@@ -191,6 +195,7 @@ const populateIntersts = [{
         }]
     },
     {
+         
         "username":"Muffins",
         "avatar": "https://avatars.dicebear.com/api/avataaars/example.svg?&&&&&&",
         "gender": "Transgender", 
@@ -212,6 +217,7 @@ const populateIntersts = [{
         }
     },
     {
+        
         "username":"Popcorn",
         "avatar": "https://avatars.dicebear.com/api/avataaars/example.svg?&&&&&&",
         "gender": "Intersex", 
@@ -232,5 +238,75 @@ const populateIntersts = [{
             "longitude": -121.543110
         }
     },
+    ]
+},{
+    "model": "Favorites",
+    "documents": [
+        {
+            "username": "Popcorn",
+            "faveUser": "Muffins"
+        },
+        {
+            "username": "Popcorn",
+            "faveUser": "Bananas"
+        },
+        {
+            "username": "Popcorn",
+            "faveId": "Max"
+        },
+        {
+            "username": "Max",
+            "faveId": "Bananas"
+        },
+        {
+            "username": "Steve",
+            "faveId": "Bananas"
+        }
+    ]
+},{
+    "model": "User",
+    "documents": [
+        {
+            "username": "Popcorn",
+            "email": "popcorn@email.com",
+            "password": "$2a$10$1UPC4C1IAdNuEwh.y0Vn7.1rYL6CvmSY/.12WAMjIjO0QC4xRmX5C",
+            "firstName": "Pop",
+            "lastName": "Corn"
+        },
+        {
+            "username": "Muffins",
+            "email": "muffins@email.com",
+            "password": "$2a$10$1UPC4C1IAdNuEwh.y0Vn7.1rYL6CvmSY/.12WAMjIjO0QC4xRmX5C",
+            "firstName": "Muffins",
+            "lastName": "Cat"
+        },
+        {
+            "username": "Noa",
+            "email": "noa@email.com",
+            "password": "$2a$10$1UPC4C1IAdNuEwh.y0Vn7.1rYL6CvmSY/.12WAMjIjO0QC4xRmX5C",
+            "firstName": "Noa",
+            "lastName": "Arc"
+        },
+        {
+            "username": "Max",
+            "email": "max@email.com",
+            "password": "$2a$10$1UPC4C1IAdNuEwh.y0Vn7.1rYL6CvmSY/.12WAMjIjO0QC4xRmX5C",
+            "firstName": "Max",
+            "lastName": "Amillion"
+        },
+        {
+            "username": "Steve",
+            "email": "steve@email.com",
+            "password": "$2a$10$1UPC4C1IAdNuEwh.y0Vn7.1rYL6CvmSY/.12WAMjIjO0QC4xRmX5C",
+            "firstName": "Steve",
+            "lastName": "Neighbor"
+        },
+        {
+            "username": "Bananas",
+            "email": "bananas@email.com",
+            "password": "$2a$10$9EqXv6hSVwntu/KDte3w6OZ23LYR5JrI.1vXp6j0gZ/3CNp2L07hy",
+            "firstName": "Bananas",
+            "lastName": "Split"
+        }
     ]
 }]
