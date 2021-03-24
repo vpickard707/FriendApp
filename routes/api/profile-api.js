@@ -15,6 +15,8 @@ router.route("/")
 
 router.route('/filter')
   .get(profileController.filter)
+router.route('/matches')
+  .get(profileController.findMatch)
 
 router.route("/:username")
   .get(profileController.findByName)
