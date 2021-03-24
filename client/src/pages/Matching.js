@@ -84,7 +84,7 @@ function Matching () {
           // }
           
           for(var i = 0; i < res.data.length; i++){
-            if(favorites.includes(res.data[i].username) === false || res.data[i].username.includes(currentUser.username) === false ){
+            if(favorites.includes(res.data[i].username) === false){
               newArray.push(res.data[i])
             }
 
