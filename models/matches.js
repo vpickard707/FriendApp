@@ -7,9 +7,6 @@ const matchSchema = new Schema({
     },
     match: { 
         type: String,
-    },
-    matchId: { 
-        type: String,
     }
 });
 

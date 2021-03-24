@@ -242,6 +242,26 @@ const populateIntersts = [{
 },{
     "model": "Favorites",
     "documents": [
+        {
+            "username": "Popcorn",
+            "faveUser": "Muffins"
+        },
+        {
+            "username": "Popcorn",
+            "faveUser": "Bananas"
+        },
+        {
+            "username": "Popcorn",
+            "faveId": "Max"
+        },
+        {
+            "username": "Max",
+            "faveId": "Bananas"
+        },
+        {
+            "username": "Steve",
+            "faveId": "Bananas"
+        }
     ]
 },{
     "model": "User",

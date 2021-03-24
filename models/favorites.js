@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const favoriteSchema = new Schema({
     username: {type: String},
-    favedId: { 
+    faveUser: { 
         type: String,
     }
 });
