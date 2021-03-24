@@ -17,6 +17,11 @@ export default {
             params: queryInfo
           })
     },
+    findMatchingUsers: (queryInfo) => {
+        return axios.get(`api/profile/matches`, {
+            params: queryInfo
+          })
+    },
     // editProfile: (data, id) => {
     //     return axios.put('api/profile/' + id, data)
     // },

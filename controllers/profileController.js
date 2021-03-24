@@ -20,6 +20,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findMatch: function(req, res) {
+    db.Profile
+      .find({username: {$in: req.query.list}})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   filter: function(req,res) {    
     db.Profile
     .find({

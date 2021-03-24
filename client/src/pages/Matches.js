@@ -9,7 +9,7 @@ import AuthService from '../services/authService';
 
 function Favorites (props){
     const currentUser = AuthService.getCurrentUser();
-    const [matches, setMatches] = useState()
+    const [matches, setMatches] = useState([])
     const [list, setList] = useState()
     const goToChat=()=>{
         props.history.push('/chat')
@@ -20,14 +20,18 @@ function Favorites (props){
         API.findMatches(currentUser.username)
         .then(res => {
             let array = []
-            res.data.forEach((res) => array.push(res.matchId))
+            res.data.forEach((res) => array.push(res.match))
             console.log(array)
             setList(array)
         })
     }, [])
 
     useEffect(()=> {
-        console.log(list)
+        API.findMatchingUsers({list: list})
+        .then((res) => {
+            console.log(res.data)
+            setMatches(res.data)
+        })
     }, [list])
 
     return(
@@ -37,12 +41,12 @@ function Favorites (props){
             <div className="row">
                 <div className="card favoritesCard">
                     <div className="row">
-                        {seedUserProfiles.map(userProfile => (
+                        {matches.map(userProfile => (
                         <Card className="userCard" style={{ width: '21rem' }}>
                             <UserCard
                             key={userProfile.id}
-                            name={userProfile.name}
-                            image={userProfile.image}
+                            name={userProfile.username}
+                            image={userProfile.avatar}
                             gender={userProfile.gender}
                             politics={userProfile.politics}
                             children={userProfile.children}
@@ -51,7 +55,7 @@ function Favorites (props){
                             cannabis={userProfile.cannabis}
                             age={userProfile.age}
                             sign={userProfile.sign}
-                            interests={userProfile.interests}
+                            interests={userProfile.interests[0].interest}
                             />
                             <Button variant="info" onClick={goToChat}>chat</Button>
                         </Card>
