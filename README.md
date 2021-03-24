@@ -22,8 +22,9 @@
 
 ## Installation
 
-- Step 1: Run NPM install
-- Step 2: Do the rest
+- Step 1: Fork the repository
+- Step 2: Run NPM install to install node modules
+- Step 3: Run npm start
 
 ## Usage
 
@@ -35,20 +36,24 @@ Provide instructions and examples for use. Include screenshots as needed.
 
 Collaborators:
 
+- Alex Bachicha
 - Rebecca Blanton
 - Robert Koepp
 - Joshua Ordaz
-- Jessica Tax
 - Violet Pickard
-- Alex Bachicha
+- Jessica Tax
 
 ## License
+
+MIT
+
+## Technologies
 
 Technologies Used:
 
 - React JS
-- Node and Express
-- Web Server
+- Node
+- Express
 - MongoDB
 - Mongoose
 - Socket.io
@@ -56,3 +61,4 @@ Technologies Used:
 - Multer
 - Next.js
 - Geocaching
+- React Bootstrap
