@@ -46,7 +46,7 @@ Collaborators:
 
 Technologies Used:
 
-- Reast JS
+- React JS
 - Node and Express
 - Web Server
 - MongoDB
