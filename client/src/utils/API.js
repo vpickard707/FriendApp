@@ -40,6 +40,14 @@ export default {
     },
     saveFavorites: (data) => {
         return axios.post('api/favorites', data)
+    },
+
+    //matching queries
+    doubleEntry: (data) => {
+        return axios.post('api/match', data)
+    },
+    findMatches: (username) => {
+        return axios.get(`api/match/${username}`)
     }
 
 }

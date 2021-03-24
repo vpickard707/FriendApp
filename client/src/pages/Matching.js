@@ -24,10 +24,10 @@ function Matching () {
   
 
   // const { filterGender, filterPolitics, filterChildren, filterDrink, filterSmoke, filterCannabis, filterSign, ageRange, distance } = Filter
-  const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
+  const { profile, filters, filterUpdate, setFilterUpdate } = getUserProfile()
   const { location } = Geolocation()
   const { favorites, setFavorites } = getFavorites()
-  console.log(favorites)  
+  console.log(profile)  
 
   const handleClose = () => {
     setFilterUpdate(!filterUpdate)
@@ -133,12 +133,46 @@ function Matching () {
       } });
   }
 
+  function checkForMatch(faveName, faveId){
+    console.log(faveName)
+    console.log(faveId)
+    API.getFavoritesByName(faveName)
+      .then(item => {
+        let array = []
+        const results = item.data
+        results.forEach((res) => array.push(res.favedId))
+        console.log(array)
+        console.log(profile._id)
+        if(array.includes(profile._id)){
+          alert("It's a match!")
+          API.doubleEntry([
+            { currentUser: currentUser.username,
+              match: faveName,
+              matchId: faveId},
+            { currentUser: faveName,
+              match: currentUser.username,
+              matchId: profile._id}
+          ])
+          .then()
+          .catch(err => { 
+            if (err.response) { 
+            console.log('error with response')
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('um, sh*ts really broken') 
+            } });
+        }
+    })
+  }
+
   const swiped = (direction, nameToDelete, profileId) => {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
     alreadyRemoved.push(nameToDelete)
     if(direction === 'right'){
-     saveFavorite(profileId)
+      checkForMatch(nameToDelete, profileId)
+      saveFavorite(profileId)
     }
   }
 
@@ -160,6 +194,7 @@ function Matching () {
     }
     if (dir === 'right'){
       saveFavorite(profileId)
+      checkForMatch(nameToDelete, profileId)
     }
   }
 
