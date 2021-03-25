@@ -54,7 +54,7 @@ function Favorites (props){
                             cannabis={userProfile.cannabis}
                             age={userProfile.age}
                             sign={userProfile.sign}
-                            interests={userProfile.interests[0].interest}
+                            interests={userProfile.interests}
                             />
                             <Button variant="info" onClick={goToChat}>chat</Button>
                         </Card>

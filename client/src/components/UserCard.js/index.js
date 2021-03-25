@@ -24,10 +24,14 @@ function UserCard (props){
                     <Badge className="smbadge" variant="info"><i className="fas fa-cannabis" /> {props.cannabis}</Badge>
                     <Badge className="smbadge" variant="info"><i className="fas fa-star" /> {props.sign}</Badge><br/>
                 </h5>
-                <h3>
-                    Interests:
-                    <Badge pill variant="info">{props.interests}</Badge>
+                <h3>Interests:</h3>
+                <div className="row">
+                  <h3 style={{margin:"auto"}}>
+                {props.interests.map(item => (
+                  <Badge pill variant="info">{item.interest}</Badge>
+                ))}
                 </h3>
+                </div>
         </Card.Body>
     </>
     )
