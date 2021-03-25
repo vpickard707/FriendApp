@@ -104,8 +104,8 @@ const populateIntersts = [{
                         "_id": "605384df83a432644d843ef9"}
                      ],
         "location": {
-            "latitude": "59.3293371",
-            "longitude": "13.4877472"
+            "latitude": 38.798083153822645, 
+            "longitude": -121.23600156822104
         },
         "filterBy": [{
             "distance": 2,
@@ -136,8 +136,8 @@ const populateIntersts = [{
                         "_id": "605384df83a432644d843ef9"}
                      ],
         "location": {
-            "latitude": "59.3293371",
-            "longitude": "13.4877472"
+            "latitude": 38.795950910355046, 
+            "longitude": -121.23799713178968
         }
     },
     {
@@ -158,8 +158,8 @@ const populateIntersts = [{
                         "_id": "605384df83a432644d843ef9"}
                      ],
         "location": {
-            "latitude": 6.1352,
-            "longitude": 106.8133
+            "latitude": 38.792438840875505, 
+            "longitude": -121.24143035943466
         }
     },
     {   
@@ -180,8 +180,8 @@ const populateIntersts = [{
                         "_id": "605384df83a432644d843ef9"}
                      ],
         "location": {
-            "latitude": 6.1754,
-            "longitude": 106.8272
+            "latitude": 38.79406110399837, 
+            "longitude": -121.23427422556216
         },
         "filterBy": [{
             "distance": 2,
@@ -212,8 +212,8 @@ const populateIntersts = [{
                         "_id": "605384df83a432644d843ef9"}
                      ],
         "location": {
-            "latitude": 59.3225525,
-            "longitude": 13.4619422
+            "latitude": 38.79642753501916, 
+            "longitude": -121.24076517157846
         }
     },
     {
@@ -234,8 +234,52 @@ const populateIntersts = [{
                         "_id": "605384df83a432644d843ef9"}
                      ],
         "location": {
-            "latitude": 38.483040,
-            "longitude": -121.543110
+            "latitude": 38.795875653537784, 
+            "longitude": -121.23794348760772
+        }
+    },
+    {
+        
+        "username":"Gizmo",
+        "avatar": "https://avatars.dicebear.com/api/avataaars/example.svg?&&&&&&",
+        "gender": "Male", 
+        "politics": "Liberal", 
+        "children": "Has Children", 
+        "drink": "Regularly", 
+        "smoke": "Never", 
+        "cannabis": "Never", 
+        "age": "27",
+        "sign":"Aries",
+        "interests": [  {"interest": "Hiking ",
+                        "_id": "605384df83a432644d843ef9"}, 
+                        {"interest":"Books",
+                        "_id": "605384df83a432644d843ef9"}
+                     ],
+        "location": {
+            "latitude": 38.79363463634235, 
+            "longitude": -121.24051840834147
+        }
+    },
+    {
+        
+        "username":"Stitch",
+        "avatar": "https://avatars.dicebear.com/api/avataaars/example.svg?&&&&&&",
+        "gender": "Intersex", 
+        "politics": "No Affiliation", 
+        "children": "Has Children", 
+        "drink": "Never", 
+        "smoke": "Regularly", 
+        "cannabis": "Occasionally", 
+        "age": "44",
+        "sign":"Libra",
+        "interests": [  {"interest": "Hiking ",
+                        "_id": "605384df83a432644d843ef9"}, 
+                        {"interest":"Books",
+                        "_id": "605384df83a432644d843ef9"}
+                     ],
+        "location": {
+            "latitude": 38.79968743455052,
+            "longitude": -121.23847586432746
         }
     },
     ]
@@ -247,21 +291,41 @@ const populateIntersts = [{
             "faveUser": "Muffins"
         },
         {
+            "username": "Bananas",
+            "faveUser": "Popcorn"
+        },
+        {
             "username": "Popcorn",
             "faveUser": "Bananas"
         },
         {
             "username": "Popcorn",
-            "faveId": "Max"
+            "faveUser": "Max"
         },
         {
             "username": "Max",
-            "faveId": "Bananas"
+            "faveUser": "Bananas"
         },
         {
             "username": "Steve",
-            "faveId": "Bananas"
-        }
+            "faveUser": "Bananas"
+        },
+        {
+            "username": "Gizmo",
+            "faveUser": "Bananas"
+        },
+        {
+            "username": "Noa",
+            "faveUser": "Bananas"
+        },
+        {
+            "username": "Muffins",
+            "faveUser": "Bananas"
+        },
+        {
+            "username": "Stitch",
+            "faveUser": "Bananas"
+        },
     ]
 },{
     "model": "User",
@@ -304,7 +368,7 @@ const populateIntersts = [{
         {
             "username": "Bananas",
             "email": "bananas@email.com",
-            "password": "$2a$10$9EqXv6hSVwntu/KDte3w6OZ23LYR5JrI.1vXp6j0gZ/3CNp2L07hy",
+            "password": "2a$10$1UPC4C1IAdNuEwh.y0Vn7.1rYL6CvmSY/.12WAMjIjO0QC4xRmX5C",
             "firstName": "Bananas",
             "lastName": "Split"
         }

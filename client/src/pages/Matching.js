@@ -22,11 +22,9 @@ function Matching () {
   const alreadyRemoved = []     
   let usersState = users
   
-
-  // const { filterGender, filterPolitics, filterChildren, filterDrink, filterSmoke, filterCannabis, filterSign, ageRange, distance } = Filter
   const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
   const { location } = Geolocation()
-  const { favorites, setFavorites } = getFavorites()
+  const { favorites } = getFavorites()
   console.log(favorites)
 
   const handleClose = () => {
@@ -78,34 +76,29 @@ function Matching () {
         .then(res => {
           
           const newArray = []
-          // const myLocation = {
-          //   latitude: location.coordinates.lat,
-          //   longitude: location.coordinates.lng
-          // }
+          const myLocation = {
+            latitude: location.coordinates.lat,
+            longitude: location.coordinates.lng
+          }
           
           for(var i = 0; i < res.data.length; i++){
-            if(favorites.includes(res.data[i].username) === false){
+            const itemLocation = {
+              latitude: res.data[i].location.latitude,
+              longitude: res.data[i].location.longitude
+            }
+            const meters = haversine(myLocation, itemLocation)
+            const distances = parseInt(meters)*0.00062137
+            console.log(distances)
+            if(favorites.includes(res.data[i].username) === false && distances < filters.distance){
               newArray.push(res.data[i])
             }
 
           }
-          // {
-          //   const itemLocation = {
-          //     latitude: res.data[i].location.latitude,
-          //     longitude: res.data[i].location.longitude
-          //   }
-            
-          //   const meters = haversine(myLocation, itemLocation)
-          //   const distances = parseInt(meters)*0.00062137
-            
-          //   if(distances < filters.distance){
-          //     newArray.push(res.data[i])
-          //   }
-          // }
-
           
-            console.log(newArray)
-            setusers(newArray)
+            const searchList = newArray.filter(person => person.username !== currentUser.username)
+          
+            setusers(searchList)
+
             })
         .catch(err => { 
             if (err.response) { 
@@ -134,7 +127,6 @@ function Matching () {
   }
 
   function checkForMatch(faveName){
-    
     API.getFavoritesByName(faveName)
       .then(item => {
         let array = []
@@ -258,7 +250,7 @@ function Matching () {
             <UserCard
                                 key={userProfile._id}
                                 name={userProfile.username}
-                                image={userProfile.avatar || "https://loremflickr.com/320/240"}
+                                avatar={userProfile.avatar || "https://loremflickr.com/320/240"}
                                 gender={userProfile.gender || "not specified"}
                                 politics={userProfile.politics || "not specified"}
                                 children={userProfile.children || "not specified"}
@@ -281,6 +273,8 @@ function Matching () {
     
     </div>
     }
+    <br></br>
+    <br></br>
     </div>
   )
 }

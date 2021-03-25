@@ -53,7 +53,7 @@ const Profile = () => {
             <h2>{profile.username}</h2>
                 <h2>
                     <Badge variant="info"><i className="fas fa-birthday-cake"/> {profile.age}</Badge>
-                    <Badge variant="info"><i class="fas fa-genderless"/> {profile.gender}</Badge>
+                    <Badge variant="info"><i className="fas fa-genderless"/> {profile.gender}</Badge>
                     <Badge variant="info"><i className="fas fa-landmark" /> {profile.politics}</Badge>
                     <Badge variant="info"><i className="fas fa-child" /> {profile.children}</Badge>
                     <Badge variant="info"><i className="fas fa-glass-martini" /> {profile.drink}</Badge>

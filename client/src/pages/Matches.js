@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import UserCard from '../components/UserCard.js/index.js'
-import seedUserProfiles from "../seedUserProfiles.json"
 import './css/Favorites.css'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -46,7 +45,7 @@ function Favorites (props){
                             <UserCard
                             key={userProfile.id}
                             name={userProfile.username}
-                            image={userProfile.avatar}
+                            avatar={userProfile.avatar}
                             gender={userProfile.gender}
                             politics={userProfile.politics}
                             children={userProfile.children}

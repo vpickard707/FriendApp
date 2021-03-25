@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge'
 import Image from 'react-bootstrap/Image'
@@ -6,14 +6,12 @@ import './style.css'
 
 
 function UserCard (props){
-    const [chatBtn, setChatBtn] = useState(false)
 
     return (
     <>
         <Card.Body>
-        <h2>{props.username}</h2>
-            <Image className="userImage" variant="top" src={props.image} roundedCircle/>
-            
+            <h2>{props.name}</h2>
+            <Image className="userImage" variant="top" src={props.avatar} roundedCircle/>
                 <h3>
                     <Badge className="badge" variant="info">{props.age}</Badge>
                     <Badge className="badge" variant="info">{props.gender}</Badge> 
