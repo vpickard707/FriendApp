@@ -186,7 +186,7 @@ function handleFormSubmit(event) {
                 <ToggleButtonGroup type="radio" name="drink" defaultValue={'null'} onChange={handleDrinkChange}>
                     <ToggleButton variant="info" value={'Regularly'}>Regularly</ToggleButton>
                     <ToggleButton variant="info" value={'Socially'}>Socially</ToggleButton>
-                    <ToggleButton variant="info" value={'Occaionally'}>Occasionally</ToggleButton>
+                    <ToggleButton variant="info" value={'Occasionally'}>Occasionally</ToggleButton>
                     <ToggleButton variant="info" value={'Never'}>Never</ToggleButton>
                     <ToggleButton variant="info" value={'null'}>I prefer not to say</ToggleButton>
                 </ToggleButtonGroup>
@@ -194,7 +194,7 @@ function handleFormSubmit(event) {
                 <ToggleButtonGroup type="radio" name="smoke" defaultValue={'null'} onChange={handleSmokeChange}>
                     <ToggleButton variant="info" value={'Regularly'}>Regularly</ToggleButton>
                     <ToggleButton variant="info" value={'Socially'}>Socially</ToggleButton>
-                    <ToggleButton variant="info" value={'Occaionally'}>Occasionally</ToggleButton>
+                    <ToggleButton variant="info" value={'Occasionally'}>Occasionally</ToggleButton>
                     <ToggleButton variant="info" value={'Never'}>Never</ToggleButton>
                     <ToggleButton variant="info" value={'null'}>I prefer not to say</ToggleButton>
                 </ToggleButtonGroup>

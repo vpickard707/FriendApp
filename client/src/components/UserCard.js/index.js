@@ -9,9 +9,8 @@ function UserCard (props){
 
     return (
     <>
-        <Image className="userImage" variant="top" src={props.image} roundedCircle/>
         <Card.Body>
-            <h2>{props.username}</h2>
+            <h2>{props.name}</h2>
             <Image className="userImage" variant="top" src={props.avatar} roundedCircle/>
                 <h3>
                     <Badge className="badge" variant="info">{props.age}</Badge>
