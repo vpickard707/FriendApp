@@ -23,9 +23,8 @@ function Matching () {
   let usersState = users
   
   const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
-  const { location } = Geolocation()
+  const { currentLocation } = Geolocation()
   const { favorites } = getFavorites()
-  console.log(favorites)
 
   const handleClose = () => {
     setFilterUpdate(!filterUpdate)
@@ -77,8 +76,8 @@ function Matching () {
           
           const newArray = []
           const myLocation = {
-            latitude: 38.787098,
-            longitude: -121.228294
+            latitude: currentLocation.lat,
+            longitude: currentLocation.lng
           }
           
           for(var i = 0; i < res.data.length; i++){
@@ -88,11 +87,10 @@ function Matching () {
             }
             const meters = haversine(myLocation, itemLocation)
             const distances = parseInt(meters)*0.00062137
-            console.log(distances)
+  
             if(favorites.includes(res.data[i].username) === false && distances < filters.distance){
               newArray.push(res.data[i])
             }
-
           }
           
             const searchList = newArray.filter(person => person.username !== currentUser.username)
