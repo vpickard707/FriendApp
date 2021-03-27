@@ -4,17 +4,16 @@ const routes = require("./routes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// To listen for any port use this and uncomment below
-// var corsOptions = {
-//   origin: "*",
-// };
+// // To listen for any port use this and uncomment below
+// // var corsOptions = {
+// //   origin: "*",
+// // };
 
-// To be used is running locally:
+// // To be used is running locally:
 var corsOptions = {
   origin: "http://localhost:3001",
 };
@@ -43,15 +42,15 @@ require("./routes/userRoutes")(app);
 app.use(routes);
 
 // Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/build"));
+// }
 
-// Send every request to the React app
-// Define any API routes before this runs
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+const root = require('path').join(__dirname, 'client', 'build')
+app.use(express.static(root));
+app.get("*", (req, res) => {
+    res.sendFile('index.html', { root });
+})
 
 app.listen(PORT, function () {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
