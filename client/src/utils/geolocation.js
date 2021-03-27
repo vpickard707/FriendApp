@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import AuthService from '../services/authService';
+import API from '../utils/API'
 
 const Geolocation = () => {
+    const currentUser = AuthService.getCurrentUser();
     const [location, setLocation] = useState({ 
         loaded: false,
         coordinates: {lat: "", lng: "" }
@@ -15,6 +18,21 @@ const Geolocation = () => {
                 lng: location.coords.longitude,
             }
         });
+        API.editProfileByName({
+            location: {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            }
+        }, currentUser.username)
+        .then()
+        .catch(err => { 
+            if (err.response) { 
+            console.log('error with response')
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('um, sh*ts really broken') 
+            } });
     };
     
     const onError = error => {
@@ -23,8 +41,6 @@ const Geolocation = () => {
             error
         });
     }
-
-    console.log(location)
     
     useEffect(() => {
         
