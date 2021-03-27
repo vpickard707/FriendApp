@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const Geolocation = () => {
     const [location, setLocation] = useState({ 
         loaded: false,
         coordinates: {lat: "", lng: "" }
     });
-
-    
-    const a = { latitude: 37.8136, longitude: 144.9631 }
-    const b = { latitude: 33.8650, longitude: 151.2094 }
 
     const onSuccess = (location) => {
         
@@ -17,17 +13,18 @@ const Geolocation = () => {
             coordinates: {
                 lat: location.coords.latitude,
                 lng: location.coords.longitude,
-            },
+            }
         });
     };
     
     const onError = error => {
         setLocation({
             loaded: true,
-            error,
+            error
         });
     }
 
+    console.log(location)
     
     useEffect(() => {
         
@@ -42,6 +39,11 @@ const Geolocation = () => {
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }, []);
     
-    return location;
+    return {
+        currentLocation: {
+            lat: location.coordinates.lat,
+            lng: location.coordinates.lng
+        }
+    };
 }
 export default Geolocation

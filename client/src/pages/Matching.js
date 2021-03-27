@@ -23,9 +23,9 @@ function Matching () {
   let usersState = users
   
   const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
-  const { location } = Geolocation()
+  const { currentLocation } = Geolocation()
   const { favorites } = getFavorites()
-  console.log(favorites)
+  console.log(currentLocation)
 
   const handleClose = () => {
     setFilterUpdate(!filterUpdate)
@@ -77,8 +77,8 @@ function Matching () {
           
           const newArray = []
           const myLocation = {
-            latitude: 38.787098,
-            longitude: -121.228294
+            latitude: currentLocation.lat,
+            longitude: currentLocation.lng
           }
           
           for(var i = 0; i < res.data.length; i++){

@@ -8,12 +8,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// // To listen for any port use this and uncomment below
-// // var corsOptions = {
-// //   origin: "*",
-// // };
-
-// // To be used is running locally:
+// To be used is running locally:
 var corsOptions = {
   origin: "http://localhost:3001",
 };
@@ -41,11 +36,7 @@ require("./routes/authRoutes")(app);
 require("./routes/userRoutes")(app);
 app.use(routes);
 
-// Serve up static assets (usually on heroku)
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
-
+// for React build
 const root = require('path').join(__dirname, 'client', 'build')
 app.use(express.static(root));
 app.get("*", (req, res) => {
