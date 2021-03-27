@@ -1,5 +1,6 @@
 {
-  "name": "mern",
+  "name": "friendapp",
+  "homepage": ".",
   "version": "1.0.0",
   "description": "Mern Demo",
   "main": "server.js",

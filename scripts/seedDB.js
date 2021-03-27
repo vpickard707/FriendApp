@@ -368,7 +368,7 @@ const populateIntersts = [{
         {
             "username": "Bananas",
             "email": "bananas@email.com",
-            "password": "2a$10$1UPC4C1IAdNuEwh.y0Vn7.1rYL6CvmSY/.12WAMjIjO0QC4xRmX5C",
+            "password": "$2a$10$1UPC4C1IAdNuEwh.y0Vn7.1rYL6CvmSY/.12WAMjIjO0QC4xRmX5C",
             "firstName": "Bananas",
             "lastName": "Split"
         }

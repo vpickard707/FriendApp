@@ -20,7 +20,7 @@ const useChat = () => {
         //with those from database
         //not add more
         setMessages((messages) => [...mostRecentMessages]);
-      }
+      } 
     );
 
     socketRef.current.on(

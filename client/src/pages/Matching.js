@@ -77,8 +77,8 @@ function Matching () {
           
           const newArray = []
           const myLocation = {
-            latitude: location.coordinates.lat,
-            longitude: location.coordinates.lng
+            latitude: 38.787098,
+            longitude: -121.228294
           }
           
           for(var i = 0; i < res.data.length; i++){
