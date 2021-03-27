@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import AuthService from '../services/authService';
+import API from '../utils/API'
 
 const Geolocation = () => {
+    const currentUser = AuthService.getCurrentUser();
     const [location, setLocation] = useState({ 
         loaded: false,
         coordinates: {lat: "", lng: "" }
     });
-
-    
-    const a = { latitude: 37.8136, longitude: 144.9631 }
-    const b = { latitude: 33.8650, longitude: 151.2094 }
 
     const onSuccess = (location) => {
         
@@ -17,17 +16,31 @@ const Geolocation = () => {
             coordinates: {
                 lat: location.coords.latitude,
                 lng: location.coords.longitude,
-            },
+            }
         });
+        API.editProfileByName({
+            location: {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            }
+        }, currentUser.username)
+        .then()
+        .catch(err => { 
+            if (err.response) { 
+            console.log('error with response')
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('um, sh*ts really broken') 
+            } });
     };
     
     const onError = error => {
         setLocation({
             loaded: true,
-            error,
+            error
         });
     }
-
     
     useEffect(() => {
         
@@ -42,6 +55,11 @@ const Geolocation = () => {
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }, []);
     
-    return location;
+    return {
+        currentLocation: {
+            lat: location.coordinates.lat,
+            lng: location.coordinates.lng
+        }
+    };
 }
 export default Geolocation
