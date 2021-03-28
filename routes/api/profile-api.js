@@ -1,3 +1,4 @@
+const { authJwt } = require("../../middleware");
 const router = require("express").Router();
 const profileController = require("../../controllers/profileController");
 
