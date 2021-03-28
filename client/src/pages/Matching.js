@@ -92,10 +92,8 @@ function Matching () {
               newArray.push(res.data[i])
             }
           }
-          
-            const searchList = newArray.filter(person => person.username !== currentUser.username)
-          
-            setusers(searchList)
+            
+            setusers(newArray)
 
             })
         .catch(err => { 

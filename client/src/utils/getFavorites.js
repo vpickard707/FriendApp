@@ -7,7 +7,9 @@ const getFavorites = () => {
     const [favorites, setFavorites] = useState([currentUser.username])
     
     useEffect(() => {
-        API.getFavoritesByName(currentUser.username)
+        API.getFavoritesByName(currentUser.username, { user: {
+            accessToken: currentUser.accessToken
+        }})
             .then(item => {
                 let array = [currentUser.username]
                 const results = item.data
