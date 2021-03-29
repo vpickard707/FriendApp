@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Messenger from "../components/Chat/Messenger";
 import getUserProfile from "../utils/getUserProfile"
 
 function Chat() {
-  const [userData, setUserData] = useState(null);
   const { profile } = getUserProfile()
 
   const myData = {
@@ -12,7 +11,10 @@ function Chat() {
   }
   return (
     <div>
+      <h1 className='Header'>Chat:</h1>
+      <div className="card chatCard">
       <Messenger currentUserData={myData} />
+      </div>
     </div>
   );
 }

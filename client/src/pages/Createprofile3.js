@@ -209,9 +209,10 @@ const useStyles = makeStyles({
       })(Slider);
       
 return (
+<main>
+<h1 className="Header">Pick how you'd like to filter your friends:</h1>
     <div className="container">
-            <div className="profileCard card">
-                <h1>Pick how you'd like to filter your friends:</h1>
+            <div className="profileCard card"> 
                 <div className={classes.root}>
                     <div className="distanceSlider">
                 <Typography id="discrete-slider" gutterBottom>
@@ -325,6 +326,7 @@ return (
             <br></br>
             <br></br>
         </div>
+</main>
 )
 }
 

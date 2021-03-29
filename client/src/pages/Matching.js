@@ -189,7 +189,7 @@ function Matching () {
     
     <div>
       {users.length === 0 ? 
-      <div><h1>There aren't any users who match your preferences. Keep looking!</h1>
+      <div><h1 className="Header">There aren't any users who match your preferences. Keep looking!</h1>
      <Button variant="info" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>
@@ -215,7 +215,7 @@ function Matching () {
       </div>
      : 
       <div>
-      <h1 className='MatchingHeader'>Are you my BFFL?</h1>
+      <h1 className='Header'>Are you my BFFL?</h1>
       <Button variant="info" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>

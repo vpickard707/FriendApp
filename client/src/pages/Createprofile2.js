@@ -23,8 +23,6 @@ const [cannabis, setCannabis] = useState();
 const [age, setAge] = useState();
 const [sign, setSign] = useState();
 const [interestList, setInterestList] = useState([]);
-// const [interestItem, setInterestItem] = useState({});
-// const [interests, setInterests] = useState([]);
 const checkboxArray = document.getElementsByClassName('interests')
 
 
@@ -54,30 +52,6 @@ useEffect(() => {
             } });
     
 }, [])
-
-// function interestsClick(e){
-//     console.log(e.target)
-//     setInterestItem(e.target)
-//     if(interests.length === 0){
-//         setInterests(state => {
-//             const newList = state.concat(interestItem)
-//             console.log(newList)
-//             return newList
-//         })
-//     } else if(interests.some(item => item === interestItem)){
-//         setInterests(state => {
-//             const filteredList = state.filter(item => {return item !== interestItem})
-//             console.log(filteredList)
-//             return filteredList
-//         })
-//     } 
-//     // else 
-//     //     setInterests(state => {
-//     //     const list = state.concat(interestItem)
-//     //     console.log(list)
-//     //     return list
-//     // })
-// };
 
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -124,9 +98,10 @@ function handleFormSubmit(event) {
 
 }
     return(
+    <main>
+        <h1 className="Header">Now let's find out more about you:</h1>
         <div className="container">
             <div className="profileCard card">
-                <h1>Now let's find out more about you:</h1>
                 <Badge variant="info"
                         style={{width: 'fit-content', fontSize: 'inherit'}}>Age:{age}</Badge>
                 <DropdownButton
@@ -265,7 +240,7 @@ function handleFormSubmit(event) {
             <br></br>
             <br></br>
         </div>
-            
+    </main>     
     )
 }
 

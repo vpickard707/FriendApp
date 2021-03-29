@@ -20,7 +20,6 @@ function Favorites (props){
         .then(res => {
             let array = []
             res.data.forEach((res) => array.push(res.match))
-            console.log(array)
             setList(array)
         })
     }, [])
@@ -28,14 +27,13 @@ function Favorites (props){
     useEffect(()=> {
         API.findMatchingUsers({list: list})
         .then((res) => {
-            console.log(res.data)
             setMatches(res.data)
         })
     }, [list])
 
     return(
     <main className="favorites">
-        <h1 className='FavoritesHeader'>Your Matches:</h1>
+        <h1 className='Header'>Your Matches:</h1>
         <div className="container">
             <div className="row">
                 <div className="card favoritesCard">

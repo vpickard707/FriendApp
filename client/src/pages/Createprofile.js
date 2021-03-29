@@ -46,9 +46,10 @@ const [url, setUrl] = useState();
     }
 
     return(
+<main>
+<h1 className="Header">First, let's create your avatar</h1>
 <div className="container">
     <div className="avatarCard card">
-    <h1>First, let's create your avatar</h1>
     <div>
         <br></br>
         <h3>Your avatar:</h3>
@@ -166,6 +167,7 @@ const [url, setUrl] = useState();
     <br></br>
     
 </div>
+</main>
     )
 }
 

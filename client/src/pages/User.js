@@ -50,22 +50,19 @@ const currentUser = (props) => {
   }
 
   return (
+    <main>
+      <h1 className='Header'>Your Account:</h1>
     <div className="container">
-      <header className="jumbotron">
+      <div className="card userCard">
       <h3>
             <strong>{currentUser.username}'s</strong> Account
           </h3>
-        <h3>{content}</h3>
-      </header>
-      <div className="card">
-      <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+        <p>
+          {content}
         </p>
         <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
+          <strong>UserName:</strong>{" "}
+          {currentUser.username}
         </p>
         <p>
           <strong>Email:</strong>{" "}
@@ -116,6 +113,7 @@ const currentUser = (props) => {
         </div>
       </div>
     </div>
+    </main>
   );
 };
 

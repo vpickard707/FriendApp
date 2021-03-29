@@ -42,12 +42,11 @@ const Profile = () => {
   
 
     return(
+      <main className="profile">
+        <h1 className='Header'>
+          <strong>{currentUser.username}'s</strong> Profile
+        </h1>
         <div className="container">
-        <header className="jumbotron">
-          <h3>
-            <strong>{currentUser.username}'s</strong> Profile
-          </h3>
-        </header>
         <div className="card profileCard">
         <img className="profileImg" src={profile.avatar} alt='avatar'/>
             <h2>{profile.username}</h2>
@@ -78,6 +77,7 @@ const Profile = () => {
           <br></br>
         </p>
       </div>
+    </main>
     )
 }
 
