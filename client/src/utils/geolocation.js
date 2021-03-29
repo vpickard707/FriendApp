@@ -23,7 +23,10 @@ const Geolocation = () => {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
             }
-        }, currentUser.username)
+        }, currentUser.username, 
+        { user: {
+            accessToken: currentUser.accessToken
+        }})
         .then()
         .catch(err => { 
             if (err.response) { 
