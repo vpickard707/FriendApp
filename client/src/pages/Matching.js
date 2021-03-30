@@ -100,8 +100,10 @@ function Matching (props) {
               newArray.push(res.data[i])
             }
           }
+
           setusers(newArray)
         })
+
         .catch(err => { 
           if (err.response.status === 401 || err.response.status === 403) { 
             console.log(err.response.status)

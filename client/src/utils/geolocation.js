@@ -18,6 +18,7 @@ const Geolocation = () => {
                 lng: location.coords.longitude,
             }
         });
+
         if(currentUser){
             API.editProfileByName({
                 location: {

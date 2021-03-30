@@ -4,9 +4,10 @@ import AuthService from "../services/authService";
 
 const getFavorites = () => {
     const currentUser = AuthService.getCurrentUser();
-    const [favorites, setFavorites] = useState([])
+    const [favorites, setFavorites] = useState([currentUser.username])
     
     useEffect(() => {
+
         if(currentUser){
             API.getFavoritesByName(currentUser.username, { user: {
                 accessToken: currentUser.accessToken
