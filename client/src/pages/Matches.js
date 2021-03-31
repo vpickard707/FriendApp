@@ -15,27 +15,50 @@ function Favorites (props){
         window.location.reload()
     }
 
+    useEffect(() => {
+    
+        if(currentUser === null){
+          props.history.push("/login");
+          window.location.reload()
+        }
+    }, [])
+
     useEffect(()=> {
         API.findMatches(currentUser.username)
         .then(res => {
             let array = []
             res.data.forEach((res) => array.push(res.match))
-            console.log(array)
             setList(array)
         })
+        .catch(err => { 
+            if (err.response.status === 401 || err.response.status === 403) { 
+            console.log(err.response.status)
+            AuthService.logout()
+            props.history.push("/login");
+            window.location.reload()
+            } else if (err.request) { 
+                console.log('error with request') 
+            } else { 
+                console.log('something else went wrong') 
+            } 
+        });
     }, [])
 
     useEffect(()=> {
         API.findMatchingUsers({list: list})
         .then((res) => {
-            console.log(res.data)
             setMatches(res.data)
+        })
+        .catch(err => {
+            if(err){
+                console.log(err)
+            }
         })
     }, [list])
 
     return(
     <main className="favorites">
-        <h1 className='FavoritesHeader'>Your Matches:</h1>
+        <h1 className='Header'>Your Matches:</h1>
         <div className="container">
             <div className="row">
                 <div className="card favoritesCard">

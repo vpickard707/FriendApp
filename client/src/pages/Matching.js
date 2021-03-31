@@ -14,7 +14,7 @@ import Filter from '../components/Filter'
 
 import './css/Matching.css'
 
-function Matching () {
+function Matching (props) {
   const currentUser = AuthService.getCurrentUser();
   const [users, setusers] = useState([])
   const [lastDirection, setLastDirection] = useState()
@@ -25,6 +25,14 @@ function Matching () {
   const { filters, filterUpdate, setFilterUpdate } = getUserProfile()
   const { currentLocation } = Geolocation()
   const { favorites } = getFavorites()
+
+  useEffect(() => {
+    
+    if(currentUser === null){
+      props.history.push("/login");
+      window.location.reload()
+    }
+  }, [])
 
   const handleClose = () => {
     setFilterUpdate(!filterUpdate)
@@ -92,19 +100,22 @@ function Matching () {
               newArray.push(res.data[i])
             }
           }
-            
-            setusers(newArray)
 
-            })
+          setusers(newArray)
+        })
+
         .catch(err => { 
-            if (err.response) { 
-            console.log('error with response')
-            } else if (err.request) { 
+          if (err.response.status === 401 || err.response.status === 403) { 
+            console.log(err.response.status)
+            AuthService.logout()
+            props.history.push("/login");
+            window.location.reload()
+          } else if (err.request) { 
                 console.log('error with request') 
-            } else { 
+          } else { 
                 console.log('um, sh*ts really broken') 
-            } });
-    
+          } 
+        });
   }, [filters, favorites])
 
   function saveFavorite(name){
@@ -189,7 +200,7 @@ function Matching () {
     
     <div>
       {users.length === 0 ? 
-      <div><h1>There aren't any users who match your preferences. Keep looking!</h1>
+      <div><h1 className="Header">There aren't any users who match your preferences. Keep looking!</h1>
      <Button variant="info" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>
@@ -215,7 +226,7 @@ function Matching () {
       </div>
      : 
       <div>
-      <h1 className='MatchingHeader'>Are you my BFFL?</h1>
+      <h1 className='Header'>Are you my BFFL?</h1>
       <Button variant="info" onClick={handleShow} style={{position: 'relative',left: '55%',fontSize: 'x-large'}}>
         Filter <i className="fas fa-filter"></i>
       </Button>
